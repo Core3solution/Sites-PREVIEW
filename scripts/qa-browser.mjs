@@ -1,16 +1,30 @@
 // QA no navegador real (Chromium/Playwright) contra o build de produção servido por `vite preview`.
-// Uso: npm run build && npx vite preview --port 4173 & npm run qa
-// Gera capturas e resultados em evidencias/.
+// Uso: VITE_CLIENT=<pasta> npm run build && npx vite preview --port 4173 &  QA_CLIENT=<pasta> npm run qa
+// Parâmetros do cliente: src/clients/<pasta>/qa.json. Capturas e resultados: clientes/<pasta>/evidencias/.
 import { createRequire } from 'node:module';
+import { spawn } from 'node:child_process';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const { chromium } = createRequire(import.meta.url)('playwright');
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const out = path.join(root, 'evidencias');
+const CLIENT = process.env.QA_CLIENT || process.env.VITE_CLIENT || 'company-auto-spa';
+const cfg = JSON.parse(await readFile(path.join(root, 'src/clients', CLIENT, 'qa.json'), 'utf8'));
+const out = path.join(root, 'clientes', CLIENT, 'evidencias');
+const esc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const URL = process.env.QA_URL ?? 'http://localhost:4173/';
 await mkdir(out, { recursive: true });
+
+// Sobe `vite preview` automaticamente se não houver servidor no endereço (e encerra ao final).
+let server = null;
+const up = async () => { try { return (await fetch(URL)).ok; } catch { return false; } };
+if (!(await up())) {
+  const port = new globalThis.URL(URL).port || '4173';
+  server = spawn('npx', ['vite', 'preview', '--port', port, '--strictPort'], { cwd: root, stdio: 'ignore', env: { ...process.env, VITE_CLIENT: CLIENT } });
+  for (let i = 0; i < 50 && !(await up()); i++) await new Promise((r) => setTimeout(r, 200));
+  if (!(await up())) throw new Error(`Servidor de prévia não respondeu em ${URL}. Rode o build antes (VITE_CLIENT=${CLIENT} npm run build).`);
+}
 const axeSrc = await readFile(path.join(root, 'node_modules/axe-core/axe.min.js'), 'utf8');
 
 const results = [];
@@ -96,46 +110,52 @@ for (const [w, h] of [[360, 780], [390, 844], [768, 1024], [1280, 800], [1440, 9
   // Busca e filtros
   const cat = page.locator('#catalogo');
   const count = () => cat.locator('li button[aria-pressed]').count();
-  check('Catálogo', '10 itens exibidos', (await count()) === 10);
-  await cat.getByRole('searchbox').fill('farol');
-  check('Catálogo', 'Busca "farol" → 2 itens', (await count()) === 2);
-  await cat.getByRole('searchbox').fill('vitrificacao');
-  check('Catálogo', 'Busca sem acento "vitrificacao" → 1 item', (await count()) === 1);
+  const total = cfg.totalItens;
+  check('Catálogo', `${total} itens exibidos`, (await count()) === total);
+  await cat.getByRole('searchbox').fill(cfg.busca.termo);
+  check('Catálogo', `Busca "${cfg.busca.termo}" → ${cfg.busca.esperado} itens`, (await count()) === cfg.busca.esperado);
+  if (cfg.buscaSemAcento) {
+    await cat.getByRole('searchbox').fill(cfg.buscaSemAcento.termo);
+    check('Catálogo', `Busca sem acento "${cfg.buscaSemAcento.termo}" → ${cfg.buscaSemAcento.esperado}`, (await count()) === cfg.buscaSemAcento.esperado);
+  }
   await cat.getByRole('button', { name: 'Limpar busca' }).click();
-  await cat.getByRole('button', { name: /^Proteção PPF/ }).click();
-  check('Catálogo', 'Filtro "Proteção PPF" → 5 itens', (await count()) === 5);
-  await cat.locator('select').selectOption('price-desc');
-  const first = await cat.locator('li h3').first().textContent();
-  check('Catálogo', 'Ordenar por maior valor → PPF FULL GSWF primeiro', first === 'PPF FULL GSWF', first);
+  await cat.getByRole('button', { name: new RegExp('^' + esc(cfg.filtroCategoria.rotulo)) }).click();
+  check('Catálogo', `Filtro "${cfg.filtroCategoria.rotulo}" → ${cfg.filtroCategoria.esperado} itens`, (await count()) === cfg.filtroCategoria.esperado);
+  if (cfg.maiorValorPrimeiro) {
+    await cat.locator('select').selectOption('price-desc');
+    const first = await cat.locator('li h3').first().textContent();
+    check('Catálogo', `Ordenar por maior valor → ${cfg.maiorValorPrimeiro} primeiro`, first === cfg.maiorValorPrimeiro, first);
+  }
   await cat.getByRole('button', { name: 'Limpar filtros' }).first().click();
-  check('Catálogo', '"Limpar filtros" restaura 10 itens', (await count()) === 10);
-  const teto = await cat.locator('li', { hasText: 'Envelopamento de teto' }).innerText();
-  check('Catálogo', 'Teto exibe "A partir de R$ 1.500,00"', /A PARTIR DE\s*R\$ 1\.500,00/i.test(teto));
+  check('Catálogo', `"Limpar filtros" restaura ${total} itens`, (await count()) === total);
+  if (cfg.itemAPartirDe) {
+    const t = await cat.locator('li', { hasText: cfg.itemAPartirDe.nome }).first().innerText();
+    check('Catálogo', `${cfg.itemAPartirDe.nome} exibe "A partir de ${cfg.itemAPartirDe.valor}"`, new RegExp('A PARTIR DE\\s*' + esc(cfg.itemAPartirDe.valor), 'i').test(t));
+  }
 
   // Card de serviço → catálogo filtrado
   await scrollTo(page, '#servicos');
-  await page.locator('#servicos button', { hasText: 'Insulfilm' }).click();
+  await page.locator('#servicos button', { hasText: cfg.cardServico.rotulo }).first().click();
   await page.waitForTimeout(1200);
-  const pressed = await cat.getByRole('button', { name: /^Insulfilm/ }).getAttribute('aria-pressed');
-  check('Serviços', 'Card "Insulfilm" abre o catálogo filtrado', pressed === 'true' && (await count()) === 1);
+  const pressed = await cat.getByRole('button', { name: new RegExp('^' + esc(cfg.cardServico.rotulo)) }).getAttribute('aria-pressed');
+  check('Serviços', `Card "${cfg.cardServico.rotulo}" abre o catálogo filtrado`, pressed === 'true' && (await count()) === cfg.cardServico.esperado);
   await cat.getByRole('button', { name: /^Todos/ }).click();
 
   // Ficha de detalhes
-  await cat.getByRole('button', { name: 'Detalhes de Envelopamento de teto' }).click();
-  const det = page.getByRole('dialog', { name: 'Envelopamento de teto' });
+  await cat.getByRole('button', { name: `Detalhes de ${cfg.detalhes.item}` }).click();
+  const det = page.getByRole('dialog', { name: cfg.detalhes.item });
   const detText = await det.innerText();
-  check('Catálogo', '"Detalhes" abre a ficha com preço "A partir de" e aviso', /A PARTIR DE\s*R\$ 1\.500,00/i.test(detText) && detText.includes('11/11/2026'));
+  check('Catálogo', '"Detalhes" abre a ficha com preço e aviso de data', detText.includes(cfg.detalhes.preco) && detText.includes(cfg.dataObservacao));
   await page.waitForTimeout(500);
   await page.screenshot({ path: path.join(out, 'ficha-servico-1440.png') });
   await det.getByRole('button', { name: 'Adicionar à solicitação' }).click();
-  check('Catálogo', 'Ficha mostra o texto original do catálogo', detText.includes('Preços a partir de $1.500, co…'));
+  check('Catálogo', 'Ficha mostra o texto original do catálogo', detText.includes(cfg.detalhes.textoOriginal));
   check('Catálogo', 'Ficha permite selecionar o serviço', (await det.getByRole('button', { name: 'Selecionado para a solicitação' }).count()) === 1);
   await det.getByRole('button', { name: 'Selecionado para a solicitação' }).click();
   await page.keyboard.press('Escape');
 
   // Seleção
-  await cat.getByRole('button', { name: /Adicionar\s*PPF FULL$/ }).click();
-  await cat.getByRole('button', { name: /Adicionar\s*Envelopamento de teto$/ }).click();
+  for (const nome of cfg.selecionar) await cat.getByRole('button', { name: new RegExp('Adicionar\\s*' + esc(nome) + '$') }).click();
   check('Seleção', '2 serviços marcados', (await cat.locator('button[aria-pressed="true"]', { hasText: 'Selecionado' }).count()) === 2);
   const badge = await page.locator('header a[href="#solicitacao"]').innerText();
   check('Seleção', 'Contador no header = 2', badge.includes('2'), badge.replace(/\s+/g, ' '));
@@ -160,7 +180,7 @@ for (const [w, h] of [[360, 780], [390, 844], [768, 1024], [1280, 800], [1440, 9
   const year = await q.getByPlaceholder('Ex.: 2023').inputValue();
   check('Formulário', 'Ano aceita só dígitos (máx. 4)', year === '2024', year);
   const msg = await q.locator('#quote-preview').inputValue();
-  check('Resumo', 'Mensagem contém serviços, veículo e aviso', msg.includes('PPF FULL — referência no catálogo: R$ 10.900,00') && msg.includes('A partir de R$ 1.500,00') && msg.includes('Veículo: BMW M3 Competition · 2024 · Azul') && msg.includes('11/11/2026'));
+  check('Resumo', 'Mensagem contém serviços, veículo e aviso', cfg.mensagemContem.every((t) => msg.includes(t)) && msg.includes('Veículo: BMW M3 Competition · 2024 · Azul') && msg.includes(cfg.dataObservacao));
   await q.getByRole('button', { name: /Copiar solicitação/ }).click();
   await page.waitForTimeout(300);
   const clip = await page.evaluate(() => navigator.clipboard.readText());
@@ -181,12 +201,15 @@ for (const [w, h] of [[360, 780], [390, 844], [768, 1024], [1280, 800], [1440, 9
 
   // Galeria
   await scrollTo(page, '#galeria');
-  await page.getByRole('button', { name: 'Ampliar: Farol' }).click();
-  check('Galeria', 'Lightbox abre a imagem', await page.getByRole('dialog', { name: 'Farol' }).isVisible());
+  const [g1, g2] = cfg.galeria;
+  await page.getByRole('button', { name: new RegExp(': ' + esc(g1) + '$') }).click();
+  check('Galeria', 'Lightbox abre', await page.getByRole('dialog', { name: g1 }).isVisible());
   await page.keyboard.press('ArrowRight');
-  check('Galeria', 'Seta → avança item', await page.getByRole('dialog', { name: 'Frente protegida' }).isVisible());
-  const lb = await page.locator('[role=dialog] img').evaluate((i) => ({ ok: i.complete && i.naturalWidth > 0, scale: i.getBoundingClientRect().width / i.naturalWidth }));
-  check('Galeria', 'Imagem ampliada carregada sem ampliar mais que 1,5×', lb.ok && lb.scale <= 1.51, `escala=${lb.scale.toFixed(2)}`);
+  check('Galeria', 'Seta → avança item', await page.getByRole('dialog', { name: g2 }).isVisible());
+  if (cfg.galeriaComImagens) {
+    const lb = await page.locator('[role=dialog] img').evaluate((i) => ({ ok: i.complete && i.naturalWidth > 0, scale: i.getBoundingClientRect().width / i.naturalWidth }));
+    check('Galeria', 'Imagem ampliada carregada sem ampliar mais que 1,5×', lb.ok && lb.scale <= 1.51, `escala=${lb.scale.toFixed(2)}`);
+  }
   await page.waitForTimeout(700); // aguarda animações de entrada
   await page.screenshot({ path: path.join(out, 'galeria-lightbox-1440.png') });
   await page.keyboard.press('Escape');
@@ -197,9 +220,11 @@ for (const [w, h] of [[360, 780], [390, 844], [768, 1024], [1280, 800], [1440, 9
     const w = i.closest('[data-photo-status]');
     return { src: i.currentSrc.split('/').pop(), ok: i.complete && i.naturalWidth > 0, aprovada: w?.getAttribute('data-photo-status') === 'aprovada', ilustrativa: w?.getAttribute('data-photo-illustrative') === 'sim', escala: +(i.getBoundingClientRect().width / i.naturalWidth).toFixed(2) };
   }));
-  check('Fotografias', `${ph.length} imagens carregadas e aprovadas`, ph.length > 0 && ph.every((p) => p.ok && p.aprovada), ph.filter((p) => !p.ok || !p.aprovada).map((p) => p.src).join(', '));
+  check('Fotografias', `${ph.length} imagens carregadas e aprovadas`, ph.every((p) => p.ok && p.aprovada), ph.filter((p) => !p.ok || !p.aprovada).map((p) => p.src).join(', '));
+  const pend = await page.locator('[data-photo-status="pendente"]').count();
+  check('Fotografias', 'Espaços sem foto aprovada mostram placeholder identificado (sem imagem falsa)', ph.length + pend > 0, `aprovadas=${ph.length}, pendentes=${pend}`);
   const selos = (await page.getByText('Imagem ilustrativa', { exact: true }).count()) + (await page.getByText('Ilustrativa', { exact: true }).count());
-  check('Fotografias', 'Imagens ilustrativas sinalizadas no site', selos >= 13 && (await page.evaluate(() => [...document.querySelectorAll('#inicio p')].filter((p) => p.offsetParent && p.textContent.includes('Imagem ilustrativa gerada por IA')).length)) === 1, `selos=${selos}`);
+  check('Fotografias', 'Imagens ilustrativas sinalizadas no site', selos >= cfg.selosIlustrativosMinimo && (!cfg.legendaHeroIA || (await page.evaluate(() => [...document.querySelectorAll('#inicio p')].filter((p) => p.offsetParent && p.textContent.includes('Imagem ilustrativa gerada por IA')).length)) === 1), `selos=${selos}`);
   await writeFile(path.join(out, 'imagens-escala-1440.json'), JSON.stringify(ph, null, 2));
 
   // Localização
@@ -207,7 +232,7 @@ for (const [w, h] of [[360, 780], [390, 844], [768, 1024], [1280, 800], [1440, 9
   await page.getByRole('button', { name: 'Copiar endereço' }).click();
   await page.waitForTimeout(200);
   const addr = await page.evaluate(() => navigator.clipboard.readText());
-  check('Localização', 'Copiar endereço', addr.includes('Rua Pinheiro Machado, 34'), addr);
+  check('Localização', 'Copiar endereço', addr.includes(cfg.enderecoContem), addr);
   await page.getByRole('button', { name: 'Carregar mapa interativo' }).click();
   const src = await page.locator('#localizacao iframe').getAttribute('src');
   check('Localização', 'Mapa interativo carregado sob demanda', src?.startsWith('https://www.google.com/maps?q='), src);
@@ -216,9 +241,9 @@ for (const [w, h] of [[360, 780], [390, 844], [768, 1024], [1280, 800], [1440, 9
   const links = await page.$$eval('a[href^="http"]', (as) => as.map((a) => ({ href: a.href, target: a.target, rel: a.rel, text: a.textContent.trim().slice(0, 40) })));
   const unsafe = links.filter((l) => l.target !== '_blank' || !l.rel.includes('noopener'));
   check('Links', `${links.length} links externos com nova aba + noopener`, unsafe.length === 0, unsafe.map((l) => l.href).join(', '));
-  const allowed = [/^https:\/\/www\.instagram\.com\/company\.autospa\/$/, /^https:\/\/beacons\.ai\/companyautospa$/, /^https:\/\/www\.google\.com\/(maps|search)/, /^https:\/\/waze\.com\/ul\?/];
+  const allowed = cfg.linksPermitidos.map((r) => new RegExp(r));
   const unknown = [...new Set(links.map((l) => l.href))].filter((h) => !allowed.some((r) => r.test(h)));
-  check('Links', 'Somente destinos conhecidos (Instagram, beacons, Google, Waze)', unknown.length === 0, unknown.join(', '));
+  check('Links', 'Somente destinos externos previstos em qa.json', unknown.length === 0, unknown.join(', '));
   await writeFile(path.join(out, 'links-externos.json'), JSON.stringify([...new Map(links.map((l) => [l.href, l])).values()], null, 2));
 
   // Âncoras internas
@@ -266,20 +291,26 @@ for (const [w, h] of [[360, 780], [390, 844], [768, 1024], [1280, 800], [1440, 9
   await page.keyboard.press('Escape');
   check('Menu mobile', 'Esc fecha', !(await menu.isVisible()));
   await page.getByRole('button', { name: 'Abrir menu' }).click();
-  await menu.getByRole('link', { name: /Inspiração/ }).click();
+  await menu.getByRole('link', { name: new RegExp(esc(cfg.menuMobileLink)) }).click();
   // rolagem suave longa (~8000px no mobile): aguarda estabilizar
   await page.waitForFunction(() => Math.abs(document.getElementById('galeria').getBoundingClientRect().top - 84) < 50, null, { timeout: 5000 }).catch(() => {});
   const gTop = await page.evaluate(() => document.getElementById('galeria').getBoundingClientRect().top);
   check('Menu mobile', 'Link fecha o menu e rola até a seção', !(await menu.isVisible()) && Math.abs(gTop - 84) < 50, `top=${Math.round(gTop)}`);
   await scrollTo(page, '#catalogo');
-  await page.locator('#catalogo').getByRole('button', { name: /Adicionar\s*PPF FRONTAL$/ }).click();
+  await page.locator('#catalogo').getByRole('button', { name: new RegExp('Adicionar\\s*' + esc(cfg.itemMobile) + '$') }).click();
   const bar = page.getByRole('link', { name: /Revisar solicitação · 1 serviço/ });
-  check('Mobile', 'Barra fixa "Revisar solicitação" aparece após seleção', await bar.isVisible());
+  await page.waitForTimeout(300);
+  // A barra fixa só aparece quando a seção de solicitação ainda não está na tela (catálogos curtos já a mostram).
+  const barVisible = await bar.isVisible();
+  const solVisible = await page.evaluate(() => document.getElementById('solicitacao').getBoundingClientRect().top < innerHeight * 0.7);
+  check('Mobile', 'Após seleção: barra "Revisar solicitação" visível, ou solicitação já na tela', barVisible || solVisible, `barra=${barVisible}, solicitação na tela=${solVisible}`);
   await page.waitForTimeout(700); // aguarda animações de entrada
   await page.screenshot({ path: path.join(out, 'catalogo-selecao-390.png') });
-  await bar.click();
-  await page.waitForTimeout(1200);
-  check('Mobile', 'Barra leva à solicitação e se oculta', !(await bar.isVisible()));
+  if (barVisible) {
+    await bar.click();
+    await page.waitForTimeout(1200);
+    check('Mobile', 'Barra leva à solicitação e se oculta', !(await bar.isVisible()));
+  }
   await page.waitForTimeout(700); // aguarda animações de entrada
   await page.screenshot({ path: path.join(out, 'solicitacao-390.png') });
   await ctx.close();
@@ -370,6 +401,7 @@ for (const [label, w, h, slow] of [['celular-4g', 390, 844, true], ['desktop', 1
 await writeFile(path.join(out, 'desempenho-laboratorio.json'), JSON.stringify(perf, null, 2));
 
 await browser.close();
+server?.kill();
 const passed = results.filter((r) => r.ok).length;
 await writeFile(path.join(out, 'resultados-qa.json'), JSON.stringify({ url: URL, executadoEm: new Date().toISOString(), aprovados: passed, total: results.length, resultados: results }, null, 2));
 console.log(`\n${passed}/${results.length} verificações aprovadas`);

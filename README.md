@@ -1,46 +1,57 @@
-# Company Auto Spa — demonstração conceitual CORE 3
+# CORE 3 — Modelo de prévias para estética automotiva
 
-> **Demonstração conceitual CORE 3 — não é o site oficial da Company Auto SPA.**
-> Projeto comercial independente, não contratado pela empresa. Não envia mensagens, não agenda e não processa pagamentos.
+Base de código e processo da CORE 3 para criar **prévias comerciais não oficiais** de empresas do nicho automotivo
+(PPF, vitrificação, polimento, envelopamento, insulfilm, lavagem). React + TypeScript + Vite + Tailwind CSS 4.
 
-Site em React + TypeScript + Vite + Tailwind CSS, organizado como **template reutilizável** para empresas de
-estética automotiva. Os dados da Company ficam em `src/clients/company-auto-spa/`.
+| Cliente | Pasta | Situação |
+|---|---|---|
+| Company Auto SPA | `company-auto-spa` | Versão preliminar revisada (`clientes/company-auto-spa/docs/RELATORIO_ENTREGA.md`) |
+| Cliente-modelo | `_modelo` | Base para novos clientes (dados de exemplo; não publicar) |
 
-**Status: versão preliminar.** Aguardando os documentos do briefing (`docs/01`–`06`, `CATALOGO_FONTE_10_SERVICOS.json`),
-fotografias autorizadas e o logotipo oficial. As fotografias aparecem como espaços reservados identificados.
+## Começar
 
-## Executar
-
-Requisitos: Node.js 20+ (testado com Node 22.23 e npm 10.9).
+Requisitos: Node.js 20+ e Python 3 com Pillow (para importar imagens).
 
 ```bash
 npm install
-npm run dev          # desenvolvimento → http://localhost:5173
-npm run build        # build de produção em dist/
-npm run preview      # serve dist/ → http://localhost:4173
+VITE_CLIENT=company-auto-spa npm run dev        # http://localhost:5173
 ```
 
-## Verificar
+## Novo cliente
 
 ```bash
-npm run typecheck    # TypeScript
-npm test             # Vitest: dados do catálogo, utilitários e interações (35 testes)
-npm run preview &    # em outro terminal
-npm run qa           # Chromium/Playwright + axe-core: 80 verificações + capturas em evidencias/
+npm run novo-cliente -- <pasta> "Nome da Empresa"
+VITE_CLIENT=<pasta> npm run dev
 ```
 
-`npm run qa` usa o Playwright e o Chromium já instalados no ambiente. Em outra máquina, rode `npx playwright install chromium` antes.
+Siga o **[Playbook](docs/modelo/PLAYBOOK_PREVIAS_AUTOMOTIVAS.md)**: auditoria → dados → identidade → imagens →
+revisão → prévia → entrega.
+
+## Comandos
+
+| Comando | O que faz |
+|---|---|
+| `VITE_CLIENT=<pasta> npm run dev` / `build` / `preview` | Desenvolvimento, build e servidor do build do cliente |
+| `npm run typecheck` | TypeScript |
+| `npm test` | Vitest: regras de **todos** os clientes + testes específicos |
+| `QA_CLIENT=<pasta> npm run qa` | Chromium/Playwright + axe-core nas 5 larguras; sobe o preview sozinho; evidências em `clientes/<pasta>/evidencias/` |
+| `npm run importar-fotos -- <pasta>` | `clientes/<pasta>/anexos/imagens/*` → WebP 1536 + 768 em `public/clientes/<pasta>/fotos/` |
+| `npm run importar-mosaico -- <pasta> <arquivo> <nomes…>` | Recorta mosaicos detectando a grade (provisório) |
+| `npm run previa -- <pasta>` | Página única para link privado + verificação com CSS externo agressivo |
 
 ## Estrutura
 
 ```
-src/core/             template genérico (componentes, seções, hooks, utilitários, tipos)
-src/clients/…         dados da empresa (marca, catálogo, textos, fontes)
-src/site.config.ts    seleciona a empresa ativa
-scripts/              QA em navegador
-anexos/               evidências recebidas (capturas)
-docs/                 relatórios (entrega, fontes, reutilização)
-evidencias/           capturas e resultados do QA
+src/core/                 template genérico (componentes, seções, estado, utilitários, tipos)
+src/clients/<pasta>/      dados do cliente: index.ts, catalog.ts, photos.ts, sources.ts, qa.json
+src/site.config.ts        escolhe o cliente por VITE_CLIENT
+clientes/<pasta>/         CLAUDE.md do cliente, docs/, anexos/, evidencias/
+public/clientes/<pasta>/  imagens otimizadas e favicon
+docs/modelo/              playbook, checklist e modelos de documentos
+docs/REUTILIZACAO_TEMPLATE.md   referência técnica da configuração
+scripts/                  novo cliente, importação de imagens, prévia, QA
+tests/                    testes do template e por cliente
 ```
 
-Veja `docs/RELATORIO_ENTREGA.md`, `docs/RELATORIO_FONTES.md` e `docs/REUTILIZACAO_TEMPLATE.md`.
+> Toda prévia exibe “Demonstração conceitual CORE 3 — não é o site oficial da [empresa]”, usa `noindex` e só é
+> compartilhada como página privada.

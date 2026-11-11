@@ -51,6 +51,10 @@ export function App({ config }: { config: SiteConfig }) {
     document.documentElement.lang = config.meta.lang;
     document.title = config.meta.title;
     document.querySelector('meta[name="description"]')?.setAttribute('content', config.meta.description);
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', config.meta.title);
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', config.meta.description);
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', config.brand.theme.bg);
+    if (config.brand.favicon) document.querySelector('link[rel="icon"]')?.setAttribute('href', config.brand.favicon);
   }, [config]);
   return (
     <SiteProvider config={config}>

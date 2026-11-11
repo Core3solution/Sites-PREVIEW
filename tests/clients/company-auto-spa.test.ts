@@ -1,5 +1,5 @@
-import { companyAutoSpa as site } from '../src/clients/company-auto-spa';
-import { formatPrice } from '../src/core/lib/format';
+import { companyAutoSpa as site } from '../../src/clients/company-auto-spa';
+import { formatPrice } from '../../src/core/lib/format';
 
 // Valores conferidos visualmente em anexos/02 e anexos/03 (WhatsApp, 11/11/2026).
 const expected: [string, string][] = [

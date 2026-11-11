@@ -1,5 +1,7 @@
 # Relatório de fontes — Company Auto SPA (demonstração CORE 3)
 
+> Caminhos como `anexos/…`, `evidencias/…` e `docs/…` neste documento são relativos a `clientes/company-auto-spa/` (reorganização do repositório em modelo multi-cliente, 11/11/2026).
+
 Pesquisa e evidências reunidas em 11/11/2026. Cada dado exibido no site referencia uma fonte em
 `src/clients/company-auto-spa/sources.ts`.
 

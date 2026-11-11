@@ -1,0 +1,46 @@
+{
+  "$comentario": "Parâmetros do QA em navegador para este cliente (scripts/qa-browser.mjs). Ajuste aos dados reais.",
+  "totalItens": 3,
+  "dataObservacao": "[PREENCHER DATA]",
+  "busca": {
+    "termo": "exemplo 2",
+    "esperado": 1
+  },
+  "buscaSemAcento": null,
+  "filtroCategoria": {
+    "rotulo": "Vitrificação",
+    "esperado": 1
+  },
+  "maiorValorPrimeiro": null,
+  "itemAPartirDe": null,
+  "cardServico": {
+    "rotulo": "Polimento",
+    "esperado": 1
+  },
+  "detalhes": {
+    "item": "[PREENCHER] Serviço exemplo 1",
+    "preco": "Sob consulta",
+    "textoOriginal": "[PREENCHER] Trecho visível na fonte…"
+  },
+  "selecionar": [
+    "[PREENCHER] Serviço exemplo 1",
+    "[PREENCHER] Serviço exemplo 2"
+  ],
+  "mensagemContem": [
+    "[PREENCHER] Serviço exemplo 1 — referência no catálogo: Sob consulta"
+  ],
+  "galeria": [
+    "Detalhe 1",
+    "Detalhe 2"
+  ],
+  "galeriaComImagens": false,
+  "selosIlustrativosMinimo": 0,
+  "legendaHeroIA": false,
+  "enderecoContem": "[PREENCHER] Rua, número",
+  "linksPermitidos": [
+    "^https://www\\.google\\.com/(maps|search)",
+    "^https://waze\\.com/ul\\?"
+  ],
+  "menuMobileLink": "Inspiração",
+  "itemMobile": "[PREENCHER] Serviço exemplo 3"
+}

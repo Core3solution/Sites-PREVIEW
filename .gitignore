@@ -3,3 +3,6 @@ dist
 *.local
 .DS_Store
 evidencias/tmp
+previa/
+clientes/_modelo/evidencias/
+vite.*.tmp.config.ts

@@ -4,12 +4,12 @@ import type { ApprovedPhoto, PhotoSlot } from '../../core/types';
  * Espaços de fotografia da Company Auto SPA.
  *
  * Situação em 11/11/2026: imagens ILUSTRATIVAS geradas por IA (ChatGPT) pela equipe CORE 3.
- * - Alta resolução (1536 px, anexos/imagens-ia/ → scripts/importar-fotos.py): hero, PPF, envelopamento, vitrificação.
- * - Baixa resolução (~375 px, recortadas do mosaico anexos/07 por scripts/importar-mosaico-ia.py): as demais.
- *   Substituir pelos originais em alta (mesmo nome em anexos/imagens-ia/) e atualizar width/height aqui.
+ * - Alta resolução (1536 px, clientes/company-auto-spa/anexos/imagens/ → npm run importar-fotos -- company-auto-spa): hero, PPF, envelopamento, vitrificação.
+ * - Baixa resolução (~375 px, recortadas do mosaico clientes/company-auto-spa/anexos/07 por npm run importar-mosaico): as demais.
+ *   Substituir pelos originais em alta (mesmo nome em clientes/company-auto-spa/anexos/imagens/) e atualizar width/height aqui.
  * Fotos reais da empresa (fachada, veículos atendidos, equipe, estúdio) continuam pendentes.
  */
-const base = import.meta.env.BASE_URL ?? '/';
+const base = `${import.meta.env.BASE_URL ?? '/'}clientes/company-auto-spa/`;
 const credit = 'Imagem ilustrativa gerada por IA (ChatGPT), fornecida pela equipe CORE 3 em 11/11/2026. Não retrata veículo, serviço ou instalação da Company Auto SPA.';
 
 /** Imagem gerada por IA. `hd` = existe a versão de 768 px além da original (srcset). */

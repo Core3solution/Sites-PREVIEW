@@ -1,0 +1,22 @@
+{
+  "$comentario": "Parâmetros do QA em navegador (scripts/qa-browser.mjs) para a Company Auto SPA.",
+  "totalItens": 10,
+  "dataObservacao": "11/11/2026",
+  "busca": { "termo": "farol", "esperado": 2 },
+  "buscaSemAcento": { "termo": "vitrificacao", "esperado": 1 },
+  "filtroCategoria": { "rotulo": "Proteção PPF", "esperado": 5 },
+  "maiorValorPrimeiro": "PPF FULL GSWF",
+  "itemAPartirDe": { "nome": "Envelopamento de teto", "valor": "R$ 1.500,00" },
+  "cardServico": { "rotulo": "Insulfilm", "esperado": 1 },
+  "detalhes": { "item": "Envelopamento de teto", "preco": "1.500,00", "textoOriginal": "Preços a partir de $1.500, co…" },
+  "selecionar": ["PPF FULL", "Envelopamento de teto"],
+  "mensagemContem": ["PPF FULL — referência no catálogo: R$ 10.900,00", "A partir de R$ 1.500,00"],
+  "galeria": ["Farol", "Frente protegida"],
+  "galeriaComImagens": true,
+  "selosIlustrativosMinimo": 13,
+  "legendaHeroIA": true,
+  "enderecoContem": "Rua Pinheiro Machado, 34",
+  "linksPermitidos": ["^https://www\\.instagram\\.com/company\\.autospa/$", "^https://beacons\\.ai/companyautospa$", "^https://www\\.google\\.com/(maps|search)", "^https://waze\\.com/ul\\?"],
+  "menuMobileLink": "Inspiração",
+  "itemMobile": "PPF FRONTAL"
+}

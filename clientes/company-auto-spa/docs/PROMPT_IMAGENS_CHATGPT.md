@@ -1,5 +1,7 @@
 # Prompt de imagens — Company Auto Spa (para gerar no ChatGPT)
 
+> Caminhos como `anexos/…`, `evidencias/…` e `docs/…` neste documento são relativos a `clientes/company-auto-spa/` (reorganização do repositório em modelo multi-cliente, 11/11/2026).
+
 Este documento organiza as imagens que o site precisa, uma por seção, e traz o prompt pronto para colar no ChatGPT.
 As imagens geradas por IA entram no site **identificadas como “Imagem ilustrativa”**. Elas não substituem fotos reais
 de trabalhos da Company (ver “O que NÃO gerar”).

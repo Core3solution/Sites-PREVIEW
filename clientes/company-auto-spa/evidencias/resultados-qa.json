@@ -1,8 +1,8 @@
 {
-  "url": "http://localhost:4173/",
-  "executadoEm": "2026-11-11T22:30:05.446Z",
-  "aprovados": 80,
-  "total": 80,
+  "url": "http://localhost:4176/",
+  "executadoEm": "2026-11-11T23:01:16.739Z",
+  "aprovados": 81,
+  "total": 81,
   "resultados": [
     {
       "area": "Responsividade",
@@ -192,7 +192,7 @@
     },
     {
       "area": "Catálogo",
-      "name": "Busca sem acento \"vitrificacao\" → 1 item",
+      "name": "Busca sem acento \"vitrificacao\" → 1",
       "ok": true,
       "detail": ""
     },
@@ -216,7 +216,7 @@
     },
     {
       "area": "Catálogo",
-      "name": "Teto exibe \"A partir de R$ 1.500,00\"",
+      "name": "Envelopamento de teto exibe \"A partir de R$ 1.500,00\"",
       "ok": true,
       "detail": ""
     },
@@ -228,7 +228,7 @@
     },
     {
       "area": "Catálogo",
-      "name": "\"Detalhes\" abre a ficha com preço \"A partir de\" e aviso",
+      "name": "\"Detalhes\" abre a ficha com preço e aviso de data",
       "ok": true,
       "detail": ""
     },
@@ -324,7 +324,7 @@
     },
     {
       "area": "Galeria",
-      "name": "Lightbox abre a imagem",
+      "name": "Lightbox abre",
       "ok": true,
       "detail": ""
     },
@@ -345,6 +345,12 @@
       "name": "24 imagens carregadas e aprovadas",
       "ok": true,
       "detail": ""
+    },
+    {
+      "area": "Fotografias",
+      "name": "Espaços sem foto aprovada mostram placeholder identificado (sem imagem falsa)",
+      "ok": true,
+      "detail": "aprovadas=24, pendentes=0"
     },
     {
       "area": "Fotografias",
@@ -372,7 +378,7 @@
     },
     {
       "area": "Links",
-      "name": "Somente destinos conhecidos (Instagram, beacons, Google, Waze)",
+      "name": "Somente destinos externos previstos em qa.json",
       "ok": true,
       "detail": ""
     },
@@ -426,9 +432,9 @@
     },
     {
       "area": "Mobile",
-      "name": "Barra fixa \"Revisar solicitação\" aparece após seleção",
+      "name": "Após seleção: barra \"Revisar solicitação\" visível, ou solicitação já na tela",
       "ok": true,
-      "detail": ""
+      "detail": "barra=true, solicitação na tela=false"
     },
     {
       "area": "Mobile",
@@ -476,13 +482,13 @@
       "area": "Desempenho",
       "name": "celular-4g: LCP ≤ 2,5 s, CLS ≤ 0,1, interação ≤ 200 ms (laboratório)",
       "ok": true,
-      "detail": "{\"lcp\":1352,\"cls\":0,\"interacaoMs\":10}"
+      "detail": "{\"lcp\":1308,\"cls\":0,\"interacaoMs\":18}"
     },
     {
       "area": "Desempenho",
       "name": "desktop: LCP ≤ 2,5 s, CLS ≤ 0,1, interação ≤ 200 ms (laboratório)",
       "ok": true,
-      "detail": "{\"lcp\":196,\"cls\":0,\"interacaoMs\":7}"
+      "detail": "{\"lcp\":180,\"cls\":0,\"interacaoMs\":6}"
     }
   ]
 }

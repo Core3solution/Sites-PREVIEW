@@ -24,6 +24,7 @@ export const companyAutoSpa: SiteConfig = {
     shortName: 'Company',
     wordmark: { primary: 'COMPANY', secondary: 'AUTO SPA', eyebrow: 'PREMIUM' },
     logo: null,
+    favicon: `${import.meta.env.BASE_URL ?? '/'}clientes/company-auto-spa/favicon.svg`,
     logoPendingNote: 'Identificação textual provisória. O logotipo oficial em alta resolução ainda não foi fornecido.',
     // Identidade do Instagram @company.autospa: preto, amarelo do emblema (#E4BA42, amostrado da miniatura)
     // e branco; piso quadriculado e linhas de LED do estúdio como motivos. Confirmar com o arquivo oficial.
@@ -180,3 +181,5 @@ export const companyAutoSpa: SiteConfig = {
   },
   sources,
 };
+
+export default companyAutoSpa;

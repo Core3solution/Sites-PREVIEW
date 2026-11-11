@@ -1,5 +1,7 @@
 # Relatório de entrega — Company Auto Spa (demonstração conceitual CORE 3)
 
+> Caminhos como `anexos/…`, `evidencias/…` e `docs/…` neste documento são relativos a `clientes/company-auto-spa/` (reorganização do repositório em modelo multi-cliente, 11/11/2026).
+
 **Data:** 11/11/2026 · **Branch:** `claude/company-auto-spa-website-4vdyho`
 
 > **STATUS: VERSÃO PRELIMINAR — NÃO FINALIZADA.**
@@ -120,7 +122,7 @@ Cuidados aplicados:
   tem a legenda “Imagem ilustrativa gerada por IA. Não retrata a Company Auto SPA.”
 - A galeria virou “Inspiração”, com aviso de que não mostra trabalhos da empresa e um link para os trabalhos reais no Instagram.
 - O lightbox não amplia além de 1,5× o tamanho original.
-- Scripts reprodutíveis: `scripts/importar-fotos.py` (originais em alta) e `scripts/importar-mosaico-ia.py` (recortes).
+- Scripts reprodutíveis: `npm run importar-fotos` (originais em alta) e `npm run importar-mosaico` (recortes com detecção automática da grade).
 
 **Pendente:** os originais em alta das 10 imagens que vieram só no mosaico, com os mesmos nomes de
 `docs/PROMPT_IMAGENS_CHATGPT.md`. Hoje elas ficam suaves em telas retina. O ambiente da seção Sobre aparece 1,58×

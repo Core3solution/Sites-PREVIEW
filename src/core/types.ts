@@ -145,6 +145,8 @@ export interface SiteConfig {
     /** Logo oficial; `null` mantém o wordmark textual provisório. */
     logo: { src: string; alt: string } | null;
     logoPendingNote?: string;
+    /** Ícone da aba (arquivo em public/), opcional. */
+    favicon?: string;
     theme: ThemeTokens;
   };
   contact: {
