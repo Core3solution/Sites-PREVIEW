@@ -97,6 +97,10 @@ export function scrollToHash(hash: string) {
   if (!el) return;
   requestAnimationFrame(() => {
     el.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
-    history.replaceState(null, '', hash);
+    try {
+      history.replaceState(null, '', hash);
+    } catch {
+      /* ambientes isolados (iframe) podem bloquear a atualização do endereço */
+    }
   });
 }
