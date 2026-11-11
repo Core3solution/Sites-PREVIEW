@@ -97,6 +97,8 @@ export interface ThemeTokens {
   line: string;
   text: string;
   muted: string;
+  /** Texto terciário (legendas, fontes). Deve manter contraste ≥ 4,5:1 sobre surface2. */
+  subtle: string;
   accent: string;
   accentInk: string;
   accentSoft: string;

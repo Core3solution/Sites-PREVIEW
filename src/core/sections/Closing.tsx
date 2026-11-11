@@ -8,24 +8,31 @@ import { Wordmark } from '../components/Wordmark';
 import { formatDateBR } from '../lib/format';
 
 export function FinalCta() {
-  const { finalCta } = useSite();
+  const { finalCta, photos } = useSite();
+  const hasPhoto = !!(finalCta.photo && photos[finalCta.photo]?.photo);
   return (
     <section aria-labelledby="cta-title" className="relative py-16 sm:py-24">
       <div className="container-x">
-        <div className="relative isolate overflow-hidden rounded-[32px] border border-line px-6 py-16 text-center sm:px-12 sm:py-24" data-reveal>
-          {finalCta.photo && <Photo id={finalCta.photo} variant="background" sizes="100vw" className="absolute inset-0 -z-10 opacity-80" />}
-          <div className="absolute inset-0 -z-10 bg-gradient-to-b from-bg/70 via-bg/80 to-bg/95" aria-hidden />
-          <p className="eyebrow justify-center">{finalCta.eyebrow}</p>
-          <h2 id="cta-title" className="display mx-auto mt-6 max-w-3xl text-[2.3rem] text-balance sm:text-6xl">
+        {/* Bloco amarelo com texto preto: a combinação principal da identidade no Instagram */}
+        <div className="relative isolate overflow-hidden rounded-[32px] bg-accent px-6 py-16 text-center text-accent-ink sm:px-12 sm:py-24" data-reveal>
+          {hasPhoto && finalCta.photo && <Photo id={finalCta.photo} variant="background" sizes="100vw" className="absolute inset-0 -z-10 opacity-25 mix-blend-multiply" />}
+          <div className="checker absolute inset-x-0 top-0 h-3 [--c1:#111111] [--c2:var(--brand-accent)] [--s:12px]" aria-hidden />
+          <div className="checker absolute inset-x-0 bottom-0 h-3 [--c1:#111111] [--c2:var(--brand-accent)] [--s:12px]" aria-hidden />
+          <p className="inline-flex items-center gap-3 text-[0.72rem] font-bold uppercase tracking-[0.28em]">
+            <span className="h-px w-7 bg-accent-ink" aria-hidden />
+            {finalCta.eyebrow}
+            <span className="h-px w-7 bg-accent-ink" aria-hidden />
+          </p>
+          <h2 id="cta-title" className="display mx-auto mt-6 max-w-4xl text-[2.8rem] text-balance sm:text-[4.6rem] lg:text-[5.4rem]">
             {finalCta.title}
           </h2>
-          <p className="mx-auto mt-6 max-w-xl text-[1.02rem] leading-relaxed text-text/75">{finalCta.text}</p>
+          <p className="mx-auto mt-6 max-w-xl text-[1.05rem] font-medium leading-relaxed">{finalCta.text}</p>
           <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
-            <a href={finalCta.primary.href} className="btn btn-primary">
+            <a href={finalCta.primary.href} className="btn bg-accent-ink text-accent hover:bg-black">
               {finalCta.primary.label} <ArrowRight className="size-4" aria-hidden />
             </a>
             {finalCta.secondary && (
-              <SmartLink href={finalCta.secondary.href} className="btn btn-ghost">
+              <SmartLink href={finalCta.secondary.href} className="btn border border-accent-ink/70 text-accent-ink hover:bg-accent-ink/10">
                 {finalCta.secondary.label} <ArrowUpRight className="size-4" aria-hidden />
               </SmartLink>
             )}
@@ -45,7 +52,7 @@ export function Footer() {
           <div>
             <Wordmark size="lg" />
             <p className="mt-5 max-w-xs text-sm text-muted">{footer.tagline}</p>
-            {brand.logoPendingNote && <p className="mt-4 max-w-xs text-[0.72rem] leading-relaxed text-white/40">{brand.logoPendingNote}</p>}
+            {brand.logoPendingNote && <p className="mt-4 max-w-xs text-[0.72rem] leading-relaxed text-subtle">{brand.logoPendingNote}</p>}
           </div>
           <nav aria-label="Rodapé">
             <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-muted">Navegação</p>
@@ -86,7 +93,7 @@ export function Footer() {
                   <li key={s.id} className="leading-relaxed">
                     <span className="text-text/80">{s.label}</span>
                     {s.observedAt && <> · {formatDateBR(s.observedAt)}</>}
-                    {s.note && <span className="block text-white/40">{s.note}</span>}
+                    {s.note && <span className="block text-subtle">{s.note}</span>}
                   </li>
                 ))}
               </ul>

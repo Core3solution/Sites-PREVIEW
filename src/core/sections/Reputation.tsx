@@ -10,7 +10,7 @@ function Stars({ rating }: { rating: number }) {
         const fill = Math.max(0, Math.min(1, rating - i));
         return (
           <span key={i} className="relative inline-block size-6">
-            <Star className="absolute inset-0 size-6 text-white/15" fill="currentColor" strokeWidth={0} />
+            <Star className="absolute inset-0 size-6 text-white/25" fill="currentColor" strokeWidth={0} />
             <span className="absolute inset-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
               <Star className="size-6 text-accent" fill="currentColor" strokeWidth={0} />
             </span>
@@ -33,13 +33,13 @@ export function Reputation() {
           <div className="relative flex flex-col justify-between gap-10 border-b border-line p-8 sm:p-12 lg:border-b-0 lg:border-r">
             <div>
               <p className="eyebrow">{reputation.eyebrow}</p>
-              <h2 id="avaliacoes-title" className="display mt-5 text-[2rem] sm:text-[2.6rem]">
+              <h2 id="avaliacoes-title" className="display mt-5 text-[2.4rem] sm:text-[3.2rem]">
                 {reputation.title}
               </h2>
             </div>
             <div>
               <p className="flex items-end gap-4">
-                <span className="display text-[5.5rem] leading-[0.8] sm:text-[7rem]" aria-label={`Nota ${formatRating(reputation.rating)} de 5`}>
+                <span className="display text-[6.5rem] leading-[0.8] text-accent sm:text-[8.5rem]" aria-label={`Nota ${formatRating(reputation.rating)} de 5`}>
                   {formatRating(reputation.rating)}
                 </span>
                 <span className="pb-2 text-muted">/ 5</span>

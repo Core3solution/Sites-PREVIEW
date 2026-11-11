@@ -6,9 +6,9 @@ import { Photo } from '../components/Photo';
 import { Dialog } from '../components/Dialog';
 import { SmartLink } from '../components/SmartLink';
 
-/** Mosaico editorial (8 itens): 4 colunas × 3 linhas no desktop, 2 colunas sem lacunas no mobile. */
+/** Mosaico editorial (8 itens): 4 colunas × 3 linhas no desktop, 2 colunas sem lacunas no mobile e tablet. */
 const spans: Record<number, string> = {
-  0: 'col-span-2 sm:row-span-2',
+  0: 'col-span-2 lg:row-span-2',
   5: 'col-span-2',
 };
 
@@ -52,7 +52,7 @@ export function Gallery() {
           <Info className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden />
           {gallery.notice}
         </p>
-        <ul className="mt-10 grid auto-rows-[44vw] grid-cols-2 gap-3 sm:auto-rows-[220px] sm:grid-cols-4 sm:gap-4 lg:auto-rows-[250px]">
+        <ul className="mt-10 grid auto-rows-[44vw] grid-cols-2 gap-3 sm:auto-rows-[240px] sm:gap-4 lg:auto-rows-[250px] lg:grid-cols-4">
           {gallery.items.map((it, i) => (
             <li key={`${it.photo}-${i}`} className={spans[i] ?? ''} data-reveal style={{ ['--d' as string]: i % 4 }}>
               <button
@@ -73,16 +73,18 @@ export function Gallery() {
                   <div className="min-w-0">
                     <p className="font-display text-base font-semibold sm:text-lg">{it.title}</p>
                     {!photos[it.photo]?.photo && (
-                      <p className="mt-0.5 hidden text-[0.78rem] leading-snug text-white/55 sm:line-clamp-2">{photos[it.photo]?.brief}</p>
+                      <p className="mt-0.5 hidden text-[0.78rem] leading-snug text-muted sm:line-clamp-2">{photos[it.photo]?.brief}</p>
                     )}
                   </div>
-                  <span className="grid size-9 shrink-0 place-items-center rounded-full border border-white/20 bg-black/30 opacity-0 backdrop-blur transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
+                  <span className="hidden size-9 shrink-0 place-items-center rounded-full sm:grid border border-white/30 bg-black/30 opacity-0 backdrop-blur transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
                     <Expand className="size-3.5" aria-hidden />
                   </span>
                 </div>
                 {!photos[it.photo]?.photo && (
-                  <span className="absolute left-7 top-7 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/40 px-2.5 py-1 text-[0.66rem] uppercase tracking-[0.12em] text-white/70">
-                    <Camera className="size-3" aria-hidden /> Fotografia pendente
+                  <span className="absolute left-5 top-5 inline-flex items-center gap-1.5 whitespace-nowrap rounded-full sm:left-7 sm:top-7 border border-white/25 bg-black/40 px-2.5 py-1 text-[0.66rem] uppercase tracking-[0.12em] text-muted">
+                    <Camera className="size-3 text-accent" aria-hidden />
+                    <span className="sm:hidden">Pendente</span>
+                    <span className="hidden sm:inline">Fotografia pendente</span>
                   </span>
                 )}
               </button>

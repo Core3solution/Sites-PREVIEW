@@ -12,7 +12,7 @@ function PriceTag({ item, label }: { item: CatalogItem; label: string }) {
   return (
     <div className="flex flex-col items-start gap-0.5 sm:items-end">
       {p.kind === 'from' && <span className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-accent">A partir de</span>}
-      <span className="font-display text-[1.55rem] font-semibold tabular-nums tracking-tight" style={{ fontStretch: '100%' }}>
+      <span className="font-display text-[1.55rem] font-semibold tabular-nums tracking-tight" style={{ fontStretch: '80%' }}>
         {p.amountCents != null ? formatBRL(p.amountCents) : 'Sob consulta'}
       </span>
       <span className="text-[0.7rem] text-muted">{label}</span>
@@ -32,17 +32,17 @@ function ItemRow({ item, categoryLabel, selected, onToggle, observedLabel }: {
   return (
     <li
       className={`group relative rounded-[20px] border transition-[border-color,background-color] duration-300 ${
-        selected ? 'border-accent/60 bg-accent-soft' : 'border-line bg-surface hover:border-white/15'
+        selected ? 'border-accent/60 bg-accent-soft' : 'border-line bg-surface hover:border-white/25'
       }`}
     >
       <div className="flex flex-col gap-5 p-5 sm:flex-row sm:items-center sm:gap-6 sm:p-6">
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2 text-[0.7rem] uppercase tracking-[0.16em] text-muted">
-            <span className="tabular-nums text-white/35">{String(item.sourceOrder).padStart(2, '0')}</span>
+            <span className="tabular-nums text-subtle">{String(item.sourceOrder).padStart(2, '0')}</span>
             <span aria-hidden>·</span>
             <span>{categoryLabel}</span>
           </div>
-          <h3 className="mt-2 font-display text-[1.3rem] font-semibold leading-tight tracking-tight sm:text-[1.4rem]" style={{ fontStretch: '104%' }}>
+          <h3 className="mt-2 font-display text-[1.3rem] font-semibold leading-tight tracking-tight sm:text-[1.4rem]" style={{ fontStretch: '80%' }}>
             {item.name}
           </h3>
           <p className="mt-1.5 text-[0.93rem] leading-relaxed text-muted">{item.summary}</p>
@@ -64,7 +64,7 @@ function ItemRow({ item, categoryLabel, selected, onToggle, observedLabel }: {
           {open && (
             <p id={detailsId} className="mt-2 rounded-xl border border-line bg-bg/60 px-3.5 py-2.5 text-[0.8rem] text-muted">
               <span className="text-text/80">“{item.sourceName}”</span> — “{item.sourceExcerpt}”
-              <span className="block pt-1 text-[0.72rem] text-white/40">Texto como aparece, truncado, na captura do catálogo.</span>
+              <span className="block pt-1 text-[0.72rem] text-subtle">Texto como aparece, truncado, na captura do catálogo.</span>
             </p>
           )}
         </div>

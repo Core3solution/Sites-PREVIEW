@@ -19,7 +19,7 @@ export function SectionHeading({
     <div className={`flex flex-col gap-6 md:flex-row md:items-end md:justify-between ${align === 'center' ? 'text-center md:flex-col md:items-center' : ''}`}>
       <div className={`max-w-2xl ${align === 'center' ? 'mx-auto' : ''}`} data-reveal>
         <p className="eyebrow">{eyebrow}</p>
-        <h2 id={id} className="display mt-5 text-[2.15rem] text-balance sm:text-5xl lg:text-[3.6rem]">
+        <h2 id={id} className="display mt-5 text-[2.6rem] text-balance sm:text-[3.6rem] lg:text-[4.6rem]">
           {title}
         </h2>
         {intro && <p className="mt-5 max-w-xl text-[1.02rem] leading-relaxed text-muted text-pretty">{intro}</p>}

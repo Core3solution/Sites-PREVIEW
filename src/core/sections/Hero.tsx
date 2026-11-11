@@ -36,23 +36,23 @@ export function Hero() {
         {pending && (
           <div className="absolute inset-0 overflow-hidden">
             <div className="studio-ceiling" />
-            <div className="studio-plane" />
+            <div className="studio-floor" />
             <div className="absolute right-[-10%] top-[10%] size-[60vmax] rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--brand-accent)_14%,transparent),transparent_60%)]" />
           </div>
         )}
         <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_80%_20%,transparent_30%,rgb(0_0_0/0.55)_80%)]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/50 to-bg/10 lg:bg-gradient-to-r lg:from-bg/95 lg:via-bg/55 lg:to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-bg to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-bg/90 via-bg/40 to-bg/10 lg:bg-gradient-to-r lg:from-bg/90 lg:via-bg/30 lg:to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-bg to-transparent" />
         <div className={`absolute inset-0 ${rich ? 'light-sweep' : ''}`} />
       </div>
 
       <div className="container-x relative flex flex-1 flex-col justify-end pb-14 pt-24 sm:pb-20 lg:flex-row lg:items-center lg:justify-between lg:gap-12 lg:pb-28 lg:pt-16">
         <div className="hero-copy intro max-w-[46rem]">
           <p className="eyebrow">{hero.eyebrow}</p>
-          <h1 id="hero-title" className="display mt-6 text-[2.6rem] text-balance min-[390px]:text-[2.9rem] sm:text-[4.2rem] lg:text-[5.1rem] xl:text-[5.6rem]">
+          <h1 id="hero-title" className="display mt-6 text-[2.55rem] text-balance min-[390px]:text-[2.8rem] sm:text-[5rem] lg:text-[5.6rem] xl:text-[6rem]">
             <Title title={hero.title} highlight={hero.highlight} />
           </h1>
-          <p className="mt-6 max-w-xl text-[1.04rem] leading-relaxed text-text/75 text-pretty sm:text-lg">{hero.subtitle}</p>
+          <p className="mt-6 max-w-xl text-[1.04rem] leading-relaxed text-muted text-pretty sm:text-lg">{hero.subtitle}</p>
           <div className="mt-9 flex flex-col gap-3 min-[420px]:flex-row">
             <a href={hero.primaryCta.href} className="btn btn-primary">
               {hero.primaryCta.label}
@@ -84,8 +84,8 @@ export function Hero() {
           <div ref={tilt} className="tilt relative w-[300px] xl:w-[320px]">
             <ul className="glass relative overflow-hidden rounded-[22px]" style={{ transform: 'translateZ(40px)' }}>
               {hero.highlights.map((h, i) => (
-                <li key={h.title} className={`flex flex-col gap-1 px-6 py-5 ${i ? 'border-t border-white/[0.08]' : ''}`}>
-                  <span className="font-display text-lg font-semibold" style={{ fontStretch: '105%' }}>
+                <li key={h.title} className={`flex flex-col gap-1 px-6 py-5 ${i ? 'border-t border-white/[0.14]' : ''}`}>
+                  <span className="font-display text-lg font-semibold" style={{ fontStretch: '80%' }}>
                     {h.title}
                   </span>
                   <span className="text-[0.82rem] text-muted">{h.detail}</span>
@@ -104,18 +104,18 @@ export function Hero() {
 
       <div className="container-x relative flex items-end justify-between gap-4 pb-6">
         <a href="#servicos" className="group hidden items-center gap-3 text-xs uppercase tracking-[0.24em] text-muted hover:text-text sm:inline-flex">
-          <span className="grid size-10 place-items-center rounded-full border border-white/15 transition-colors group-hover:border-accent">
+          <span className="grid size-10 place-items-center rounded-full border border-white/25 transition-colors group-hover:border-accent">
             <ChevronDown className="size-4" aria-hidden />
           </span>
           Explorar
         </a>
         {pending ? (
-          <p className="inline-flex max-w-[19rem] items-center gap-2 text-right text-[0.7rem] leading-snug text-white/45 sm:max-w-sm" data-photo-status="pendente" data-photo-slot={hero.photo}>
+          <p className="inline-flex max-w-[19rem] items-center gap-2 text-right text-[0.7rem] leading-snug text-subtle sm:max-w-sm" data-photo-status="pendente" data-photo-slot={hero.photo}>
             <Camera className="size-3.5 shrink-0" aria-hidden />
             {slot?.label ?? 'Fotografia'} pendente · {slot?.aspect} · mín. {slot?.minWidth}px
           </p>
         ) : (
-          <p className="max-w-xs text-right text-[0.7rem] leading-snug text-white/45">{slot?.photo?.credit}</p>
+          <p className="max-w-xs text-right text-[0.7rem] leading-snug text-subtle">{slot?.photo?.credit}</p>
         )}
       </div>
     </section>

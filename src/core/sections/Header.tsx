@@ -39,7 +39,7 @@ export function Header() {
     <>
       <header
         className={`sticky top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-500 ${
-          scrolled ? 'border-b border-white/[0.06] bg-bg/80 backdrop-blur-xl' : 'border-b border-transparent bg-transparent'
+          scrolled ? 'border-b border-white/[0.12] bg-bg/80 backdrop-blur-xl' : 'border-b border-transparent bg-transparent'
         }`}
       >
         <div className="container-x flex h-[var(--header-h)] items-center justify-between gap-6">
@@ -135,7 +135,7 @@ function MobileMenu({ open, onClose, active }: { open: boolean; onClose: () => v
                   href={`#${n.id}`}
                   onClick={go}
                   className={`flex min-h-14 items-center justify-between py-3 font-display text-2xl ${active === n.id ? 'text-accent' : 'text-text'}`}
-                  style={{ fontStretch: '110%' }}
+                  style={{ fontStretch: '80%' }}
                 >
                   <span>{n.label}</span>
                   <span className="text-xs tabular-nums text-muted">0{i + 1}</span>

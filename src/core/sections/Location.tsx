@@ -51,7 +51,7 @@ export function Location() {
       <div className="container-x grid gap-10 lg:grid-cols-[1fr_1.35fr] lg:items-stretch lg:gap-14">
         <div className="flex flex-col" data-reveal>
           <p className="eyebrow">{location.eyebrow}</p>
-          <h2 id="localizacao-title" className="display mt-5 text-[2.15rem] text-balance sm:text-5xl">
+          <h2 id="localizacao-title" className="display mt-5 text-[2.6rem] text-balance sm:text-[3.6rem]">
             {location.title}
           </h2>
           <address className="mt-8 flex items-start gap-4 not-italic">
@@ -100,7 +100,7 @@ export function Location() {
                 <button type="button" onClick={() => setLoadMap(true)} className="btn btn-ghost bg-black/30 backdrop-blur">
                   Carregar mapa interativo
                 </button>
-                <p className="max-w-xs text-[0.72rem] leading-relaxed text-white/45">
+                <p className="max-w-xs text-[0.72rem] leading-relaxed text-subtle">
                   O mapa é carregado do Google somente após o clique. Ilustração acima não é cartografia real.
                 </p>
               </div>

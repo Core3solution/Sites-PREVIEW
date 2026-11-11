@@ -24,6 +24,22 @@ Instruções recebidas e aplicadas:
 
 ---
 
+## 1b. Rodada 3: identidade do Instagram e contraste
+
+Pedido: usar mais a identidade do Instagram @company.autospa e corrigir cores que se confundiam com o fundo preto.
+
+| Problema | Correção |
+|---|---|
+| 13 textos abaixo do contraste AA, medidos com axe-core: numeração do catálogo, linhas de fonte, nota do logo | Novo token `subtle` (#A09D95) com contraste ≥ 6:1. Todos os cinzas translúcidos foram trocados por tokens. **0 violações** nas cinco larguras. |
+| Cards, bordas, campos e placeholders sumindo no preto | Superfícies mais claras (#151515 e #1D1D1D), bordas #363636, campos com borda visível, placeholders com base mais clara e ícone amarelo |
+| Pouca identidade da marca | Títulos em sans condensada, pesada e em caixa alta, como o “COMPANY” do emblema; wordmark em amarelo; faixa amarela com bordas quadriculadas (piso e bandeira do estúdio) e estrelas como separador; CTA final em bloco amarelo com texto preto; nota 4,9 em amarelo; botões fantasma com borda amarela no hover |
+| “PERSONALIZAÇÃO” cortado no celular e vazando da caixa no desktop | Escala do título recalculada |
+| Textos da galeria estourando no tablet e selo quebrando no celular | Galeria em 2 colunas até 1024 px e selo curto (“Pendente”) no celular |
+
+Duas verificações novas no QA: **contraste AA em todos os textos (axe-core)** e **nenhum texto cortado**. Resultado: **70/70**.
+
+---
+
 ## 2. Materiais do pacote (18 arquivos no MANIFESTO)
 
 | Arquivo | Recebido? |
@@ -84,7 +100,7 @@ npm run build && npm run preview   # http://localhost:4173 (QA executado contra 
 | TypeScript | `npm run typecheck` | Sem erros |
 | Unitários e componente | `npm test` | **32/32 aprovados** |
 | Build | `npm run build` | Aprovado |
-| Navegador (Chromium em 1440/1280/768/390/360) | `npm run qa` | **60/60 aprovados** (`evidencias/resultados-qa.json`) |
+| Navegador (Chromium em 1440/1280/768/390/360) | `npm run qa` | **70/70 aprovados** (`evidencias/resultados-qa.json`) |
 
 A cobertura é a mesma da rodada anterior: dados do catálogo, responsividade, navegação, menu mobile, catálogo,
 seleção, cópia conferida na área de transferência, modal sem WhatsApp, galeria, localização, links, teclado,

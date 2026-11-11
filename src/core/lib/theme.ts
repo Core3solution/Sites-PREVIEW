@@ -9,6 +9,7 @@ export function applyTheme(t: ThemeTokens, root: HTMLElement = document.document
     '--brand-line': t.line,
     '--brand-text': t.text,
     '--brand-muted': t.muted,
+    '--brand-subtle': t.subtle,
     '--brand-accent': t.accent,
     '--brand-accent-ink': t.accentInk,
     '--brand-accent-soft': t.accentSoft,

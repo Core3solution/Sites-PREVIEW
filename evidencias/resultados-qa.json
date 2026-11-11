@@ -1,8 +1,8 @@
 {
   "url": "http://localhost:4173/",
-  "executadoEm": "2026-11-11T20:55:53.268Z",
-  "aprovados": 60,
-  "total": 60,
+  "executadoEm": "2026-11-11T21:29:21.264Z",
+  "aprovados": 70,
+  "total": 70,
   "resultados": [
     {
       "area": "Responsividade",
@@ -13,6 +13,18 @@
     {
       "area": "Responsividade",
       "name": "360px sem texto menor que 10,5px",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Responsividade",
+      "name": "360px sem texto cortado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Acessibilidade",
+      "name": "360px contraste AA em todos os textos (axe-core)",
       "ok": true,
       "detail": ""
     },
@@ -42,6 +54,18 @@
     },
     {
       "area": "Responsividade",
+      "name": "390px sem texto cortado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Acessibilidade",
+      "name": "390px contraste AA em todos os textos (axe-core)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Responsividade",
       "name": "390px áreas de toque ≥ 36px",
       "ok": true,
       "detail": ""
@@ -65,6 +89,18 @@
       "detail": ""
     },
     {
+      "area": "Responsividade",
+      "name": "768px sem texto cortado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Acessibilidade",
+      "name": "768px contraste AA em todos os textos (axe-core)",
+      "ok": true,
+      "detail": ""
+    },
+    {
       "area": "Console",
       "name": "768px sem erros de JavaScript",
       "ok": true,
@@ -83,6 +119,18 @@
       "detail": ""
     },
     {
+      "area": "Responsividade",
+      "name": "1280px sem texto cortado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Acessibilidade",
+      "name": "1280px contraste AA em todos os textos (axe-core)",
+      "ok": true,
+      "detail": ""
+    },
+    {
       "area": "Console",
       "name": "1280px sem erros de JavaScript",
       "ok": true,
@@ -97,6 +145,18 @@
     {
       "area": "Responsividade",
       "name": "1440px sem texto menor que 10,5px",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Responsividade",
+      "name": "1440px sem texto cortado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Acessibilidade",
+      "name": "1440px contraste AA em todos os textos (axe-core)",
       "ok": true,
       "detail": ""
     },
@@ -254,7 +314,7 @@
       "area": "Fotografias",
       "name": "Nenhuma imagem sem fotografia aprovada; placeholders identificados",
       "ok": true,
-      "detail": "img=0, pendentes=18"
+      "detail": "img=0, pendentes=17"
     },
     {
       "area": "Localização",
@@ -302,13 +362,13 @@
       "area": "Movimento",
       "name": "Parallax do hero responde ao scroll",
       "ok": true,
-      "detail": "--p=0.3233"
+      "detail": "--p=0.3226"
     },
     {
       "area": "Acessibilidade",
       "name": "Contraste ≥ 4,5:1 nos pares de texto",
       "ok": true,
-      "detail": "{\"textoBg\":17.79,\"mutedBg\":7.9,\"mutedSurface\":7.04,\"accentBg\":10.81,\"inkAccent\":10.07}"
+      "detail": "{\"textoBg\":18.16,\"mutedBg\":10.78,\"mutedSurface\":9.18,\"accentBg\":10.75,\"inkAccent\":10.25}"
     },
     {
       "area": "Menu mobile",
@@ -326,7 +386,7 @@
       "area": "Menu mobile",
       "name": "Link fecha o menu e rola até a seção",
       "ok": true,
-      "detail": "top=128"
+      "detail": "top=131"
     },
     {
       "area": "Mobile",

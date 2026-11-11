@@ -27,7 +27,7 @@ function ServiceCard({ cat, items, index, onOpen }: { cat: Category; items: Cata
         <button
           type="button"
           onClick={onOpen}
-          className="group relative flex h-full w-full flex-col overflow-hidden rounded-[22px] border border-line bg-surface text-left transition-colors duration-500 hover:border-white/20"
+          className="group relative flex h-full w-full flex-col overflow-hidden rounded-[22px] border border-line bg-surface text-left transition-colors duration-500 hover:border-accent"
           aria-label={`${cat.label}: ver ${items.length} ${items.length === 1 ? 'item' : 'itens'} no catálogo`}
         >
           <div className="relative aspect-[4/3] overflow-hidden">
@@ -39,15 +39,15 @@ function ServiceCard({ cat, items, index, onOpen }: { cat: Category; items: Cata
               imgClassName="transition-transform duration-[1.4s] ease-[var(--ease-out-expo)] group-hover:scale-[1.06]"
             />
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-surface to-transparent" />
-            <span className="absolute left-5 top-5 z-10 rounded-full border border-white/15 bg-black/40 px-3 py-1 text-[0.7rem] tabular-nums text-text/80 backdrop-blur">
+            <span className="absolute left-5 top-5 z-10 rounded-full border border-white/25 bg-black/40 px-3 py-1 text-[0.7rem] tabular-nums text-text/80 backdrop-blur">
               {String(index + 1).padStart(2, '0')}
             </span>
-            <span className="absolute right-5 top-5 z-10 grid size-10 place-items-center rounded-full border border-white/15 bg-black/40 text-text backdrop-blur transition-all duration-500 group-hover:border-accent group-hover:bg-accent group-hover:text-accent-ink">
+            <span className="absolute right-5 top-5 z-10 grid size-10 place-items-center rounded-full border border-white/25 bg-black/40 text-text backdrop-blur transition-all duration-500 group-hover:border-accent group-hover:bg-accent group-hover:text-accent-ink">
               <ArrowUpRight className="size-4" aria-hidden />
             </span>
           </div>
           <div className="flex flex-1 flex-col gap-3 p-6 pt-2">
-            <h3 className="font-display text-[1.45rem] font-semibold tracking-tight" style={{ fontStretch: '108%' }}>
+            <h3 className="font-display text-[1.45rem] font-semibold tracking-tight" style={{ fontStretch: '80%' }}>
               {cat.label}
             </h3>
             <p className="text-[0.93rem] leading-relaxed text-muted">{cat.description}</p>

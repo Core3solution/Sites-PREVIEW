@@ -17,7 +17,7 @@ const posAbs = /(^|\s)(absolute|fixed)(\s|$)/;
 
 /** Marcas de enquadramento (cantos de visor) do placeholder. */
 function CropMarks() {
-  const c = 'absolute size-5 border-white/25';
+  const c = 'absolute hidden size-5 border-white/25 sm:block';
   return (
     <>
       <span className={`${c} left-3 top-3 border-l border-t`} />
@@ -30,7 +30,7 @@ function CropMarks() {
 
 export function PhotoSpec({ slot }: { slot: PhotoSlot }) {
   return (
-    <span className="text-[0.7rem] tabular-nums text-white/45">
+    <span className="text-[0.7rem] tabular-nums text-subtle">
       {slot.aspect} · mín. {slot.minWidth}px
     </span>
   );
@@ -69,7 +69,7 @@ export function Photo({ id, variant, sizes = '100vw', className = '', imgClassNa
 
   const base = (
     <>
-      <div className="absolute inset-0 bg-[linear-gradient(135deg,var(--brand-surface-2)_0%,var(--brand-surface)_45%,var(--brand-bg)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(135deg,#262626_0%,var(--brand-surface-2)_45%,var(--brand-surface)_100%)]" />
       <div className="photo-sheen absolute inset-0" />
       {variant !== 'tile' && <CropMarks />}
     </>
@@ -93,11 +93,11 @@ export function Photo({ id, variant, sizes = '100vw', className = '', imgClassNa
     >
       {base}
       <div className={`absolute inset-0 flex flex-col ${variant === 'panel' ? 'justify-center p-8' : 'justify-end p-4 sm:p-5'} gap-2`}>
-        <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-white/15 bg-black/30 px-2.5 py-1 text-[0.66rem] font-medium uppercase tracking-[0.14em] text-white/70">
-          <Camera className="size-3" aria-hidden /> Fotografia pendente
+        <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-white/25 bg-black/50 px-2.5 py-1 text-[0.66rem] font-medium uppercase tracking-[0.14em] text-text">
+          <Camera className="size-3 text-accent" aria-hidden /> Fotografia pendente
         </span>
         {(variant === 'panel' || variant === 'card') && (
-          <p className={`max-w-sm text-white/60 ${variant === 'panel' ? 'text-sm leading-relaxed' : 'text-[0.78rem] leading-snug'}`}>{slot.brief}</p>
+          <p className={`max-w-sm text-muted ${variant === 'panel' ? 'text-sm leading-relaxed' : 'text-[0.78rem] leading-snug'}`}>{slot.brief}</p>
         )}
         <PhotoSpec slot={slot} />
       </div>

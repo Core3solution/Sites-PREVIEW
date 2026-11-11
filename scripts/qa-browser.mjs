@@ -2,7 +2,7 @@
 // Uso: npm run build && npx vite preview --port 4173 & npm run qa
 // Gera capturas e resultados em evidencias/.
 import { createRequire } from 'node:module';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -11,6 +11,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const out = path.join(root, 'evidencias');
 const URL = process.env.QA_URL ?? 'http://localhost:4173/';
 await mkdir(out, { recursive: true });
+const axeSrc = await readFile(path.join(root, 'node_modules/axe-core/axe.min.js'), 'utf8');
 
 const results = [];
 const check = (area, name, ok, detail = '') => {
@@ -60,6 +61,15 @@ for (const [w, h] of [[360, 780], [390, 844], [768, 1024], [1280, 800], [1440, 9
     return [n, list.slice(0, 3)];
   });
   check('Responsividade', `${w}px sem texto menor que 10,5px`, tiny[0] === 0, tiny[0] ? JSON.stringify(tiny[1]) : '');
+  // Títulos e textos não podem ser cortados (conteúdo mais largo que a própria caixa)
+  const cut = await page.evaluate(() => [...document.querySelectorAll('h1, h2, h3, p, a, button')]
+      .filter((e) => e.offsetParent && !e.closest('.sr-only') && e.scrollWidth > e.clientWidth + 1 && getComputedStyle(e).overflowX !== 'auto' && !e.closest('.marquee, .no-scrollbar'))
+    .map((e) => e.textContent.trim().slice(0, 30)));
+  check('Responsividade', `${w}px sem texto cortado`, cut.length === 0, cut.join(' | '));
+  // Contraste real de cada texto sobre o fundo efetivo (axe-core, WCAG AA)
+  await page.addScriptTag({ content: axeSrc });
+  const axeV = await page.evaluate(async () => (await window.axe.run(document, { runOnly: ['color-contrast'] })).violations.flatMap((v) => v.nodes.map((n) => n.html.replace(/<[^>]+>/g, '').trim().slice(0, 30))));
+  check('Acessibilidade', `${w}px contraste AA em todos os textos (axe-core)`, axeV.length === 0, axeV.join(' | '));
   if (mobile) {
     const small = await page.evaluate(() => [...document.querySelectorAll('main button, main a, header button, header a')]
       .filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && (r.height < 36 && r.width < 36); })

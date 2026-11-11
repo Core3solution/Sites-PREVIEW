@@ -15,7 +15,7 @@ function StepTitle({ n, title, icon: Icon }: { n: number; title: string; icon: t
   return (
     <div className="flex items-center gap-3">
       <span className="grid size-9 place-items-center rounded-full border border-line text-[0.75rem] tabular-nums text-muted">{n}</span>
-      <h3 className="font-display text-xl font-semibold tracking-tight" style={{ fontStretch: '106%' }}>
+      <h3 className="font-display text-xl font-semibold tracking-tight" style={{ fontStretch: '80%' }}>
         {title}
       </h3>
       <Icon className="ml-auto size-4 text-muted" aria-hidden />
@@ -104,15 +104,15 @@ export function Quote() {
               </div>
               <div className="mt-5 grid gap-4 sm:grid-cols-2">
                 <label className="flex flex-col gap-2 text-sm">
-                  <span className="text-muted">Marca <span className="text-white/35">(recomendado)</span></span>
+                  <span className="text-muted">Marca <span className="text-subtle">(recomendado)</span></span>
                   <input className="field" value={vehicle.brand} onChange={(e) => setVehicle({ brand: e.target.value })} placeholder="Ex.: Porsche" maxLength={40} autoComplete="off" />
                 </label>
                 <label className="flex flex-col gap-2 text-sm">
-                  <span className="text-muted">Modelo <span className="text-white/35">(recomendado)</span></span>
+                  <span className="text-muted">Modelo <span className="text-subtle">(recomendado)</span></span>
                   <input className="field" value={vehicle.model} onChange={(e) => setVehicle({ model: e.target.value })} placeholder="Ex.: 911 Carrera" maxLength={60} autoComplete="off" />
                 </label>
                 <label className="flex flex-col gap-2 text-sm">
-                  <span className="text-muted">Ano <span className="text-white/35">(opcional)</span></span>
+                  <span className="text-muted">Ano <span className="text-subtle">(opcional)</span></span>
                   <input
                     className="field"
                     value={vehicle.year}
@@ -123,11 +123,11 @@ export function Quote() {
                   />
                 </label>
                 <label className="flex flex-col gap-2 text-sm">
-                  <span className="text-muted">Cor <span className="text-white/35">(opcional)</span></span>
+                  <span className="text-muted">Cor <span className="text-subtle">(opcional)</span></span>
                   <input className="field" value={vehicle.color} onChange={(e) => setVehicle({ color: e.target.value })} placeholder="Ex.: Preto" maxLength={30} autoComplete="off" />
                 </label>
                 <label className="flex flex-col gap-2 text-sm sm:col-span-2">
-                  <span className="text-muted">Observações <span className="text-white/35">(opcional)</span></span>
+                  <span className="text-muted">Observações <span className="text-subtle">(opcional)</span></span>
                   <textarea
                     className="field min-h-24 resize-y"
                     value={vehicle.notes}

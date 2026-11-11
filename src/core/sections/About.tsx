@@ -32,7 +32,7 @@ export function About() {
         <div className="order-1 lg:order-2">
           <div data-reveal>
             <p className="eyebrow">{about.eyebrow}</p>
-            <h2 id="sobre-title" className="display mt-5 text-[2.15rem] text-balance sm:text-5xl lg:text-[3.4rem]">
+            <h2 id="sobre-title" className="display mt-5 text-[2.6rem] text-balance sm:text-[3.6rem] lg:text-[4.2rem]">
               {about.title}
             </h2>
           </div>
@@ -41,7 +41,7 @@ export function About() {
               <p key={i} className="text-[1.05rem] leading-relaxed text-text/80 text-pretty" data-reveal style={{ ['--d' as string]: i + 1 }}>
                 {p.text}
                 {p.sourceId && (
-                  <span className="mt-1.5 block text-[0.72rem] text-white/40">Fonte: {srcLabel(p.sourceId)}</span>
+                  <span className="mt-1.5 block text-[0.72rem] text-subtle">Fonte: {srcLabel(p.sourceId)}</span>
                 )}
               </p>
             ))}

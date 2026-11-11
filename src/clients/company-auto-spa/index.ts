@@ -25,18 +25,19 @@ export const companyAutoSpa: SiteConfig = {
     wordmark: { primary: 'COMPANY', secondary: 'AUTO SPA', eyebrow: 'PREMIUM' },
     logo: null,
     logoPendingNote: 'Identificação textual provisória. O logotipo oficial em alta resolução ainda não foi fornecido.',
-    // Paleta derivada do emblema visível no Instagram (preto, amarelo-ouro e branco).
-    // Valores aproximados a partir de miniatura — confirmar com o manual/arquivo oficial da marca.
+    // Identidade do Instagram @company.autospa: preto, amarelo do emblema (#E4BA42, amostrado da miniatura)
+    // e branco; piso quadriculado e linhas de LED do estúdio como motivos. Confirmar com o arquivo oficial.
     theme: {
-      bg: '#09090A',
-      surface: '#111113',
-      surface2: '#18181B',
-      line: '#27272B',
-      text: '#F4F2ED',
-      muted: '#A6A39C',
+      bg: '#0A0A0A',
+      surface: '#151515',
+      surface2: '#1D1D1D',
+      line: '#363636',
+      text: '#F7F5EF',
+      muted: '#C2BFB7',
+      subtle: '#A09D95',
       accent: '#E4BA42',
-      accentInk: '#16130A',
-      accentSoft: '#E4BA421F',
+      accentInk: '#111111',
+      accentSoft: '#E4BA4229',
     },
   },
   contact: {
