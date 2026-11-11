@@ -2,7 +2,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { useSite } from '../state/site';
 import { useQuote } from '../state/quote';
 import { useRichMotion, useTilt } from '../hooks/motion';
-import { Media } from '../components/Media';
+import { Photo } from '../components/Photo';
 import { SectionHeading } from '../components/SectionHeading';
 import { formatBRL } from '../lib/format';
 import type { CatalogItem, Category } from '../types';
@@ -31,18 +31,18 @@ function ServiceCard({ cat, items, index, onOpen }: { cat: Category; items: Cata
           aria-label={`${cat.label}: ver ${items.length} ${items.length === 1 ? 'item' : 'itens'} no catálogo`}
         >
           <div className="relative aspect-[4/3] overflow-hidden">
-            <Media
-              media={cat.media}
+            <Photo
+              id={cat.photo}
+              variant="tile"
               sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 78vw"
-              alt=""
               className="absolute inset-0"
               imgClassName="transition-transform duration-[1.4s] ease-[var(--ease-out-expo)] group-hover:scale-[1.06]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/10 to-transparent" />
-            <span className="absolute left-5 top-5 rounded-full border border-white/15 bg-black/40 px-3 py-1 text-[0.7rem] tabular-nums text-text/80 backdrop-blur">
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-surface to-transparent" />
+            <span className="absolute left-5 top-5 z-10 rounded-full border border-white/15 bg-black/40 px-3 py-1 text-[0.7rem] tabular-nums text-text/80 backdrop-blur">
               {String(index + 1).padStart(2, '0')}
             </span>
-            <span className="absolute right-5 top-5 grid size-10 place-items-center rounded-full border border-white/15 bg-black/40 text-text backdrop-blur transition-all duration-500 group-hover:border-accent group-hover:bg-accent group-hover:text-accent-ink">
+            <span className="absolute right-5 top-5 z-10 grid size-10 place-items-center rounded-full border border-white/15 bg-black/40 text-text backdrop-blur transition-all duration-500 group-hover:border-accent group-hover:bg-accent group-hover:text-accent-ink">
               <ArrowUpRight className="size-4" aria-hidden />
             </span>
           </div>

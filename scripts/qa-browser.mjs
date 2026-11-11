@@ -153,15 +153,19 @@ for (const [w, h] of [[360, 780], [390, 844], [768, 1024], [1280, 800], [1440, 9
 
   // Galeria
   await scrollTo(page, '#galeria');
-  await page.getByRole('button', { name: 'Ampliar: Película' }).click();
-  check('Galeria', 'Lightbox abre', await page.getByRole('dialog', { name: 'Película' }).isVisible());
+  await page.getByRole('button', { name: /: PPF no farol$/ }).click();
+  check('Galeria', 'Lightbox abre (especificação da foto pendente)', await page.getByRole('dialog', { name: 'PPF no farol' }).isVisible());
   await page.keyboard.press('ArrowRight');
-  check('Galeria', 'Seta → avança imagem', await page.getByRole('dialog', { name: 'Hidrofobia' }).isVisible());
-  const imgOk = await page.locator('[role=dialog] img').evaluate((i) => i.complete && i.naturalWidth >= 1600);
-  check('Galeria', 'Imagem ampliada carregada em alta (≥1600px)', imgOk);
+  check('Galeria', 'Seta → avança item', await page.getByRole('dialog', { name: 'PPF frontal' }).isVisible());
+  check('Galeria', 'Especificação mostra direção de arte e situação', await page.getByText('Aguardando foto autorizada').isVisible());
   await page.waitForTimeout(700); // aguarda animações de entrada
   await page.screenshot({ path: path.join(out, 'galeria-lightbox-1440.png') });
   await page.keyboard.press('Escape');
+
+  // Fotografias: nada de imagem sem aprovação
+  const imgs = await page.locator('main img').count();
+  const pend = await page.locator('[data-photo-status="pendente"]').count();
+  check('Fotografias', 'Nenhuma imagem sem fotografia aprovada; placeholders identificados', imgs === 0 && pend > 10, `img=${imgs}, pendentes=${pend}`);
 
   // Localização
   await scrollTo(page, '#localizacao');

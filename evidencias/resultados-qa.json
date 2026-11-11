@@ -1,8 +1,8 @@
 {
   "url": "http://localhost:4173/",
-  "executadoEm": "2026-11-11T20:47:19.658Z",
-  "aprovados": 59,
-  "total": 59,
+  "executadoEm": "2026-11-11T20:55:53.268Z",
+  "aprovados": 60,
+  "total": 60,
   "resultados": [
     {
       "area": "Responsividade",
@@ -234,21 +234,27 @@
     },
     {
       "area": "Galeria",
-      "name": "Lightbox abre",
+      "name": "Lightbox abre (especificação da foto pendente)",
       "ok": true,
       "detail": ""
     },
     {
       "area": "Galeria",
-      "name": "Seta → avança imagem",
+      "name": "Seta → avança item",
       "ok": true,
       "detail": ""
     },
     {
       "area": "Galeria",
-      "name": "Imagem ampliada carregada em alta (≥1600px)",
+      "name": "Especificação mostra direção de arte e situação",
       "ok": true,
       "detail": ""
+    },
+    {
+      "area": "Fotografias",
+      "name": "Nenhuma imagem sem fotografia aprovada; placeholders identificados",
+      "ok": true,
+      "detail": "img=0, pendentes=18"
     },
     {
       "area": "Localização",
@@ -320,7 +326,7 @@
       "area": "Menu mobile",
       "name": "Link fecha o menu e rola até a seção",
       "ok": true,
-      "detail": "top=129"
+      "detail": "top=128"
     },
     {
       "area": "Mobile",

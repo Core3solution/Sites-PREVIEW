@@ -283,3 +283,37 @@
 .marquee { animation: marquee 48s linear infinite; }
 .marquee:hover { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) { .marquee { animation: none; } }
+
+/* Placeholder de fotografia: brilho diagonal lento, sem simular imagem */
+.photo-sheen {
+  background: linear-gradient(115deg, transparent 30%, rgb(255 255 255 / 0.045) 45%, transparent 60%);
+  background-size: 250% 100%;
+  animation: photo-sheen 7s ease-in-out infinite;
+}
+@keyframes photo-sheen { from { background-position: 120% 0; } to { background-position: -120% 0; } }
+@media (prefers-reduced-motion: reduce) { .photo-sheen { animation: none; } }
+
+/* Cenário do hero sem fotografia: luz e profundidade em CSS (sem veículo desenhado) */
+.studio-plane {
+  position: absolute;
+  inset: auto -30% -10% -30%;
+  height: 70%;
+  transform: perspective(900px) rotateX(64deg) translate3d(0, calc(var(--p, 0) * 12%), 0);
+  transform-origin: 50% 100%;
+  background-image:
+    repeating-linear-gradient(90deg, transparent 0 calc(12.5% - 1px), rgb(255 255 255 / 0.16) calc(12.5% - 1px) 12.5%);
+  mask-image: linear-gradient(to top, black 10%, transparent 85%);
+  opacity: 0.55;
+}
+.studio-ceiling {
+  position: absolute;
+  inset: -20% -30% auto -30%;
+  height: 55%;
+  transform: perspective(900px) rotateX(-62deg) translate3d(0, calc(var(--p, 0) * -10%), 0);
+  transform-origin: 50% 0%;
+  background-image:
+    repeating-linear-gradient(90deg, transparent 0 calc(16.66% - 2px), rgb(255 255 255 / 0.55) calc(16.66% - 2px) 16.66%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 40%, transparent 100%);
+  filter: blur(0.4px) drop-shadow(0 0 8px rgb(255 255 255 / 0.6));
+  opacity: 0.6;
+}

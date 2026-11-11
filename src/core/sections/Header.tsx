@@ -8,14 +8,14 @@ import { Wordmark } from '../components/Wordmark';
 import { SmartLink } from '../components/SmartLink';
 
 export function DemoBar() {
-  const { meta } = useSite();
+  const { meta, status } = useSite();
   if (!meta.demoNotice) return null;
   return (
     <div className="relative z-[60] border-b border-white/5 bg-black text-[0.72rem] text-muted">
       <div className="container-x flex min-h-9 items-center justify-center gap-2 py-1.5 text-center">
         <Info className="size-3.5 shrink-0 text-accent" aria-hidden />
         <p>
-          {meta.demoNotice.short}.{' '}
+          {meta.demoNotice.short}.{status?.preliminary && <span className="hidden md:inline"> Versão preliminar.</span>}{' '}
           <a href="#aviso" className="font-medium text-text underline decoration-white/30 underline-offset-4 hover:decoration-accent">
             Saiba mais
           </a>

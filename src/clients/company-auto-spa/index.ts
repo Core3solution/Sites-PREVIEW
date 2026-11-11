@@ -1,6 +1,7 @@
 import type { SiteConfig } from '../../core/types';
 import { catalogItems, categories } from './catalog';
 import { sources } from './sources';
+import { photos } from './photos';
 
 /**
  * Configuração da demonstração conceitual CORE 3 para a Company Auto SPA.
@@ -65,8 +66,7 @@ export const companyAutoSpa: SiteConfig = {
     highlight: 'alto padrão.',
     subtitle:
       'PPF, envelopamento, vitrificação, insulfilm, polimento técnico e lavagem premium. Escolha os serviços, informe seu veículo e leve uma solicitação organizada para a equipe da Company.',
-    media: 'hero',
-    mediaCredit: 'Imagem ilustrativa gerada por computador (CORE 3). Não retrata veículo ou instalação da empresa.',
+    photo: 'hero',
     primaryCta: { label: 'Montar orçamento', href: '#catalogo' },
     secondaryCta: { label: 'Conhecer serviços', href: '#servicos' },
     highlights: [
@@ -103,23 +103,24 @@ export const companyAutoSpa: SiteConfig = {
   },
   gallery: {
     eyebrow: 'Galeria',
-    title: 'Luz, reflexo e acabamento.',
-    intro: 'Estudos visuais sobre pintura, película, água e vidro — a linguagem de um estúdio de estética automotiva.',
+    title: 'Trabalhos que falam por si.',
+    intro: 'Estrutura pronta para o portfólio da Company. Os trabalhos reais estão publicados no Instagram da empresa.',
     notice:
-      'Ilustrações geradas por computador pela CORE 3 para esta demonstração. Não retratam veículos, serviços ou instalações da Company Auto SPA e devem ser substituídas por fotografias autorizadas.',
+      'Espaços reservados para fotografias autorizadas pela Company Auto SPA. Nenhuma imagem desta demonstração foi atribuída à empresa; cada espaço indica o que deve ser fotografado.',
     items: [
-      { media: 'hero', title: 'Linha de ombro', caption: 'Reflexos de tubos de LED sobre pintura preta.' },
-      { media: 'ppf', title: 'Película', caption: 'Estudo de borda de película sobre verniz.' },
-      { media: 'vitrificacao', title: 'Hidrofobia', caption: 'Gotas sobre superfície protegida.' },
-      { media: 'polimento', title: 'Profundidade', caption: 'Reflexo nítido em pintura metálica.' },
-      { media: 'envelopamento', title: 'Acetinado', caption: 'Luz difusa em superfície curva.' },
-      { media: 'insulfilm', title: 'Vidro', caption: 'Película escura e serigrafia de borda.' },
-      { media: 'lavagem', title: 'Água', caption: 'Microgotas sobre pintura escura.' },
-      { media: 'estudio', title: 'Estúdio', caption: 'Linhas de LED refletidas em piso escuro.' },
+      { photo: 'galeria-1', title: 'Veículo entregue' },
+      { photo: 'galeria-2', title: 'PPF no farol' },
+      { photo: 'galeria-3', title: 'PPF frontal' },
+      { photo: 'galeria-4', title: 'Processo' },
+      { photo: 'galeria-5', title: 'Rodas' },
+      { photo: 'galeria-6', title: 'Fachada' },
+      { photo: 'galeria-7', title: 'Acabamento' },
+      { photo: 'galeria-8', title: 'Ensaio externo' },
     ],
     externalCta: { label: 'Ver trabalhos reais no Instagram', href: 'https://www.instagram.com/company.autospa/' },
   },
   about: {
+    photo: 'estudio',
     eyebrow: 'Sobre',
     title: 'Um centro de estética automotiva no coração do ABC.',
     paragraphs: [
@@ -162,6 +163,7 @@ export const companyAutoSpa: SiteConfig = {
     mapQuery: 'Company Auto Spa, Rua Pinheiro Machado, 34 - Santa Paula, São Caetano do Sul - SP',
   },
   finalCta: {
+    photo: 'cta',
     eyebrow: 'Próximo passo',
     title: 'Seu carro merece um orçamento bem feito.',
     text: 'Selecione os serviços, informe o veículo e copie uma solicitação clara para enviar à Company.',
@@ -171,6 +173,11 @@ export const companyAutoSpa: SiteConfig = {
   footer: {
     tagline: 'Estética automotiva · PPF · Envelopamento · Proteção',
     credit: { label: 'CORE 3', text: 'Transformar processos empresariais utilizando tecnologia.' },
+  },
+  photos,
+  status: {
+    preliminary: true,
+    note: 'Versão preliminar: fotografias autorizadas, logotipo oficial e documentos do briefing ainda pendentes.',
   },
   sources,
 };

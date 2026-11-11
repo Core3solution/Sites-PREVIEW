@@ -1,5 +1,5 @@
 import { useSite } from '../state/site';
-import { Media } from '../components/Media';
+import { Photo } from '../components/Photo';
 import { useRichMotion, useScrollProgress } from '../hooks/motion';
 
 export function About() {
@@ -13,9 +13,9 @@ export function About() {
         <div ref={ref} className="relative order-2 lg:order-1" data-reveal>
           <div className="relative aspect-[4/5] overflow-hidden rounded-[28px] border border-line sm:aspect-[5/4] lg:aspect-[4/5]">
             <div className="absolute -inset-y-[8%] inset-x-0" style={{ transform: 'translate3d(0, calc((var(--p, 0) - 0.5) * -10%), 0)' }}>
-              <Media media="estudio" sizes="(min-width: 1024px) 45vw, 100vw" alt="" className="h-full w-full" />
+              <Photo id={about.photo} variant="panel" sizes="(min-width: 1024px) 45vw, 100vw" className="h-full w-full" />
             </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-bg/90 via-transparent to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-bg/90 to-transparent" />
             <div className="glass absolute inset-x-5 bottom-5 rounded-2xl p-5 sm:inset-x-6 sm:bottom-6">
               <ul className="grid gap-4 sm:grid-cols-3 sm:gap-3">
                 {about.pillars.map((p) => (
@@ -27,7 +27,6 @@ export function About() {
               </ul>
             </div>
           </div>
-          <p className="mt-3 text-[0.7rem] text-white/40">Ilustração gerada por computador. Não retrata a instalação da empresa.</p>
         </div>
 
         <div className="order-1 lg:order-2">

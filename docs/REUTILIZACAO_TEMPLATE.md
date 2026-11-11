@@ -27,9 +27,14 @@ O código é dividido em duas camadas:
    import { novaEmpresa } from './clients/nova-empresa';
    export const site = novaEmpresa;
    ```
-4. **Imagens**: as chaves `media` referenciam `src/core/generated/visuals.manifest.json`. Para fotos reais, gere
-   versões WebP (ex.: 800 e 1600 px) e acrescente uma entrada no manifesto com `alt`, `width`, `height`, `files` e
-   `placeholder`, ou ajuste `scripts/render-visuals.mjs`.
+4. **Fotografias** (`photos.ts`): cada seção referencia um *espaço de foto* (`PhotoSlot`) com direção de arte,
+   proporção e largura mínima. Com `photo: null`, o site mostra um placeholder identificado (“Fotografia pendente”).
+   Para aprovar uma foto, coloque o arquivo em `public/fotos/` (de preferência WebP em 2 larguras) e preencha:
+   ```ts
+   photo: { src: '/fotos/hero-2400.webp', variants: [{ src: '/fotos/hero-1200.webp', width: 1200 }, { src: '/fotos/hero-2400.webp', width: 2400 }],
+            width: 2400, height: 1350, alt: 'Descrição objetiva', credit: 'Foto: Company Auto Spa — uso autorizado em DD/MM/AAAA' }
+   ```
+   Nunca use miniaturas ampliadas nem ilustrações que simulem fotografia.
 5. **Ajuste os testes** em `tests/catalog-data.test.ts` para travar os valores da nova empresa.
 6. Rode `npm run typecheck && npm test && npm run build && npm run qa` (com `vite preview` ativo).
 
@@ -56,3 +61,5 @@ O código é dividido em duas camadas:
 - Não somar preços nem criar checkout: o fluxo gera uma **mensagem não vinculante**.
 - Links externos usam `SmartLink` (nova aba, `noopener noreferrer`).
 - Movimento respeita `prefers-reduced-motion` e aparelhos modestos (`useRichMotion`).
+- Profundidade e movimento são feitos com CSS e React (parallax, perspectiva, inclinação). Não há dependência de
+  WebGL. Um módulo 3D futuro pode ser acoplado ao hero sem alterar os dados (por exemplo, um `variant` extra em `Photo`).

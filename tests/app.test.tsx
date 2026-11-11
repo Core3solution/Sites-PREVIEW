@@ -82,13 +82,20 @@ describe('App', () => {
     expect(within(quote).getAllByRole('alert')[0]).toHaveTextContent('Selecione pelo menos um serviço');
   });
 
-  it('galeria abre lightbox e navega', async () => {
+  it('galeria abre a especificação do espaço de foto e navega', async () => {
     const user = setup();
     const gallery = document.getElementById('galeria')!;
-    await user.click(within(gallery).getByRole('button', { name: 'Ampliar: Película' }));
-    const dialog = screen.getByRole('dialog', { name: 'Película' });
+    await user.click(within(gallery).getByRole('button', { name: 'Ver especificação: PPF no farol' }));
+    const dialog = screen.getByRole('dialog', { name: 'PPF no farol' });
+    expect(within(dialog).getByText('Aguardando foto autorizada')).toBeInTheDocument();
     await user.click(within(dialog).getByRole('button', { name: 'Próxima imagem' }));
-    expect(screen.getByRole('dialog', { name: 'Hidrofobia' })).toBeInTheDocument();
+    expect(screen.getByRole('dialog', { name: 'PPF frontal' })).toBeInTheDocument();
+  });
+
+  it('não exibe imagens sem fotografia aprovada (somente placeholders identificados)', () => {
+    setup();
+    expect(document.querySelectorAll('main img')).toHaveLength(0);
+    expect(document.querySelectorAll('[data-photo-status="pendente"]').length).toBeGreaterThan(10);
   });
 
   it('links externos abrem em nova aba com rel seguro', () => {

@@ -74,6 +74,14 @@ describe('catálogo da Company Auto SPA', () => {
     expect(site.reputation?.observedAt).toBe('2026-11-11');
   });
 
+  it('toda foto aprovada tem crédito/autorização; espaços referenciados existem', () => {
+    for (const slot of Object.values(site.photos)) {
+      if (slot.photo) expect(slot.photo.credit.length).toBeGreaterThan(0);
+    }
+    const refs = [site.hero.photo, site.about.photo, site.finalCta.photo, ...site.services.categories.map((c) => c.photo), ...site.gallery.items.map((g) => g.photo)];
+    for (const r of refs) if (r) expect(site.photos[r]).toBeDefined();
+  });
+
   it('nenhum conteúdo menciona a Car Flex', () => {
     expect(JSON.stringify(site).toLowerCase()).not.toMatch(/car\s?flex/);
   });

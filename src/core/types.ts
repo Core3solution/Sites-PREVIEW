@@ -4,8 +4,40 @@
  * vive em `src/clients/<empresa>/` e é entregue aos componentes por um `SiteConfig`.
  */
 
-/** Chave de uma imagem registrada em `core/generated/visuals.manifest.json` ou em `media` do cliente. */
-export type MediaKey = string;
+/** Identificador de um espaço de fotografia definido em `SiteConfig.photos`. */
+export type PhotoId = string;
+
+/** Fotografia aprovada para uso (autorizada pela empresa ou licenciada). */
+export interface ApprovedPhoto {
+  /** Arquivo em `public/` (ex.: '/fotos/hero-2400.webp'). */
+  src: string;
+  /** Variações responsivas opcionais: [{ src, width }]. */
+  variants?: { src: string; width: number }[];
+  width: number;
+  height: number;
+  alt: string;
+  /** Autor/origem e licença ou autorização (exibido em legenda quando relevante). */
+  credit: string;
+  sourceId?: string;
+}
+
+/**
+ * Espaço reservado para uma fotografia real.
+ * Enquanto `photo` for `null`, o site exibe um placeholder identificado com a direção de arte esperada —
+ * nunca uma ilustração que simule fotografia.
+ */
+export interface PhotoSlot {
+  id: PhotoId;
+  /** Nome curto do espaço (ex.: "Fotografia principal"). */
+  label: string;
+  /** O que a fotografia precisa mostrar (direção de arte). */
+  brief: string;
+  /** Proporção alvo, ex.: '16:9'. */
+  aspect: string;
+  /** Largura mínima recomendada em pixels. */
+  minWidth: number;
+  photo: ApprovedPhoto | null;
+}
 
 export interface Source {
   id: string;
@@ -34,7 +66,7 @@ export interface Category {
   label: string;
   /** Texto curto para o card de serviço. Não incluir condições técnicas não confirmadas. */
   description: string;
-  media: MediaKey;
+  photo: PhotoId;
 }
 
 export interface CatalogItem {
@@ -82,9 +114,8 @@ export interface Cta {
 }
 
 export interface GalleryItem {
-  media: MediaKey;
+  photo: PhotoId;
   title: string;
-  caption: string;
 }
 
 export interface Fact {
@@ -130,8 +161,7 @@ export interface SiteConfig {
     /** Trecho do título destacado com a cor de acento. */
     highlight?: string;
     subtitle: string;
-    media: MediaKey;
-    mediaCredit: string;
+    photo: PhotoId;
     primaryCta: Cta;
     secondaryCta: Cta;
     highlights: { title: string; detail: string; sourceId?: string }[];
@@ -168,6 +198,7 @@ export interface SiteConfig {
     externalCta?: Cta;
   };
   about: {
+    photo: PhotoId;
     eyebrow: string;
     title: string;
     paragraphs: { text: string; sourceId?: string }[];
@@ -193,6 +224,7 @@ export interface SiteConfig {
     mapQuery: string;
   };
   finalCta: {
+    photo?: PhotoId;
     eyebrow: string;
     title: string;
     text: string;
@@ -203,5 +235,9 @@ export interface SiteConfig {
     tagline: string;
     credit: { label: string; text: string };
   };
+  /** Espaços de fotografia (aprovadas ou pendentes) usados pelas seções. */
+  photos: Record<PhotoId, PhotoSlot>;
+  /** Pendências de dados a sinalizar no site enquanto a versão for preliminar. */
+  status?: { preliminary: boolean; note: string };
   sources: Source[];
 }

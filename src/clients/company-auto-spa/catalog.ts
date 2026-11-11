@@ -1,7 +1,8 @@
 import type { CatalogItem, Category } from '../../core/types';
 
 /**
- * Catálogo transcrito visualmente de anexos/02 e anexos/03 (WhatsApp, 11/11/2026).
+ * TRANSCRIÇÃO PROVISÓRIA — feita visualmente a partir de anexos/02 e anexos/03 (WhatsApp, 11/11/2026).
+ * Deve ser substituída/confrontada com docs/CATALOGO_FONTE_10_SERVICOS.json quando o arquivo for recebido.
  * - Ordem, nomes e valores preservados exatamente como na fonte.
  * - PPF FULL GSWF e PPF FULL são itens distintos e NÃO devem ser mesclados.
  * - Envelopamento de teto mantém “a partir de”.
@@ -15,37 +16,37 @@ export const categories: Category[] = [
     id: 'ppf',
     label: 'Proteção PPF',
     description: 'Película de proteção de pintura em cinco modalidades no catálogo — do veículo completo aos faróis.',
-    media: 'ppf',
+    photo: 'ppf',
   },
   {
     id: 'envelopamento',
     label: 'Envelopamento',
     description: 'Personalização com envelopamento. No catálogo, o teto aparece a partir de R$ 1.500,00.',
-    media: 'envelopamento',
+    photo: 'envelopamento',
   },
   {
     id: 'vitrificacao',
     label: 'Vitrificação',
     description: 'Vitrificação das rodas disponível no catálogo atual.',
-    media: 'vitrificacao',
+    photo: 'vitrificacao',
   },
   {
     id: 'insulfilm',
     label: 'Insulfilm',
     description: 'Película Insulfilm da linha Carbon.',
-    media: 'insulfilm',
+    photo: 'insulfilm',
   },
   {
     id: 'polimento',
     label: 'Polimento técnico',
     description: 'Polimento técnico listado no catálogo comercial.',
-    media: 'polimento',
+    photo: 'polimento',
   },
   {
     id: 'lavagem',
     label: 'Lavagem premium',
     description: 'Lavagem premium, primeiro item do catálogo da empresa.',
-    media: 'lavagem',
+    photo: 'lavagem',
   },
 ];
 

@@ -10,7 +10,6 @@
     "preview": "vite preview",
     "typecheck": "tsc -b",
     "test": "vitest run",
-    "visuals": "node scripts/render-visuals.mjs",
     "qa": "node scripts/qa-browser.mjs"
   },
   "dependencies": {
@@ -30,7 +29,6 @@
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.3.0",
     "jsdom": "^31.0.0",
-    "sharp": "^0.35.5",
     "tailwindcss": "^4.3.5",
     "typescript": "^7.0.2",
     "vite": "^8.3.8",

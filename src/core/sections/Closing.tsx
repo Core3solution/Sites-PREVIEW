@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { useSite } from '../state/site';
 import { useQuote } from '../state/quote';
-import { Media } from '../components/Media';
+import { Photo } from '../components/Photo';
 import { SmartLink } from '../components/SmartLink';
 import { Wordmark } from '../components/Wordmark';
 import { formatDateBR } from '../lib/format';
@@ -13,7 +13,7 @@ export function FinalCta() {
     <section aria-labelledby="cta-title" className="relative py-16 sm:py-24">
       <div className="container-x">
         <div className="relative isolate overflow-hidden rounded-[32px] border border-line px-6 py-16 text-center sm:px-12 sm:py-24" data-reveal>
-          <Media media="polimento" sizes="100vw" alt="" className="absolute inset-0 -z-10 opacity-70" />
+          {finalCta.photo && <Photo id={finalCta.photo} variant="background" sizes="100vw" className="absolute inset-0 -z-10 opacity-80" />}
           <div className="absolute inset-0 -z-10 bg-gradient-to-b from-bg/70 via-bg/80 to-bg/95" aria-hidden />
           <p className="eyebrow justify-center">{finalCta.eyebrow}</p>
           <h2 id="cta-title" className="display mx-auto mt-6 max-w-3xl text-[2.3rem] text-balance sm:text-6xl">

@@ -43,6 +43,7 @@ diretamente das capturas, e o teste `tests/catalog-data.test.ts` trava esses val
 | Busca web “Company Auto Spa” + São Caetano | Domínio **companyautospa.com.br** (“Home - Company Auto Spa”); página de case de agência (k1digital.com.br) | **Não confirmado.** O acesso aos domínios foi bloqueado pela rede do ambiente (proxy 403 / DNS). Não se afirma que a empresa tem ou não tem site. |
 | Busca web (registro empresarial) | Resultado “COMPANY AUTO SPA LTDA — CNPJ 47.702.723/0001-04” (casadosdados.com.br) e telefone fixo 11 4050-0178 em snippet | **Não verificado.** Página inacessível. O número **não** é usado no site e não é tratado como WhatsApp. |
 | Instagram | @company.autospa | Confirmado pelas capturas 05/06. Link usado no site. |
+| Nova busca (Instagram, Facebook, TikTok, YouTube, avaliações) | Nenhum canal adicional encontrado. Só listagens de diretório com o mesmo endereço ([telelistas](https://www.telelistas.net/sp/sao+caetano+do+sul/lava+rapido+e+polimento+de+automoveis)) | **Não confundir** com “SAC AUTO SPA” ([sites.google.com/view/sacautopa-](https://sites.google.com/view/sacautopa-/inicio)) nem com “Auto Spa Estética Automotiva” (Infojobs, outras cidades): são empresas diferentes. |
 
 Fontes de busca: [companyautospa.com.br](https://companyautospa.com.br/),
 [k1digital.com.br/projetos/company-auto-spa](https://k1digital.com.br/projetos/company-auto-spa/),

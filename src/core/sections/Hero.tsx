@@ -1,7 +1,7 @@
-import { ArrowRight, ChevronDown, MapPin, Star } from 'lucide-react';
+import { ArrowRight, Camera, ChevronDown, MapPin, Star } from 'lucide-react';
 import { useSite } from '../state/site';
 import { useRichMotion, useScrollProgress, useTilt } from '../hooks/motion';
-import { Media } from '../components/Media';
+import { Photo } from '../components/Photo';
 
 function Title({ title, highlight }: { title: string; highlight?: string }) {
   if (!highlight || !title.includes(highlight)) return <>{title}</>;
@@ -16,7 +16,9 @@ function Title({ title, highlight }: { title: string; highlight?: string }) {
 }
 
 export function Hero() {
-  const { hero, reputation, contact } = useSite();
+  const { hero, reputation, contact, photos } = useSite();
+  const slot = photos[hero.photo];
+  const pending = !slot?.photo;
   const rich = useRichMotion();
   const ref = useScrollProgress<HTMLElement>(rich);
   const tilt = useTilt<HTMLDivElement>(rich, 6);
@@ -28,16 +30,16 @@ export function Hero() {
       aria-labelledby="hero-title"
       className="relative isolate -mt-[var(--header-h)] flex min-h-[640px] flex-col overflow-hidden pt-[var(--header-h)] sm:min-h-[720px] lg:min-h-[min(100svh,980px)]"
     >
-      {/* Mídia de fundo com parallax (a imagem inteira se move, sem deformação) */}
+      {/* Fundo: fotografia aprovada ou cenário de luz em CSS (sem veículo desenhado) enquanto a foto está pendente */}
       <div className="absolute inset-0 -z-10" aria-hidden>
-        <Media
-          media={hero.media}
-          sizes="100vw"
-          priority
-          alt=""
-          className="hero-media absolute inset-0"
-          imgClassName="object-[68%_60%] lg:object-[60%_55%]"
-        />
+        <Photo id={hero.photo} variant="background" priority className="hero-media absolute inset-0" imgClassName="object-[68%_60%] lg:object-[60%_55%]" />
+        {pending && (
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="studio-ceiling" />
+            <div className="studio-plane" />
+            <div className="absolute right-[-10%] top-[10%] size-[60vmax] rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--brand-accent)_14%,transparent),transparent_60%)]" />
+          </div>
+        )}
         <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_80%_20%,transparent_30%,rgb(0_0_0/0.55)_80%)]" />
         <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/50 to-bg/10 lg:bg-gradient-to-r lg:from-bg/95 lg:via-bg/55 lg:to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-bg to-transparent" />
@@ -107,7 +109,14 @@ export function Hero() {
           </span>
           Explorar
         </a>
-        <p className="max-w-[18rem] text-right text-[0.68rem] leading-snug text-white/40 sm:max-w-xs">{hero.mediaCredit}</p>
+        {pending ? (
+          <p className="inline-flex max-w-[19rem] items-center gap-2 text-right text-[0.7rem] leading-snug text-white/45 sm:max-w-sm" data-photo-status="pendente" data-photo-slot={hero.photo}>
+            <Camera className="size-3.5 shrink-0" aria-hidden />
+            {slot?.label ?? 'Fotografia'} pendente · {slot?.aspect} · mín. {slot?.minWidth}px
+          </p>
+        ) : (
+          <p className="max-w-xs text-right text-[0.7rem] leading-snug text-white/45">{slot?.photo?.credit}</p>
+        )}
       </div>
     </section>
   );
