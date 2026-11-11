@@ -40,6 +40,35 @@ Duas verificações novas no QA: **contraste AA em todos os textos (axe-core)** 
 
 ---
 
+## 1c. Rodada 4: imagens geradas por IA (ChatGPT)
+
+Recebidos: um mosaico com 16 imagens (`anexos/07`) e 4 imagens em alta (1536×1024; a 5ª era duplicata, com o mesmo hash).
+
+| Imagem | Origem | Resolução | Onde entrou |
+|---|---|---|---|
+| hero | arquivo em alta | 1536×1024 (+768) | Topo em tela cheia (desktop) e no topo com fade (celular) |
+| PPF, envelopamento, vitrificação | arquivos em alta | 1536×1024 (+768) | Cards de serviço |
+| insulfilm, polimento, lavagem | recorte do mosaico | ~380×280 | Cards de serviço |
+| ambiente | recorte do mosaico | 383×205 | Seção Sobre (layout horizontal) |
+| 6 de inspiração | recorte do mosaico | ~380×210–230 | Galeria renomeada para **Inspiração** (grade 3×2) |
+| cta, hero-mobile | recorte do mosaico | — | **Não usadas.** O CTA amarelo ficou melhor sem textura e o hero em alta já cobre o celular |
+
+Cuidados aplicados:
+- Revisão em zoom: sem logotipos identificáveis, textos ou placas.
+- Todas as imagens levam o selo **“Imagem ilustrativa”** (cards e Sobre) ou **“Ilustrativa”** (galeria). O hero
+  tem a legenda “Imagem ilustrativa gerada por IA. Não retrata a Company Auto SPA.”
+- A galeria virou “Inspiração”, com aviso de que não mostra trabalhos da empresa e um link para os trabalhos reais no Instagram.
+- O lightbox não amplia além de 1,5× o tamanho original.
+- Scripts reprodutíveis: `scripts/importar-fotos.py` (originais em alta) e `scripts/importar-mosaico-ia.py` (recortes).
+
+**Pendente:** os originais em alta das 10 imagens que vieram só no mosaico, com os mesmos nomes de
+`docs/PROMPT_IMAGENS_CHATGPT.md`. Hoje elas ficam suaves em telas retina. O ambiente da seção Sobre aparece 1,58×
+maior que o original mesmo em tela comum. A medição está em `evidencias/imagens-escala-1440.json`.
+
+QA: **71/71**, com novas verificações de imagens carregadas, aprovadas e sinalizadas, e de escala no lightbox.
+
+---
+
 ## 2. Materiais do pacote (18 arquivos no MANIFESTO)
 
 | Arquivo | Recebido? |
@@ -100,7 +129,7 @@ npm run build && npm run preview   # http://localhost:4173 (QA executado contra 
 | TypeScript | `npm run typecheck` | Sem erros |
 | Unitários e componente | `npm test` | **32/32 aprovados** |
 | Build | `npm run build` | Aprovado |
-| Navegador (Chromium em 1440/1280/768/390/360) | `npm run qa` | **70/70 aprovados** (`evidencias/resultados-qa.json`) |
+| Navegador (Chromium em 1440/1280/768/390/360) | `npm run qa` | **71/71 aprovados** (`evidencias/resultados-qa.json`) |
 
 A cobertura é a mesma da rodada anterior: dados do catálogo, responsividade, navegação, menu mobile, catálogo,
 seleção, cópia conferida na área de transferência, modal sem WhatsApp, galeria, localização, links, teclado,

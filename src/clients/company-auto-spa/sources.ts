@@ -28,6 +28,14 @@ export const sources: Source[] = [
     note: 'Capturas recebidas em 11/11/2026 (horário 17:22 visível; data da captura não exibida). Nome “Company Auto Spa | ABC”, endereço e link beacons.ai/companyautospa na bio.',
   },
   {
+    id: 'imagens-ia',
+    label: 'Imagens ilustrativas geradas por IA (ChatGPT) pela equipe CORE 3',
+    kind: 'briefing',
+    observedAt: '2026-11-11',
+    file: 'anexos/07_imagens_ia_chatgpt_mosaico.png',
+    note: 'Recebidas em mosaico de 16 quadros (baixa resolução por quadro). Uso ilustrativo; não retratam a empresa.',
+  },
+  {
     id: 'site-atual',
     label: 'Domínio companyautospa.com.br (encontrado em busca pública)',
     kind: 'web',

@@ -163,19 +163,26 @@ for (const [w, h] of [[360, 780], [390, 844], [768, 1024], [1280, 800], [1440, 9
 
   // Galeria
   await scrollTo(page, '#galeria');
-  await page.getByRole('button', { name: /: PPF no farol$/ }).click();
-  check('Galeria', 'Lightbox abre (especificação da foto pendente)', await page.getByRole('dialog', { name: 'PPF no farol' }).isVisible());
+  await page.getByRole('button', { name: 'Ampliar: Farol' }).click();
+  check('Galeria', 'Lightbox abre a imagem', await page.getByRole('dialog', { name: 'Farol' }).isVisible());
   await page.keyboard.press('ArrowRight');
-  check('Galeria', 'Seta → avança item', await page.getByRole('dialog', { name: 'PPF frontal' }).isVisible());
-  check('Galeria', 'Especificação mostra direção de arte e situação', await page.getByText('Aguardando foto autorizada').isVisible());
+  check('Galeria', 'Seta → avança item', await page.getByRole('dialog', { name: 'Frente protegida' }).isVisible());
+  const lb = await page.locator('[role=dialog] img').evaluate((i) => ({ ok: i.complete && i.naturalWidth > 0, scale: i.getBoundingClientRect().width / i.naturalWidth }));
+  check('Galeria', 'Imagem ampliada carregada sem ampliar mais que 1,5×', lb.ok && lb.scale <= 1.51, `escala=${lb.scale.toFixed(2)}`);
   await page.waitForTimeout(700); // aguarda animações de entrada
   await page.screenshot({ path: path.join(out, 'galeria-lightbox-1440.png') });
   await page.keyboard.press('Escape');
 
-  // Fotografias: nada de imagem sem aprovação
-  const imgs = await page.locator('main img').count();
-  const pend = await page.locator('[data-photo-status="pendente"]').count();
-  check('Fotografias', 'Nenhuma imagem sem fotografia aprovada; placeholders identificados', imgs === 0 && pend > 10, `img=${imgs}, pendentes=${pend}`);
+  // Fotografias: toda imagem é aprovada, carregada e, se ilustrativa, sinalizada
+  await scrollThrough(page);
+  const ph = await page.evaluate(() => [...document.querySelectorAll('main img')].map((i) => {
+    const w = i.closest('[data-photo-status]');
+    return { src: i.currentSrc.split('/').pop(), ok: i.complete && i.naturalWidth > 0, aprovada: w?.getAttribute('data-photo-status') === 'aprovada', ilustrativa: w?.getAttribute('data-photo-illustrative') === 'sim', escala: +(i.getBoundingClientRect().width / i.naturalWidth).toFixed(2) };
+  }));
+  check('Fotografias', `${ph.length} imagens carregadas e aprovadas`, ph.length > 0 && ph.every((p) => p.ok && p.aprovada), ph.filter((p) => !p.ok || !p.aprovada).map((p) => p.src).join(', '));
+  const selos = (await page.getByText('Imagem ilustrativa', { exact: true }).count()) + (await page.getByText('Ilustrativa', { exact: true }).count());
+  check('Fotografias', 'Imagens ilustrativas sinalizadas no site', selos >= 13 && (await page.getByText('Imagem ilustrativa gerada por IA').count()) === 1, `selos=${selos}`);
+  await writeFile(path.join(out, 'imagens-escala-1440.json'), JSON.stringify(ph, null, 2));
 
   // Localização
   await scrollTo(page, '#localizacao');
@@ -241,7 +248,7 @@ for (const [w, h] of [[360, 780], [390, 844], [768, 1024], [1280, 800], [1440, 9
   await page.keyboard.press('Escape');
   check('Menu mobile', 'Esc fecha', !(await menu.isVisible()));
   await page.getByRole('button', { name: 'Abrir menu' }).click();
-  await menu.getByRole('link', { name: /Galeria/ }).click();
+  await menu.getByRole('link', { name: /Inspiração/ }).click();
   // rolagem suave longa (~8000px no mobile): aguarda estabilizar
   await page.waitForFunction(() => Math.abs(document.getElementById('galeria').getBoundingClientRect().top - 84) < 50, null, { timeout: 5000 }).catch(() => {});
   const gTop = await page.evaluate(() => document.getElementById('galeria').getBoundingClientRect().top);

@@ -9,24 +9,23 @@ export function About() {
   const srcLabel = (id?: string) => sources.find((s) => s.id === id)?.label;
   return (
     <section id="sobre" aria-labelledby="sobre-title" className="relative overflow-hidden border-t border-line/60 py-24 sm:py-32">
-      <div className="container-x grid items-center gap-14 lg:grid-cols-[1.05fr_1fr] lg:gap-20">
-        <div ref={ref} className="relative order-2 lg:order-1" data-reveal>
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[28px] border border-line sm:aspect-[5/4] lg:aspect-[4/5]">
+      <div className="container-x grid items-center gap-14 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+        <div ref={ref} className="relative order-2 flex flex-col gap-4 lg:order-1" data-reveal>
+          <div className="relative aspect-[16/10] overflow-hidden rounded-[28px] border border-line">
             <div className="absolute -inset-y-[8%] inset-x-0" style={{ transform: 'translate3d(0, calc((var(--p, 0) - 0.5) * -10%), 0)' }}>
-              <Photo id={about.photo} variant="panel" sizes="(min-width: 1024px) 45vw, 100vw" className="h-full w-full" />
-            </div>
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-bg/90 to-transparent" />
-            <div className="glass absolute inset-x-5 bottom-5 rounded-2xl p-5 sm:inset-x-6 sm:bottom-6">
-              <ul className="grid gap-4 sm:grid-cols-3 sm:gap-3">
-                {about.pillars.map((p) => (
-                  <li key={p.title}>
-                    <p className="font-display text-base font-semibold text-accent">{p.title}</p>
-                    <p className="mt-1 text-[0.8rem] leading-snug text-text/75">{p.text}</p>
-                  </li>
-                ))}
-              </ul>
+              <Photo id={about.photo} variant="panel" badge="top-left" sizes="(min-width: 1024px) 45vw, 100vw" className="h-full w-full" />
             </div>
           </div>
+          <ul className="panel grid gap-5 p-6 sm:grid-cols-3 sm:gap-4">
+            {about.pillars.map((p) => (
+              <li key={p.title}>
+                <p className="font-display text-lg font-black uppercase text-accent" style={{ fontStretch: '72%', letterSpacing: '0.03em' }}>
+                  {p.title}
+                </p>
+                <p className="mt-1 text-[0.85rem] leading-snug text-muted">{p.text}</p>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className="order-1 lg:order-2">

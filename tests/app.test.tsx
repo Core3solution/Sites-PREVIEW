@@ -82,20 +82,27 @@ describe('App', () => {
     expect(within(quote).getAllByRole('alert')[0]).toHaveTextContent('Selecione pelo menos um serviço');
   });
 
-  it('galeria abre a especificação do espaço de foto e navega', async () => {
+  it('galeria "Inspiração" abre a imagem ampliada e navega', async () => {
     const user = setup();
     const gallery = document.getElementById('galeria')!;
-    await user.click(within(gallery).getByRole('button', { name: 'Ver especificação: PPF no farol' }));
-    const dialog = screen.getByRole('dialog', { name: 'PPF no farol' });
-    expect(within(dialog).getByText('Aguardando foto autorizada')).toBeInTheDocument();
+    await user.click(within(gallery).getByRole('button', { name: 'Ampliar: Farol' }));
+    const dialog = screen.getByRole('dialog', { name: 'Farol' });
+    expect(within(dialog).getByRole('img')).toHaveAttribute('src', expect.stringContaining('inspiracao-farol'));
     await user.click(within(dialog).getByRole('button', { name: 'Próxima imagem' }));
-    expect(screen.getByRole('dialog', { name: 'PPF frontal' })).toBeInTheDocument();
+    expect(screen.getByRole('dialog', { name: 'Frente protegida' })).toBeInTheDocument();
   });
 
-  it('não exibe imagens sem fotografia aprovada (somente placeholders identificados)', () => {
+  it('toda imagem exibida é aprovada e as ilustrativas são sinalizadas', () => {
     setup();
-    expect(document.querySelectorAll('main img')).toHaveLength(0);
-    expect(document.querySelectorAll('[data-photo-status="pendente"]').length).toBeGreaterThan(10);
+    const imgs = [...document.querySelectorAll('main img')];
+    expect(imgs.length).toBeGreaterThan(0);
+    for (const img of imgs) {
+      const wrap = img.closest('[data-photo-status]');
+      expect(wrap).toHaveAttribute('data-photo-status', 'aprovada');
+    }
+    // selos: cards de serviço + Sobre + galeria
+    expect(screen.getAllByText('Imagem ilustrativa').length).toBeGreaterThanOrEqual(7);
+    expect(screen.getAllByText('Ilustrativa').length).toBe(6);
   });
 
   it('links externos abrem em nova aba com rel seguro', () => {

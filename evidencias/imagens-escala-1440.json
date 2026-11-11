@@ -1,0 +1,100 @@
+[
+  {
+    "src": "hero.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 1.06
+  },
+  {
+    "src": "servico-ppf-768.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 0.91
+  },
+  {
+    "src": "servico-envelopamento-768.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 0.91
+  },
+  {
+    "src": "servico-vitrificacao-768.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 0.91
+  },
+  {
+    "src": "servico-insulfilm.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 1.03
+  },
+  {
+    "src": "servico-polimento.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 1.03
+  },
+  {
+    "src": "servico-lavagem.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 1.04
+  },
+  {
+    "src": "inspiracao-farol.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 1.04
+  },
+  {
+    "src": "inspiracao-frontal.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 1.04
+  },
+  {
+    "src": "inspiracao-gotas.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 1.05
+  },
+  {
+    "src": "inspiracao-acetinado.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 1.03
+  },
+  {
+    "src": "inspiracao-espelho.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 1.04
+  },
+  {
+    "src": "inspiracao-noturna.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 1.04
+  },
+  {
+    "src": "ambiente.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 1.58
+  }
+]

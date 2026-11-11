@@ -6,12 +6,6 @@ import { Photo } from '../components/Photo';
 import { Dialog } from '../components/Dialog';
 import { SmartLink } from '../components/SmartLink';
 
-/** Mosaico editorial (8 itens): 4 colunas × 3 linhas no desktop, 2 colunas sem lacunas no mobile e tablet. */
-const spans: Record<number, string> = {
-  0: 'col-span-2 lg:row-span-2',
-  5: 'col-span-2',
-};
-
 export function Gallery() {
   const { gallery, photos } = useSite();
   const [index, setIndex] = useState<number | null>(null);
@@ -52,9 +46,9 @@ export function Gallery() {
           <Info className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden />
           {gallery.notice}
         </p>
-        <ul className="mt-10 grid auto-rows-[44vw] grid-cols-2 gap-3 sm:auto-rows-[240px] sm:gap-4 lg:auto-rows-[250px] lg:grid-cols-4">
+        <ul className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
           {gallery.items.map((it, i) => (
-            <li key={`${it.photo}-${i}`} className={spans[i] ?? ''} data-reveal style={{ ['--d' as string]: i % 4 }}>
+            <li key={`${it.photo}-${i}`} className="aspect-[16/10]" data-reveal style={{ ['--d' as string]: i % 4 }}>
               <button
                 type="button"
                 onClick={() => setIndex(i)}
@@ -63,7 +57,8 @@ export function Gallery() {
               >
                 <Photo
                   id={it.photo}
-                  variant="background"
+                  variant="tile"
+                  badge={false}
                   sizes="(min-width: 1024px) 40vw, (min-width: 640px) 50vw, 100vw"
                   className="absolute inset-0"
                   imgClassName="transition-transform duration-[1.4s] ease-[var(--ease-out-expo)] group-hover:scale-[1.05]"
@@ -80,6 +75,11 @@ export function Gallery() {
                     <Expand className="size-3.5" aria-hidden />
                   </span>
                 </div>
+                {photos[it.photo]?.photo?.illustrative && (
+                  <span className="absolute left-3 top-3 rounded-full bg-black/70 px-2.5 py-1 text-[0.66rem] font-medium uppercase tracking-[0.12em] text-text">
+                    Ilustrativa
+                  </span>
+                )}
                 {!photos[it.photo]?.photo && (
                   <span className="absolute left-5 top-5 inline-flex items-center gap-1.5 whitespace-nowrap rounded-full sm:left-7 sm:top-7 border border-white/25 bg-black/40 px-2.5 py-1 text-[0.66rem] uppercase tracking-[0.12em] text-muted">
                     <Camera className="size-3 text-accent" aria-hidden />
@@ -98,7 +98,8 @@ export function Gallery() {
           slot.photo ? (
             <figure>
               <div className="overflow-hidden rounded-2xl border border-line bg-black">
-                <img src={slot.photo.src} alt={slot.photo.alt} className="max-h-[62dvh] w-full object-contain" />
+                {/* Exibida no máximo a 1,5× do tamanho original para não perder nitidez */}
+                <img src={slot.photo.src} alt={slot.photo.alt} className="mx-auto max-h-[62dvh] w-full object-contain" style={{ maxWidth: Math.round(slot.photo.width * 1.5) }} />
               </div>
               <figcaption className="mt-4 text-sm text-muted">{slot.photo.credit}</figcaption>
             </figure>

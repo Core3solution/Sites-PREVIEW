@@ -6,7 +6,11 @@ type Variant = 'background' | 'card' | 'tile' | 'panel';
 
 interface Props {
   id: string;
+  /** Espaço alternativo usado em telas < 768 px (ex.: versão vertical do hero). */
+  mobileId?: string;
   variant: Variant;
+  /** Posição do selo “Imagem ilustrativa” (somente para imagens ilustrativas). `false` oculta o selo. */
+  badge?: 'top-left' | 'bottom-right' | false;
   sizes?: string;
   className?: string;
   imgClassName?: string;
@@ -40,7 +44,7 @@ export function PhotoSpec({ slot }: { slot: PhotoSlot }) {
  * Fotografia aprovada ou placeholder identificado.
  * O placeholder nunca simula uma foto: mostra o que deve ser fotografado, proporção e resolução mínima.
  */
-export function Photo({ id, variant, sizes = '100vw', className = '', imgClassName = '', priority }: Props) {
+export function Photo({ id, mobileId, variant, sizes = '100vw', className = '', imgClassName = '', priority, badge = 'bottom-right' }: Props) {
   const { photos } = useSite();
   const slot = photos[id];
   const wrap = `${posAbs.test(className) ? '' : 'relative '}overflow-hidden ${className}`;
@@ -49,8 +53,12 @@ export function Photo({ id, variant, sizes = '100vw', className = '', imgClassNa
   if (slot.photo) {
     const p = slot.photo;
     const srcSet = p.variants?.map((v) => `${v.src} ${v.width}w`).join(', ');
+    const mobile = mobileId ? photos[mobileId]?.photo : null;
+    const showBadge = p.illustrative && badge && variant !== 'background';
     return (
-      <div className={wrap} data-photo-status="aprovada">
+      <div className={wrap} data-photo-status="aprovada" data-photo-illustrative={p.illustrative ? 'sim' : undefined}>
+        <picture>
+          {mobile && <source media="(max-width: 767px)" srcSet={mobile.src} width={mobile.width} height={mobile.height} />}
         <img
           src={p.src}
           srcSet={srcSet}
@@ -63,6 +71,16 @@ export function Photo({ id, variant, sizes = '100vw', className = '', imgClassNa
           decoding="async"
           className={`h-full w-full object-cover ${imgClassName}`}
         />
+        </picture>
+        {showBadge && (
+          <span
+            className={`absolute z-[1] inline-flex items-center rounded-full bg-black/70 px-2.5 py-1 text-[0.66rem] font-medium uppercase tracking-[0.12em] text-text ${
+              badge === 'top-left' ? 'left-3 top-3' : 'bottom-3 right-3'
+            }`}
+          >
+            Imagem ilustrativa
+          </span>
+        )}
       </div>
     );
   }

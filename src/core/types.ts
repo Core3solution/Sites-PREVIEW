@@ -18,6 +18,8 @@ export interface ApprovedPhoto {
   alt: string;
   /** Autor/origem e licença ou autorização (exibido em legenda quando relevante). */
   credit: string;
+  /** Imagem ilustrativa (ex.: gerada por IA): o site exibe o selo “Imagem ilustrativa”. */
+  illustrative?: boolean;
   sourceId?: string;
 }
 
@@ -164,6 +166,8 @@ export interface SiteConfig {
     highlight?: string;
     subtitle: string;
     photo: PhotoId;
+    /** Versão vertical para celulares (opcional). */
+    mobilePhoto?: PhotoId;
     primaryCta: Cta;
     secondaryCta: Cta;
     highlights: { title: string; detail: string; sourceId?: string }[];

@@ -32,7 +32,12 @@ export function Hero() {
     >
       {/* Fundo: fotografia aprovada ou cenário de luz em CSS (sem veículo desenhado) enquanto a foto está pendente */}
       <div className="absolute inset-0 -z-10" aria-hidden>
-        <Photo id={hero.photo} variant="background" priority className="hero-media absolute inset-0" imgClassName="object-[68%_60%] lg:object-[60%_55%]" />
+        {!pending && (
+          // Foto em tela cheia (desktop) ou no topo com fade (celular)
+          <div className="hero-media absolute inset-x-0 top-0 h-[66%] [mask-image:linear-gradient(to_bottom,black_60%,transparent)] lg:inset-0 lg:h-full lg:[mask-image:none]">
+            <Photo id={hero.photo} mobileId={hero.mobilePhoto} variant="background" priority sizes="100vw" className="absolute inset-0" imgClassName="object-[74%_55%] lg:object-[60%_50%]" />
+          </div>
+        )}
         {pending && (
           <div className="absolute inset-0 overflow-hidden">
             <div className="studio-ceiling" />
@@ -41,7 +46,7 @@ export function Hero() {
           </div>
         )}
         <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_80%_20%,transparent_30%,rgb(0_0_0/0.55)_80%)]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-bg/90 via-bg/40 to-bg/10 lg:bg-gradient-to-r lg:from-bg/90 lg:via-bg/30 lg:to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/60 to-transparent lg:bg-gradient-to-r lg:from-bg/90 lg:via-bg/20 lg:to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-bg to-transparent" />
         <div className={`absolute inset-0 ${rich ? 'light-sweep' : ''}`} />
       </div>
@@ -80,7 +85,7 @@ export function Hero() {
         </div>
 
         {/* Pilha de vidro com profundidade (somente telas grandes) */}
-        <div className="hero-stack hidden shrink-0 lg:block" aria-label="Destaques">
+        <div className={`hero-stack hidden shrink-0 ${pending ? 'lg:block' : ''}`} aria-label="Destaques">
           <div ref={tilt} className="tilt relative w-[300px] xl:w-[320px]">
             <ul className="glass relative overflow-hidden rounded-[22px]" style={{ transform: 'translateZ(40px)' }}>
               {hero.highlights.map((h, i) => (
@@ -115,7 +120,9 @@ export function Hero() {
             {slot?.label ?? 'Fotografia'} pendente · {slot?.aspect} · mín. {slot?.minWidth}px
           </p>
         ) : (
-          <p className="max-w-xs text-right text-[0.7rem] leading-snug text-subtle">{slot?.photo?.credit}</p>
+          <p className="max-w-xs text-right text-[0.7rem] leading-snug text-subtle">
+            {slot?.photo?.illustrative ? 'Imagem ilustrativa gerada por IA. Não retrata a Company Auto SPA.' : slot?.photo?.credit}
+          </p>
         )}
       </div>
     </section>
