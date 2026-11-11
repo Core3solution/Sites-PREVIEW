@@ -1,0 +1,130 @@
+{
+  "hero": {
+    "alt": "Estudo visual: pintura preta espelhada refletindo barras de LED de um estúdio",
+    "width": 2400,
+    "height": 1350,
+    "files": [
+      {
+        "src": "/media/visuals/hero-2400.webp",
+        "width": 2400
+      },
+      {
+        "src": "/media/visuals/hero-1200.webp",
+        "width": 1200
+      }
+    ],
+    "placeholder": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADQAwCdASoYAA4APu1Ct1apoqakGAEwHYlpAAEd7GynAUEI1NSBYAAA/vr6T6apXhkHzirznk7/qaLv81X6mKGDXMpaPDRTLYAAAA=="
+  },
+  "ppf": {
+    "alt": "Estudo visual: borda de película de proteção sobre pintura escura",
+    "width": 1600,
+    "height": 1200,
+    "files": [
+      {
+        "src": "/media/visuals/ppf-1600.webp",
+        "width": 1600
+      },
+      {
+        "src": "/media/visuals/ppf-800.webp",
+        "width": 800
+      }
+    ],
+    "placeholder": "data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAADwBACdASoYABIAPu1wsFIppiSiqAgBMB2JaQAD4okLBOJd1TjrAuQbKxX8nk6u0wAA/vC+Va/+km8FtGZG50M1+C8AFozuB9oLr0wX4ZL7MuuD+HNAI2qXFxXJodIXKm0+i9mB7rQPvKuesuzXbMbXZzVEAIrkBsaaSsFCYAAAAA=="
+  },
+  "vitrificacao": {
+    "alt": "Estudo visual: gotas de água sobre superfície hidrofóbica",
+    "width": 1600,
+    "height": 1200,
+    "files": [
+      {
+        "src": "/media/visuals/vitrificacao-1600.webp",
+        "width": 1600
+      },
+      {
+        "src": "/media/visuals/vitrificacao-800.webp",
+        "width": 800
+      }
+    ],
+    "placeholder": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAACwBACdASoYABIAPu1gqk2ppSQiMBgMATAdiWkAA+UpBvFmtUX7vdACCPGlGIgAAPwCRYL0hv5Ifb1j4kbJSpXZBgaGGm88uensSSziM4NSK7AihzdHKBnHrV6cj//fa9KlHbA60dplqNdqS9XJvmsK7ISYhaR4dz3z51yBEqnMddNQAAA="
+  },
+  "envelopamento": {
+    "alt": "Estudo visual: acabamento acetinado em superfície curva",
+    "width": 1600,
+    "height": 1200,
+    "files": [
+      {
+        "src": "/media/visuals/envelopamento-1600.webp",
+        "width": 1600
+      },
+      {
+        "src": "/media/visuals/envelopamento-800.webp",
+        "width": 800
+      }
+    ],
+    "placeholder": "data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAADQBACdASoYABIAPu1ur1KppiQiqAgBMB2JaQAD5JkK/dpWl8vAbrv1qMLlIv2+gAD+8Lu5iT/FWfAt54kWQ3H/wiTwhNkktTAOhn7EA0RZiRfDWqxLgFfoo7Oncal0fNbX5KeeUuG2PoFfmmu+E/93EkBbyTfYOL9UbVb+fP+zuYQn4owoAAAA"
+  },
+  "insulfilm": {
+    "alt": "Estudo visual: vidro escurecido com degradê serigrafado",
+    "width": 1600,
+    "height": 1200,
+    "files": [
+      {
+        "src": "/media/visuals/insulfilm-1600.webp",
+        "width": 1600
+      },
+      {
+        "src": "/media/visuals/insulfilm-800.webp",
+        "width": 800
+      }
+    ],
+    "placeholder": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAABwBACdASoYABIAPu1wsFKppiSiqAgBMB2JaQAALcy23jf59XeJ8g7uNSN2gAD+7u86aI1RQSvM5zuLt+IyrsEFNiYlZW3wfrO4hszhpKsMQJIC6RaKo6hXdy8ovd3u7ZN57AFaqgtgKbpGLPRtQl3e1gj20URAAAA="
+  },
+  "polimento": {
+    "alt": "Estudo visual: reflexo nítido em pintura grafite metálica",
+    "width": 1600,
+    "height": 1200,
+    "files": [
+      {
+        "src": "/media/visuals/polimento-1600.webp",
+        "width": 1600
+      },
+      {
+        "src": "/media/visuals/polimento-800.webp",
+        "width": 800
+      }
+    ],
+    "placeholder": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAADQBACdASoYABIAPu1srlIppaQiqAgBMB2JaQAAMX+/Dv6a4Gmj9IUivAu3e13mAAD+5fkjvgIyifHJIt1lAxv3/noLkwLNeTdk7cv/FtNogi2EzzKn8p0/cm9OtAvCIa9yk9KDJXmAmHUkCcy9oAAA"
+  },
+  "lavagem": {
+    "alt": "Estudo visual: microgotas sobre pintura escura brilhante",
+    "width": 1600,
+    "height": 1200,
+    "files": [
+      {
+        "src": "/media/visuals/lavagem-1600.webp",
+        "width": 1600
+      },
+      {
+        "src": "/media/visuals/lavagem-800.webp",
+        "width": 800
+      }
+    ],
+    "placeholder": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAADwBACdASoYABIAPu1uq1EppqOiqAqpMB2JaQAALneIh76gqKRrDxla4hoeaj9P1wAA/vDCpJ2GqHHqVlYT2NfPkcEibZFhw0NOLju0WjiSNhVgeiSbjG312ZRn9kXqt5wgG09MFq1PF0jUNpF1BV/FJtf1KI5MsgrssAAA"
+  },
+  "estudio": {
+    "alt": "Estudo visual: linhas de LED refletidas em superfície preta curva",
+    "width": 1600,
+    "height": 1200,
+    "files": [
+      {
+        "src": "/media/visuals/estudio-1600.webp",
+        "width": 1600
+      },
+      {
+        "src": "/media/visuals/estudio-800.webp",
+        "width": 800
+      }
+    ],
+    "placeholder": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAACQBACdASoYABIAPt1YpU2opSOiN/qoARAbiWkAAFu0dsG1YJ/5BSdpM/VTo4AA/vKYEuSFQ96tSwdXcaDcFY3Q1JApfaQF7AxRX6jy84eggChFudF2bGN87kkV1oTIlPKCltzBN4YqaUjV5EO+weYAAAA="
+  }
+}

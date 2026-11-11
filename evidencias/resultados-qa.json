@@ -1,0 +1,362 @@
+{
+  "url": "http://localhost:4173/",
+  "executadoEm": "2026-11-11T20:47:19.658Z",
+  "aprovados": 59,
+  "total": 59,
+  "resultados": [
+    {
+      "area": "Responsividade",
+      "name": "360px sem rolagem horizontal",
+      "ok": true,
+      "detail": "scrollWidth=360"
+    },
+    {
+      "area": "Responsividade",
+      "name": "360px sem texto menor que 10,5px",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Responsividade",
+      "name": "360px áreas de toque ≥ 36px",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Console",
+      "name": "360px sem erros de JavaScript",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Responsividade",
+      "name": "390px sem rolagem horizontal",
+      "ok": true,
+      "detail": "scrollWidth=390"
+    },
+    {
+      "area": "Responsividade",
+      "name": "390px sem texto menor que 10,5px",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Responsividade",
+      "name": "390px áreas de toque ≥ 36px",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Console",
+      "name": "390px sem erros de JavaScript",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Responsividade",
+      "name": "768px sem rolagem horizontal",
+      "ok": true,
+      "detail": "scrollWidth=768"
+    },
+    {
+      "area": "Responsividade",
+      "name": "768px sem texto menor que 10,5px",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Console",
+      "name": "768px sem erros de JavaScript",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Responsividade",
+      "name": "1280px sem rolagem horizontal",
+      "ok": true,
+      "detail": "scrollWidth=1280"
+    },
+    {
+      "area": "Responsividade",
+      "name": "1280px sem texto menor que 10,5px",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Console",
+      "name": "1280px sem erros de JavaScript",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Responsividade",
+      "name": "1440px sem rolagem horizontal",
+      "ok": true,
+      "detail": "scrollWidth=1440"
+    },
+    {
+      "area": "Responsividade",
+      "name": "1440px sem texto menor que 10,5px",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Console",
+      "name": "1440px sem erros de JavaScript",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Navegação",
+      "name": "Menu \"Catálogo\" rola até a seção",
+      "ok": true,
+      "detail": "top=84"
+    },
+    {
+      "area": "Navegação",
+      "name": "Item ativo destacado (scroll-spy)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Catálogo",
+      "name": "10 itens exibidos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Catálogo",
+      "name": "Busca \"farol\" → 2 itens",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Catálogo",
+      "name": "Busca sem acento \"vitrificacao\" → 1 item",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Catálogo",
+      "name": "Filtro \"Proteção PPF\" → 5 itens",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Catálogo",
+      "name": "Ordenar por maior valor → PPF FULL GSWF primeiro",
+      "ok": true,
+      "detail": "PPF FULL GSWF"
+    },
+    {
+      "area": "Catálogo",
+      "name": "\"Limpar filtros\" restaura 10 itens",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Catálogo",
+      "name": "Teto exibe \"A partir de R$ 1.500,00\"",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Catálogo",
+      "name": "Trecho do catálogo expande",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Serviços",
+      "name": "Card \"Insulfilm\" abre o catálogo filtrado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Seleção",
+      "name": "2 serviços marcados",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Seleção",
+      "name": "Contador no header = 2",
+      "ok": true,
+      "detail": "Orçamento 2"
+    },
+    {
+      "area": "Seleção",
+      "name": "\"Somente selecionados\" → 2 itens",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Formulário",
+      "name": "Ano aceita só dígitos (máx. 4)",
+      "ok": true,
+      "detail": "2024"
+    },
+    {
+      "area": "Resumo",
+      "name": "Mensagem contém serviços, veículo e aviso",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Cópia",
+      "name": "Área de transferência recebe a mensagem exata",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Cópia",
+      "name": "Feedback \"Solicitação copiada\" exibido",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "CTA",
+      "name": "\"Como enviar\" abre modal com resumo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "CTA",
+      "name": "Nenhum link wa.me na página",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Acessibilidade",
+      "name": "Esc fecha o modal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Galeria",
+      "name": "Lightbox abre",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Galeria",
+      "name": "Seta → avança imagem",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Galeria",
+      "name": "Imagem ampliada carregada em alta (≥1600px)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Localização",
+      "name": "Copiar endereço",
+      "ok": true,
+      "detail": "Rua Pinheiro Machado, 34 — Santa Paula, São Caetano do Sul/SP"
+    },
+    {
+      "area": "Localização",
+      "name": "Mapa interativo carregado sob demanda",
+      "ok": true,
+      "detail": "https://www.google.com/maps?q=Company%20Auto%20Spa%2C%20Rua%20Pinheiro%20Machado%2C%2034%20-%20Santa%20Paula%2C%20S%C3%A3o%20Caetano%20do%20Sul%20-%20SP&output=embed"
+    },
+    {
+      "area": "Links",
+      "name": "8 links externos com nova aba + noopener",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Links",
+      "name": "Somente destinos conhecidos (Instagram, beacons, Google, Waze)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Links",
+      "name": "10 âncoras internas apontam para seções existentes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "CTA",
+      "name": "Todos os botões visíveis possuem ação",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Resumo",
+      "name": "\"Limpar solicitação\" zera seleção e veículo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Movimento",
+      "name": "Parallax do hero responde ao scroll",
+      "ok": true,
+      "detail": "--p=0.3233"
+    },
+    {
+      "area": "Acessibilidade",
+      "name": "Contraste ≥ 4,5:1 nos pares de texto",
+      "ok": true,
+      "detail": "{\"textoBg\":17.79,\"mutedBg\":7.9,\"mutedSurface\":7.04,\"accentBg\":10.81,\"inkAccent\":10.07}"
+    },
+    {
+      "area": "Menu mobile",
+      "name": "Abre",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Menu mobile",
+      "name": "Esc fecha",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Menu mobile",
+      "name": "Link fecha o menu e rola até a seção",
+      "ok": true,
+      "detail": "top=129"
+    },
+    {
+      "area": "Mobile",
+      "name": "Barra fixa \"Revisar solicitação\" aparece após seleção",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Mobile",
+      "name": "Barra leva à solicitação e se oculta",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Teclado",
+      "name": "Primeiro Tab foca \"Pular para o conteúdo\"",
+      "ok": true,
+      "detail": "Pular para o conteúdo"
+    },
+    {
+      "area": "Teclado",
+      "name": "CTA principal alcançável por Tab com foco visível",
+      "ok": true,
+      "detail": "solid"
+    },
+    {
+      "area": "Teclado",
+      "name": "Enter no CTA leva ao catálogo",
+      "ok": true,
+      "detail": "top=84"
+    },
+    {
+      "area": "Movimento",
+      "name": "prefers-reduced-motion desativa revelação e parallax",
+      "ok": true,
+      "detail": "{\"reveal\":false,\"p\":\"0\"}"
+    }
+  ]
+}

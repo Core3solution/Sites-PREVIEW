@@ -1,0 +1,26 @@
+[
+  {
+    "href": "https://www.instagram.com/company.autospa/",
+    "target": "_blank",
+    "rel": "noopener noreferrer",
+    "text": "Instagram (abre em nova aba)"
+  },
+  {
+    "href": "https://www.google.com/search?q=Company+Auto+SPA+S%C3%A3o+Caetano+do+Sul",
+    "target": "_blank",
+    "rel": "noopener noreferrer",
+    "text": "Ver avaliações no Google (abre em nova a"
+  },
+  {
+    "href": "https://www.google.com/maps/search/?api=1&query=Company%20Auto%20Spa%2C%20Rua%20Pinheiro%20Machado%2C%2034%20-%20Santa%20Paula%2C%20S%C3%A3o%20Caetano%20do%20Sul%20-%20SP",
+    "target": "_blank",
+    "rel": "noopener noreferrer",
+    "text": "Ampliar  (abre em nova aba)"
+  },
+  {
+    "href": "https://waze.com/ul?q=Company%20Auto%20Spa%2C%20Rua%20Pinheiro%20Machado%2C%2034%20-%20Santa%20Paula%2C%20S%C3%A3o%20Caetano%20do%20Sul%20-%20SP&navigate=yes",
+    "target": "_blank",
+    "rel": "noopener noreferrer",
+    "text": "Abrir no Waze (abre em nova aba)"
+  }
+]
