@@ -55,3 +55,21 @@ export function validateQuote(items: CatalogItem[]): QuoteValidation {
   if (!items.length) errors.services = 'Selecione pelo menos um serviço no catálogo.';
   return { ok: !errors.services, errors };
 }
+
+export interface VehicleValidation {
+  /** Erros que impedem copiar (dado inválido). */
+  errors: { year?: string };
+  /** Marca ou modelo ausentes: pede confirmação, mas não bloqueia (ficha opcional). */
+  missingEssentials: boolean;
+}
+
+/** Valida a ficha do veículo. O ano, quando informado, deve ter 4 dígitos entre 1950 e o próximo ano. */
+export function validateVehicle(v: VehicleInfo, now: Date = new Date()): VehicleValidation {
+  const errors: VehicleValidation['errors'] = {};
+  const year = v.year.trim();
+  const max = now.getFullYear() + 1;
+  if (year && (!/^\d{4}$/.test(year) || +year < 1950 || +year > max)) {
+    errors.year = `Informe um ano entre 1950 e ${max}.`;
+  }
+  return { errors, missingEssentials: !v.brand.trim() || !v.model.trim() };
+}

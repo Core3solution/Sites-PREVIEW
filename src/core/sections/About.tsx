@@ -8,7 +8,7 @@ export function About() {
   const ref = useScrollProgress<HTMLDivElement>(rich);
   const srcLabel = (id?: string) => sources.find((s) => s.id === id)?.label;
   return (
-    <section id="sobre" aria-labelledby="sobre-title" className="relative overflow-hidden border-t border-line/60 py-24 sm:py-32">
+    <section id="sobre" aria-labelledby="sobre-title" className="relative overflow-hidden border-t border-line/60 py-20 sm:py-28">
       <div className="container-x grid items-center gap-14 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
         <div ref={ref} className="relative order-2 flex flex-col gap-4 lg:order-1" data-reveal>
           <div className="relative aspect-[16/10] overflow-hidden rounded-[28px] border border-line">
@@ -31,7 +31,7 @@ export function About() {
         <div className="order-1 lg:order-2">
           <div data-reveal>
             <p className="eyebrow">{about.eyebrow}</p>
-            <h2 id="sobre-title" className="display mt-5 text-[2.6rem] text-balance sm:text-[3.6rem] lg:text-[4.2rem]">
+            <h2 id="sobre-title" className="display mt-5 text-text text-balance text-[clamp(2.1rem,8.6vw,3.6rem)] lg:text-[4.2rem]">
               {about.title}
             </h2>
           </div>

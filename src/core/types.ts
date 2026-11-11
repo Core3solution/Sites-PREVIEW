@@ -87,6 +87,8 @@ export interface CatalogItem {
   price: Price;
   /** Observação específica (ex.: diferença entre variantes). */
   note?: string;
+  /** Imagem do item; sem ela, usa a imagem da categoria. */
+  photo?: PhotoId;
   /** Posição original no catálogo da fonte. */
   sourceOrder: number;
 }
@@ -165,6 +167,8 @@ export interface SiteConfig {
     /** Trecho do título destacado com a cor de acento. */
     highlight?: string;
     subtitle: string;
+    /** Versão curta do subtítulo para celulares (primeira dobra mais leve). */
+    subtitleShort?: string;
     photo: PhotoId;
     /** Versão vertical para celulares (opcional). */
     mobilePhoto?: PhotoId;

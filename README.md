@@ -24,9 +24,9 @@ npm run preview      # serve dist/ → http://localhost:4173
 
 ```bash
 npm run typecheck    # TypeScript
-npm test             # Vitest: dados do catálogo, utilitários e interações (32 testes)
+npm test             # Vitest: dados do catálogo, utilitários e interações (35 testes)
 npm run preview &    # em outro terminal
-npm run qa           # Chromium/Playwright + axe-core: 71 verificações + capturas em evidencias/
+npm run qa           # Chromium/Playwright + axe-core: 80 verificações + capturas em evidencias/
 ```
 
 `npm run qa` usa o Playwright e o Chromium já instalados no ambiente. Em outra máquina, rode `npx playwright install chromium` antes.

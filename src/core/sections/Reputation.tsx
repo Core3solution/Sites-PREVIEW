@@ -26,14 +26,14 @@ export function Reputation() {
   if (!reputation) return null;
   const src = sources.find((s) => s.id === reputation.sourceId);
   return (
-    <section id="avaliacoes" aria-labelledby="avaliacoes-title" className="relative border-t border-line/60 py-24 sm:py-32">
+    <section id="avaliacoes" aria-labelledby="avaliacoes-title" className="relative border-t border-line/60 py-20 sm:py-28">
       <div className="container-x">
         <div className="panel relative grid overflow-hidden lg:grid-cols-[1fr_1.2fr]" data-reveal>
           <div className="pointer-events-none absolute -left-24 -top-24 size-80 rounded-full bg-accent/10 blur-3xl" aria-hidden />
           <div className="relative flex flex-col justify-between gap-10 border-b border-line p-8 sm:p-12 lg:border-b-0 lg:border-r">
             <div>
               <p className="eyebrow">{reputation.eyebrow}</p>
-              <h2 id="avaliacoes-title" className="display mt-5 text-[2.4rem] sm:text-[3.2rem]">
+              <h2 id="avaliacoes-title" className="display mt-5 text-text text-[clamp(2rem,8vw,3.2rem)]">
                 {reputation.title}
               </h2>
             </div>

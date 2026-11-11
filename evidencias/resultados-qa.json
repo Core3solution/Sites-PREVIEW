@@ -1,8 +1,8 @@
 {
   "url": "http://localhost:4173/",
-  "executadoEm": "2026-11-11T21:42:06.974Z",
-  "aprovados": 71,
-  "total": 71,
+  "executadoEm": "2026-11-11T22:30:05.446Z",
+  "aprovados": 80,
+  "total": 80,
   "resultados": [
     {
       "area": "Responsividade",
@@ -221,14 +221,26 @@
       "detail": ""
     },
     {
-      "area": "Catálogo",
-      "name": "Trecho do catálogo expande",
+      "area": "Serviços",
+      "name": "Card \"Insulfilm\" abre o catálogo filtrado",
       "ok": true,
       "detail": ""
     },
     {
-      "area": "Serviços",
-      "name": "Card \"Insulfilm\" abre o catálogo filtrado",
+      "area": "Catálogo",
+      "name": "\"Detalhes\" abre a ficha com preço \"A partir de\" e aviso",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Catálogo",
+      "name": "Ficha mostra o texto original do catálogo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Catálogo",
+      "name": "Ficha permite selecionar o serviço",
       "ok": true,
       "detail": ""
     },
@@ -247,6 +259,24 @@
     {
       "area": "Seleção",
       "name": "\"Somente selecionados\" → 2 itens",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Formulário",
+      "name": "Sem marca/modelo: pede confirmação antes de copiar",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Formulário",
+      "name": "Ano inválido exibe erro",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Formulário",
+      "name": "Ano inválido bloqueia a cópia",
       "ok": true,
       "detail": ""
     },
@@ -312,7 +342,7 @@
     },
     {
       "area": "Fotografias",
-      "name": "14 imagens carregadas e aprovadas",
+      "name": "24 imagens carregadas e aprovadas",
       "ok": true,
       "detail": ""
     },
@@ -320,7 +350,7 @@
       "area": "Fotografias",
       "name": "Imagens ilustrativas sinalizadas no site",
       "ok": true,
-      "detail": "selos=13"
+      "detail": "selos=23"
     },
     {
       "area": "Localização",
@@ -368,7 +398,7 @@
       "area": "Movimento",
       "name": "Parallax do hero responde ao scroll",
       "ok": true,
-      "detail": "--p=0.3226"
+      "detail": "--p=0.3467"
     },
     {
       "area": "Acessibilidade",
@@ -392,7 +422,7 @@
       "area": "Menu mobile",
       "name": "Link fecha o menu e rola até a seção",
       "ok": true,
-      "detail": "top=132"
+      "detail": "top=127"
     },
     {
       "area": "Mobile",
@@ -429,6 +459,30 @@
       "name": "prefers-reduced-motion desativa revelação e parallax",
       "ok": true,
       "detail": "{\"reveal\":false,\"p\":\"0\"}"
+    },
+    {
+      "area": "Contraste",
+      "name": "360px título do hero claro mesmo com CSS externo agressivo",
+      "ok": true,
+      "detail": "{\"h1\":0.9131096750646547,\"body\":0.003035269835488375,\"textoH1\":1}"
+    },
+    {
+      "area": "Contraste",
+      "name": "390px título do hero claro mesmo com CSS externo agressivo",
+      "ok": true,
+      "detail": "{\"h1\":0.9131096750646547,\"body\":0.003035269835488375,\"textoH1\":1}"
+    },
+    {
+      "area": "Desempenho",
+      "name": "celular-4g: LCP ≤ 2,5 s, CLS ≤ 0,1, interação ≤ 200 ms (laboratório)",
+      "ok": true,
+      "detail": "{\"lcp\":1352,\"cls\":0,\"interacaoMs\":10}"
+    },
+    {
+      "area": "Desempenho",
+      "name": "desktop: LCP ≤ 2,5 s, CLS ≤ 0,1, interação ≤ 200 ms (laboratório)",
+      "ok": true,
+      "detail": "{\"lcp\":196,\"cls\":0,\"interacaoMs\":7}"
     }
   ]
 }

@@ -1,7 +1,7 @@
 import { companyAutoSpa as site } from '../src/clients/company-auto-spa';
 import { formatBRL, formatDateBR, normalize } from '../src/core/lib/format';
 import { filterCatalog } from '../src/core/lib/catalog';
-import { buildQuoteMessage, describeVehicle, emptyVehicle, validateQuote } from '../src/core/lib/quote';
+import { buildQuoteMessage, describeVehicle, emptyVehicle, validateQuote, validateVehicle } from '../src/core/lib/quote';
 import { whatsappUrl, mapsUrl, wazeUrl } from '../src/core/lib/links';
 
 const { items } = site.catalog;
@@ -59,6 +59,16 @@ describe('mensagem de solicitação', () => {
     expect(msg).toContain('Veículo: a informar');
     expect(describeVehicle(emptyVehicle)).toBe('');
   });
+  it('valida o ano do veículo e identifica marca/modelo ausentes', () => {
+    const now = new Date('2026-11-11T12:00:00');
+    expect(validateVehicle({ ...emptyVehicle, year: '2027' }, now).errors.year).toBeUndefined();
+    expect(validateVehicle({ ...emptyVehicle, year: '2028' }, now).errors.year).toMatch(/1950 e 2027/);
+    expect(validateVehicle({ ...emptyVehicle, year: '1890' }, now).errors.year).toBeDefined();
+    expect(validateVehicle({ ...emptyVehicle, year: '20' }, now).errors.year).toBeDefined();
+    expect(validateVehicle(emptyVehicle, now).missingEssentials).toBe(true);
+    expect(validateVehicle({ ...emptyVehicle, brand: 'BMW', model: 'M3' }, now).missingEssentials).toBe(false);
+  });
+
   it('exige ao menos um serviço', () => {
     expect(validateQuote([]).ok).toBe(false);
     expect(validateQuote(pick('ppf-full')).ok).toBe(true);

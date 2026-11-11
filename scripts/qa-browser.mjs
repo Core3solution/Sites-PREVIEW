@@ -111,8 +111,6 @@ for (const [w, h] of [[360, 780], [390, 844], [768, 1024], [1280, 800], [1440, 9
   check('Catálogo', '"Limpar filtros" restaura 10 itens', (await count()) === 10);
   const teto = await cat.locator('li', { hasText: 'Envelopamento de teto' }).innerText();
   check('Catálogo', 'Teto exibe "A partir de R$ 1.500,00"', /A PARTIR DE\s*R\$ 1\.500,00/i.test(teto));
-  await cat.getByRole('button', { name: 'Ver trecho do catálogo' }).first().click();
-  check('Catálogo', 'Trecho do catálogo expande', await cat.getByText('Texto como aparece, truncado').first().isVisible());
 
   // Card de serviço → catálogo filtrado
   await scrollTo(page, '#servicos');
@@ -121,6 +119,19 @@ for (const [w, h] of [[360, 780], [390, 844], [768, 1024], [1280, 800], [1440, 9
   const pressed = await cat.getByRole('button', { name: /^Insulfilm/ }).getAttribute('aria-pressed');
   check('Serviços', 'Card "Insulfilm" abre o catálogo filtrado', pressed === 'true' && (await count()) === 1);
   await cat.getByRole('button', { name: /^Todos/ }).click();
+
+  // Ficha de detalhes
+  await cat.getByRole('button', { name: 'Detalhes de Envelopamento de teto' }).click();
+  const det = page.getByRole('dialog', { name: 'Envelopamento de teto' });
+  const detText = await det.innerText();
+  check('Catálogo', '"Detalhes" abre a ficha com preço "A partir de" e aviso', /A PARTIR DE\s*R\$ 1\.500,00/i.test(detText) && detText.includes('11/11/2026'));
+  await page.waitForTimeout(500);
+  await page.screenshot({ path: path.join(out, 'ficha-servico-1440.png') });
+  await det.getByRole('button', { name: 'Adicionar à solicitação' }).click();
+  check('Catálogo', 'Ficha mostra o texto original do catálogo', detText.includes('Preços a partir de $1.500, co…'));
+  check('Catálogo', 'Ficha permite selecionar o serviço', (await det.getByRole('button', { name: 'Selecionado para a solicitação' }).count()) === 1);
+  await det.getByRole('button', { name: 'Selecionado para a solicitação' }).click();
+  await page.keyboard.press('Escape');
 
   // Seleção
   await cat.getByRole('button', { name: /Adicionar\s*PPF FULL$/ }).click();
@@ -135,6 +146,13 @@ for (const [w, h] of [[360, 780], [390, 844], [768, 1024], [1280, 800], [1440, 9
   // Veículo + resumo + cópia
   const q = page.locator('#solicitacao');
   await scrollTo(page, '#solicitacao');
+  await page.evaluate(() => navigator.clipboard.writeText('—'));
+  await q.getByRole('button', { name: /Copiar solicitação/ }).click();
+  check('Formulário', 'Sem marca/modelo: pede confirmação antes de copiar', (await q.getByText(/Marca e modelo ajudam/).isVisible()) && (await page.evaluate(() => navigator.clipboard.readText())) === '—');
+  await q.getByPlaceholder('Ex.: 2023').fill('1890');
+  check('Formulário', 'Ano inválido exibe erro', await q.getByText(/Informe um ano entre 1950/).isVisible());
+  await q.getByRole('button', { name: 'Copiar mesmo assim' }).click();
+  check('Formulário', 'Ano inválido bloqueia a cópia', (await page.evaluate(() => navigator.clipboard.readText())) === '—');
   await q.getByPlaceholder('Ex.: Porsche').fill('BMW');
   await q.getByPlaceholder('Ex.: 911 Carrera').fill('M3 Competition');
   await q.getByPlaceholder('Ex.: 2023').fill('20a24');
@@ -181,7 +199,7 @@ for (const [w, h] of [[360, 780], [390, 844], [768, 1024], [1280, 800], [1440, 9
   }));
   check('Fotografias', `${ph.length} imagens carregadas e aprovadas`, ph.length > 0 && ph.every((p) => p.ok && p.aprovada), ph.filter((p) => !p.ok || !p.aprovada).map((p) => p.src).join(', '));
   const selos = (await page.getByText('Imagem ilustrativa', { exact: true }).count()) + (await page.getByText('Ilustrativa', { exact: true }).count());
-  check('Fotografias', 'Imagens ilustrativas sinalizadas no site', selos >= 13 && (await page.getByText('Imagem ilustrativa gerada por IA').count()) === 1, `selos=${selos}`);
+  check('Fotografias', 'Imagens ilustrativas sinalizadas no site', selos >= 13 && (await page.evaluate(() => [...document.querySelectorAll('#inicio p')].filter((p) => p.offsetParent && p.textContent.includes('Imagem ilustrativa gerada por IA')).length)) === 1, `selos=${selos}`);
   await writeFile(path.join(out, 'imagens-escala-1440.json'), JSON.stringify(ph, null, 2));
 
   // Localização
@@ -292,6 +310,64 @@ for (const [w, h] of [[360, 780], [390, 844], [768, 1024], [1280, 800], [1440, 9
   check('Movimento', 'prefers-reduced-motion desativa revelação e parallax', !r.reveal && (r.p === '0' || r.p === ''), JSON.stringify(r));
   await ctx.close();
 }
+
+// 4. Robustez a CSS externo: simula o esqueleto da prévia (reset sem camada com texto preto e fundo branco)
+for (const [w, h] of [[360, 800], [390, 844]]) {
+  const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
+  const page = await ctx.newPage();
+  await page.route(URL, async (route) => {
+    const res = await route.fetch();
+    const html = (await res.text()).replace('<head>', '<head><style>:root{color-scheme:light}body{margin:0;font:14px system-ui;color:#000;background:#fff}img{max-width:100%}</style>');
+    await route.fulfill({ response: res, body: html, headers: { ...res.headers(), 'content-type': 'text/html' } });
+  });
+  await page.goto(URL, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(800);
+  const c = await page.evaluate(() => {
+    const lum = (s) => { const [r, g, b] = s.match(/\d+(\.\d+)?/g).slice(0, 3).map((v) => +v / 255).map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4)); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
+    const h1 = document.querySelector('h1');
+    const spans = [...h1.childNodes].filter((n) => n.nodeType === 3 && n.textContent.trim());
+    return { h1: lum(getComputedStyle(h1).color), body: lum(getComputedStyle(document.body).backgroundColor), textoH1: spans.length };
+  });
+  check('Contraste', `${w}px título do hero claro mesmo com CSS externo agressivo`, c.h1 > 0.7 && c.body < 0.02, JSON.stringify(c));
+  await page.screenshot({ path: path.join(out, `hero-css-externo-${w}.png`) });
+  await ctx.close();
+}
+
+// 5. Desempenho (laboratório): celular emulado com CPU 4× mais lenta e rede ~4G. Não são dados de campo.
+const perf = {};
+for (const [label, w, h, slow] of [['celular-4g', 390, 844, true], ['desktop', 1440, 900, false]]) {
+  const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: slow ? 3 : 1, isMobile: slow, hasTouch: slow });
+  const page = await ctx.newPage();
+  const cdp = await ctx.newCDPSession(page);
+  if (slow) {
+    await cdp.send('Network.enable');
+    await cdp.send('Network.emulateNetworkConditions', { offline: false, latency: 150, downloadThroughput: (4 * 1024 * 1024) / 8, uploadThroughput: (1.5 * 1024 * 1024) / 8 });
+    await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
+  }
+  await page.addInitScript(() => {
+    window.__lcp = 0; window.__cls = 0;
+    new PerformanceObserver((l) => { for (const e of l.getEntries()) window.__lcp = e.startTime; }).observe({ type: 'largest-contentful-paint', buffered: true });
+    new PerformanceObserver((l) => { for (const e of l.getEntries()) if (!e.hadRecentInput) window.__cls += e.value; }).observe({ type: 'layout-shift', buffered: true });
+  });
+  await page.goto(URL, { waitUntil: 'load' });
+  await page.waitForTimeout(2500);
+  await page.mouse.wheel(0, 1500);
+  await page.waitForTimeout(1200);
+  // latência de uma interação (clique em "Adicionar") medida do evento ao próximo quadro pintado
+  await page.evaluate(() => { document.documentElement.style.scrollBehavior = 'auto'; document.getElementById('catalogo').scrollIntoView(); });
+  await page.waitForTimeout(400);
+  const inp = await page.evaluate(() => new Promise((resolve) => {
+    const btn = [...document.querySelectorAll('#catalogo button[aria-pressed]')][0];
+    const t0 = performance.now();
+    btn.click();
+    requestAnimationFrame(() => setTimeout(() => resolve(performance.now() - t0), 0));
+  }));
+  const m = await page.evaluate(() => ({ lcp: Math.round(window.__lcp), cls: +window.__cls.toFixed(3) }));
+  perf[label] = { ...m, interacaoMs: Math.round(inp) };
+  check('Desempenho', `${label}: LCP ≤ 2,5 s, CLS ≤ 0,1, interação ≤ 200 ms (laboratório)`, m.lcp <= 2500 && m.cls <= 0.1 && inp <= 200, JSON.stringify(perf[label]));
+  await ctx.close();
+}
+await writeFile(path.join(out, 'desempenho-laboratorio.json'), JSON.stringify(perf, null, 2));
 
 await browser.close();
 const passed = results.filter((r) => r.ok).length;

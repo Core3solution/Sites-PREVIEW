@@ -1,7 +1,8 @@
 import { ArrowRight, Camera, ChevronDown, MapPin, Star } from 'lucide-react';
 import { useSite } from '../state/site';
-import { useRichMotion, useScrollProgress, useTilt } from '../hooks/motion';
+import { useRichMotion, useScrollProgress } from '../hooks/motion';
 import { Photo } from '../components/Photo';
+import { formatRating } from '../lib/format';
 
 function Title({ title, highlight }: { title: string; highlight?: string }) {
   if (!highlight || !title.includes(highlight)) return <>{title}</>;
@@ -15,116 +16,117 @@ function Title({ title, highlight }: { title: string; highlight?: string }) {
   );
 }
 
+/**
+ * Hero com duas composições:
+ * - Celular/tablet: chamada + título → fotografia em faixa inteira (o título nunca cobre o carro) → texto curto + CTAs.
+ * - Desktop (≥1024 px): fotografia em tela cheia ao fundo e conteúdo à esquerda, com profundidade no scroll.
+ */
 export function Hero() {
   const { hero, reputation, contact, photos } = useSite();
   const slot = photos[hero.photo];
   const pending = !slot?.photo;
   const rich = useRichMotion();
   const ref = useScrollProgress<HTMLElement>(rich);
-  const tilt = useTilt<HTMLDivElement>(rich, 6);
 
   return (
     <section
       id="inicio"
       ref={ref}
       aria-labelledby="hero-title"
-      className="relative isolate -mt-[var(--header-h)] flex min-h-[640px] flex-col overflow-hidden pt-[var(--header-h)] sm:min-h-[720px] lg:min-h-[min(100svh,980px)]"
+      className="relative isolate -mt-[var(--header-h)] overflow-hidden pt-[var(--header-h)] lg:flex lg:min-h-[min(100svh,960px)] lg:items-center"
     >
-      {/* Fundo: fotografia aprovada ou cenário de luz em CSS (sem veículo desenhado) enquanto a foto está pendente */}
-      <div className="absolute inset-0 -z-10" aria-hidden>
-        {!pending && (
-          // Foto em tela cheia (desktop) ou no topo com fade (celular)
-          <div className="hero-media absolute inset-x-0 top-0 h-[66%] [mask-image:linear-gradient(to_bottom,black_60%,transparent)] lg:inset-0 lg:h-full lg:[mask-image:none]">
-            <Photo id={hero.photo} mobileId={hero.mobilePhoto} variant="background" priority sizes="100vw" className="absolute inset-0" imgClassName="object-[74%_55%] lg:object-[60%_50%]" />
-          </div>
-        )}
-        {pending && (
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="studio-ceiling" />
-            <div className="studio-floor" />
-            <div className="absolute right-[-10%] top-[10%] size-[60vmax] rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--brand-accent)_14%,transparent),transparent_60%)]" />
-          </div>
-        )}
-        <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_80%_20%,transparent_30%,rgb(0_0_0/0.55)_80%)]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/60 to-transparent lg:bg-gradient-to-r lg:from-bg/90 lg:via-bg/20 lg:to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-bg to-transparent" />
-        <div className={`absolute inset-0 ${rich ? 'light-sweep' : ''}`} />
+      {/* Camadas do desktop: leitura do texto à esquerda sem esconder a fotografia */}
+      <div className="pointer-events-none absolute inset-0 -z-[5] hidden lg:block" aria-hidden>
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,var(--brand-bg)_14%,color-mix(in_srgb,var(--brand-bg)_70%,transparent)_34%,transparent_60%)]" />
+        <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-bg/90 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-bg to-transparent" />
+        {rich && <div className="light-sweep absolute inset-0" />}
       </div>
 
-      <div className="container-x relative flex flex-1 flex-col justify-end pb-14 pt-24 sm:pb-20 lg:flex-row lg:items-center lg:justify-between lg:gap-12 lg:pb-28 lg:pt-16">
-        <div className="hero-copy intro max-w-[46rem]">
-          <p className="eyebrow">{hero.eyebrow}</p>
-          <h1 id="hero-title" className="display mt-6 text-[2.55rem] text-balance min-[390px]:text-[2.8rem] sm:text-[5rem] lg:text-[5.6rem] xl:text-[6rem]">
+      <div className="container-x pb-12 pt-10 sm:pb-16 sm:pt-14 lg:static lg:py-24">
+        {/* 1–3: especialidade e título */}
+        <div className="hero-copy intro relative max-w-[44rem]">
+          <p className="eyebrow !tracking-[0.2em] sm:!tracking-[0.28em]">{hero.eyebrow}</p>
+          <h1
+            id="hero-title"
+            className="display mt-5 text-text text-balance text-[clamp(2.2rem,9.6vw,4.2rem)] sm:mt-6 lg:text-[clamp(4.4rem,5.6vw,6rem)]"
+          >
             <Title title={hero.title} highlight={hero.highlight} />
           </h1>
-          <p className="mt-6 max-w-xl text-[1.04rem] leading-relaxed text-muted text-pretty sm:text-lg">{hero.subtitle}</p>
-          <div className="mt-9 flex flex-col gap-3 min-[420px]:flex-row">
-            <a href={hero.primaryCta.href} className="btn btn-primary">
+        </div>
+
+        {/* 4: fotografia — faixa inteira no celular, fundo em tela cheia no desktop */}
+        <div className="relative -mx-5 mt-6 aspect-[4/3] sm:-mx-8 sm:aspect-[16/9] lg:absolute lg:inset-y-0 lg:left-[14%] lg:right-0 lg:-z-10 lg:m-0 lg:aspect-auto" aria-hidden>
+          <div className="hero-media absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent_0%,black_14%,black_80%,transparent_100%)] lg:[mask-image:none]">
+            {pending ? (
+              <div className="absolute inset-0 overflow-hidden">
+                <div className="studio-ceiling" />
+                <div className="studio-floor" />
+              </div>
+            ) : (
+              <Photo
+                id={hero.photo}
+                mobileId={hero.mobilePhoto}
+                variant="background"
+                priority
+                sizes="100vw"
+                className="absolute inset-0"
+                imgClassName="object-[74%_72%] sm:object-[70%_68%] lg:object-[70%_55%]"
+              />
+            )}
+          </div>
+        </div>
+
+        {/* 5–7: descrição, CTA principal e secundário discreto */}
+        <div className="hero-copy relative mt-6 max-w-xl lg:mt-8">
+          <p className="text-[1.02rem] leading-relaxed text-muted text-pretty sm:text-lg">
+            {hero.subtitleShort ? (
+              <>
+                <span className="sm:hidden">{hero.subtitleShort}</span>
+                <span className="hidden sm:inline">{hero.subtitle}</span>
+              </>
+            ) : (
+              hero.subtitle
+            )}
+          </p>
+          <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-6">
+            <a href={hero.primaryCta.href} className="btn btn-primary sm:min-w-56">
               {hero.primaryCta.label}
               <ArrowRight className="size-4" aria-hidden />
             </a>
-            <a href={hero.secondaryCta.href} className="btn btn-ghost">
+            <a
+              href={hero.secondaryCta.href}
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-2 text-[0.95rem] font-semibold text-text underline decoration-white/30 underline-offset-[6px] transition-colors hover:decoration-accent sm:justify-start"
+            >
               {hero.secondaryCta.label}
+              <ChevronDown className="size-4" aria-hidden />
             </a>
           </div>
-          <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-muted">
+          <div className="mt-8 flex flex-col gap-2.5 border-t border-line pt-6 text-sm text-muted sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 lg:border-0 lg:pt-0">
             {reputation && (
-              <a href="#avaliacoes" className="group inline-flex items-center gap-2 rounded-md hover:text-text">
+              <a href="#avaliacoes" className="inline-flex min-h-8 items-center gap-2 rounded-md hover:text-text">
                 <Star className="size-4 fill-accent text-accent" aria-hidden />
                 <span>
-                  <strong className="font-semibold text-text">{reputation.rating.toLocaleString('pt-BR')}</strong> · {reputation.reviewCount} avaliações no {reputation.platform}
+                  <strong className="font-semibold text-text">{formatRating(reputation.rating)}</strong> · {reputation.reviewCount} avaliações no {reputation.platform}
                 </span>
               </a>
             )}
-            <span className="hidden h-4 w-px bg-line sm:block" aria-hidden />
-            <a href="#localizacao" className="inline-flex items-center gap-2 rounded-md hover:text-text">
+            <a href="#localizacao" className="inline-flex min-h-8 items-center gap-2 rounded-md hover:text-text">
               <MapPin className="size-4 text-accent" aria-hidden />
               {contact.address.street} · {contact.address.district}
             </a>
           </div>
-        </div>
-
-        {/* Pilha de vidro com profundidade (somente telas grandes) */}
-        <div className={`hero-stack hidden shrink-0 ${pending ? 'lg:block' : ''}`} aria-label="Destaques">
-          <div ref={tilt} className="tilt relative w-[300px] xl:w-[320px]">
-            <ul className="glass relative overflow-hidden rounded-[22px]" style={{ transform: 'translateZ(40px)' }}>
-              {hero.highlights.map((h, i) => (
-                <li key={h.title} className={`flex flex-col gap-1 px-6 py-5 ${i ? 'border-t border-white/[0.14]' : ''}`}>
-                  <span className="font-display text-lg font-semibold" style={{ fontStretch: '80%' }}>
-                    {h.title}
-                  </span>
-                  <span className="text-[0.82rem] text-muted">{h.detail}</span>
-                </li>
-              ))}
-              <span className="tilt-glare pointer-events-none absolute inset-0" aria-hidden />
-            </ul>
-            <div
-              className="absolute -inset-x-6 -bottom-8 h-16 rounded-[50%] bg-black/60 blur-2xl"
-              style={{ transform: 'translateZ(-60px)' }}
-              aria-hidden
-            />
-          </div>
+          <p className="mt-6 inline-flex items-center gap-2 text-[0.7rem] leading-snug text-subtle lg:hidden" data-photo-status={pending ? 'pendente' : undefined}>
+            {pending && <Camera className="size-3.5 shrink-0" aria-hidden />}
+            {pending ? `${slot?.label ?? 'Fotografia'} pendente` : slot?.photo?.illustrative ? 'Imagem ilustrativa gerada por IA. Não retrata a Company Auto SPA.' : slot?.photo?.credit}
+          </p>
         </div>
       </div>
 
-      <div className="container-x relative flex items-end justify-between gap-4 pb-6">
-        <a href="#servicos" className="group hidden items-center gap-3 text-xs uppercase tracking-[0.24em] text-muted hover:text-text sm:inline-flex">
-          <span className="grid size-10 place-items-center rounded-full border border-white/25 transition-colors group-hover:border-accent">
-            <ChevronDown className="size-4" aria-hidden />
-          </span>
-          Explorar
-        </a>
-        {pending ? (
-          <p className="inline-flex max-w-[19rem] items-center gap-2 text-right text-[0.7rem] leading-snug text-subtle sm:max-w-sm" data-photo-status="pendente" data-photo-slot={hero.photo}>
-            <Camera className="size-3.5 shrink-0" aria-hidden />
-            {slot?.label ?? 'Fotografia'} pendente · {slot?.aspect} · mín. {slot?.minWidth}px
-          </p>
-        ) : (
-          <p className="max-w-xs text-right text-[0.7rem] leading-snug text-subtle">
-            {slot?.photo?.illustrative ? 'Imagem ilustrativa gerada por IA. Não retrata a Company Auto SPA.' : slot?.photo?.credit}
-          </p>
-        )}
-      </div>
+      {/* Legenda da imagem no desktop, no canto inferior direito */}
+      <p className="absolute bottom-6 right-6 hidden max-w-xs text-right text-[0.7rem] leading-snug text-subtle lg:block xl:right-12">
+        {pending ? `${slot?.label ?? 'Fotografia'} pendente` : slot?.photo?.illustrative ? 'Imagem ilustrativa gerada por IA. Não retrata a Company Auto SPA.' : slot?.photo?.credit}
+      </p>
     </section>
   );
 }

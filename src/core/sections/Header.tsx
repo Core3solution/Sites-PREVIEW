@@ -38,7 +38,7 @@ export function Header() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-500 ${
+        className={`sticky top-[env(safe-area-inset-top,0px)] z-50 transition-[background-color,border-color,backdrop-filter] duration-500 ${
           scrolled ? 'border-b border-white/[0.12] bg-bg/80 backdrop-blur-xl' : 'border-b border-transparent bg-transparent'
         }`}
       >
@@ -70,10 +70,10 @@ export function Header() {
             </ul>
           </nav>
           <div className="flex items-center gap-2">
-            <a href="#solicitacao" className="btn btn-primary hidden !min-h-11 sm:inline-flex">
+            <a href="#solicitacao" className="btn btn-outline hidden !min-h-11 sm:inline-flex">
               Orçamento
               {count > 0 ? (
-                <span className="grid size-6 place-items-center rounded-full bg-accent-ink text-[0.72rem] text-accent" aria-label={`${count} selecionados`}>
+                <span className="grid size-6 place-items-center rounded-full bg-accent text-[0.72rem] font-bold text-accent-ink" aria-label={`${count} selecionados`}>
                   {count}
                 </span>
               ) : (

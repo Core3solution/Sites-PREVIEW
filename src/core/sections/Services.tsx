@@ -39,15 +39,12 @@ function ServiceCard({ cat, items, index, onOpen }: { cat: Category; items: Cata
               imgClassName="transition-transform duration-[1.4s] ease-[var(--ease-out-expo)] group-hover:scale-[1.06]"
             />
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-surface to-transparent" />
-            <span className="absolute left-5 top-5 z-10 rounded-full border border-white/25 bg-black/40 px-3 py-1 text-[0.7rem] tabular-nums text-text/80 backdrop-blur">
-              {String(index + 1).padStart(2, '0')}
-            </span>
             <span className="absolute right-5 top-5 z-10 grid size-10 place-items-center rounded-full border border-white/25 bg-black/40 text-text backdrop-blur transition-all duration-500 group-hover:border-accent group-hover:bg-accent group-hover:text-accent-ink">
               <ArrowUpRight className="size-4" aria-hidden />
             </span>
           </div>
           <div className="flex flex-1 flex-col gap-3 p-6 pt-2">
-            <h3 className="font-display text-[1.45rem] font-semibold tracking-tight" style={{ fontStretch: '80%' }}>
+            <h3 className="font-display text-[1.5rem] font-extrabold uppercase leading-tight text-text" style={{ fontStretch: '80%', letterSpacing: '0.01em' }}>
               {cat.label}
             </h3>
             <p className="text-[0.93rem] leading-relaxed text-muted">{cat.description}</p>
@@ -73,7 +70,7 @@ export function Services() {
     document.getElementById('catalogo')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
   return (
-    <section id="servicos" aria-labelledby="servicos-title" className="relative py-24 sm:py-32">
+    <section id="servicos" aria-labelledby="servicos-title" className="relative py-20 sm:py-28">
       <div className="container-x">
         <SectionHeading id="servicos-title" eyebrow={services.eyebrow} title={services.title} intro={services.intro} />
       </div>

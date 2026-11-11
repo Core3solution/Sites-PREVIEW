@@ -1,12 +1,13 @@
-import { useMemo, useState } from 'react';
-import { ArrowUpRight, Car, ClipboardCheck, Copy, MessageCircle, RotateCcw, X, ListChecks } from 'lucide-react';
+import { useMemo, useRef, useState } from 'react';
+import { AlertTriangle, ArrowUpRight, Car, ClipboardCheck, Copy, MessageCircle, RotateCcw, X, ListChecks } from 'lucide-react';
 import { useSite } from '../state/site';
 import { useQuote } from '../state/quote';
 import { useToast } from '../state/toast';
 import { SectionHeading } from '../components/SectionHeading';
 import { Dialog } from '../components/Dialog';
 import { SmartLink } from '../components/SmartLink';
-import { buildQuoteMessage, describeVehicle, validateQuote } from '../lib/quote';
+import { buildQuoteMessage, describeVehicle, validateQuote, validateVehicle } from '../lib/quote';
+import { VehicleForm } from '../components/quote/VehicleForm';
 import { formatPrice } from '../lib/format';
 import { copyText } from '../lib/clipboard';
 import { whatsappUrl } from '../lib/links';
@@ -30,20 +31,38 @@ export function Quote() {
   const [copied, setCopied] = useState(false);
   const [showError, setShowError] = useState(false);
   const [dialog, setDialog] = useState(false);
+  const [askMissing, setAskMissing] = useState(false);
+  const brandRef = useRef<HTMLInputElement>(null);
 
   const message = useMemo(
     () => buildQuoteMessage({ greeting: quote.greeting, closing: quote.closing, items: selectedItems, vehicle }),
     [quote.greeting, quote.closing, selectedItems, vehicle],
   );
   const validation = validateQuote(selectedItems);
+  const vehicleCheck = validateVehicle(vehicle);
   const wa = whatsappUrl(contact, message);
-  const missingVehicle = !vehicle.brand.trim() || !vehicle.model.trim();
+  const missingVehicle = vehicleCheck.missingEssentials;
 
-  const doCopy = async () => {
+  /** Pré-condições comuns a copiar e enviar. Retorna true se pode seguir. */
+  const ready = (force = false) => {
     if (!validation.ok) {
       setShowError(true);
-      return;
+      return false;
     }
+    if (vehicleCheck.errors.year) {
+      document.getElementById('veiculo-ano')?.focus();
+      return false;
+    }
+    if (missingVehicle && !force) {
+      setAskMissing(true);
+      return false;
+    }
+    setAskMissing(false);
+    return true;
+  };
+
+  const doCopy = async (force = false) => {
+    if (!ready(force)) return;
     const ok = await copyText(message);
     if (ok) {
       setCopied(true);
@@ -59,12 +78,16 @@ export function Quote() {
       setShowError(true);
       return;
     }
+    if (vehicleCheck.errors.year) {
+      document.getElementById('veiculo-ano')?.focus();
+      return;
+    }
     if (wa) window.open(wa, '_blank', 'noopener,noreferrer');
     else setDialog(true);
   };
 
   return (
-    <section id="solicitacao" aria-labelledby="solicitacao-title" className="relative py-24 sm:py-32">
+    <section id="solicitacao" aria-labelledby="solicitacao-title" className="relative py-20 sm:py-28">
       <div className="container-x">
         <SectionHeading id="solicitacao-title" eyebrow={quote.eyebrow} title={quote.title} intro={quote.intro} />
 
@@ -102,40 +125,8 @@ export function Quote() {
               <div id="veiculo-title">
                 <StepTitle n={2} title="Seu veículo" icon={Car} />
               </div>
-              <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                <label className="flex flex-col gap-2 text-sm">
-                  <span className="text-muted">Marca <span className="text-subtle">(recomendado)</span></span>
-                  <input className="field" value={vehicle.brand} onChange={(e) => setVehicle({ brand: e.target.value })} placeholder="Ex.: Porsche" maxLength={40} autoComplete="off" />
-                </label>
-                <label className="flex flex-col gap-2 text-sm">
-                  <span className="text-muted">Modelo <span className="text-subtle">(recomendado)</span></span>
-                  <input className="field" value={vehicle.model} onChange={(e) => setVehicle({ model: e.target.value })} placeholder="Ex.: 911 Carrera" maxLength={60} autoComplete="off" />
-                </label>
-                <label className="flex flex-col gap-2 text-sm">
-                  <span className="text-muted">Ano <span className="text-subtle">(opcional)</span></span>
-                  <input
-                    className="field"
-                    value={vehicle.year}
-                    onChange={(e) => setVehicle({ year: e.target.value.replace(/\D/g, '').slice(0, 4) })}
-                    inputMode="numeric"
-                    placeholder="Ex.: 2023"
-                    autoComplete="off"
-                  />
-                </label>
-                <label className="flex flex-col gap-2 text-sm">
-                  <span className="text-muted">Cor <span className="text-subtle">(opcional)</span></span>
-                  <input className="field" value={vehicle.color} onChange={(e) => setVehicle({ color: e.target.value })} placeholder="Ex.: Preto" maxLength={30} autoComplete="off" />
-                </label>
-                <label className="flex flex-col gap-2 text-sm sm:col-span-2">
-                  <span className="text-muted">Observações <span className="text-subtle">(opcional)</span></span>
-                  <textarea
-                    className="field min-h-24 resize-y"
-                    value={vehicle.notes}
-                    onChange={(e) => setVehicle({ notes: e.target.value })}
-                    placeholder="Ex.: interesse em proteger o capô e os faróis"
-                    maxLength={400}
-                  />
-                </label>
+              <div className="mt-5">
+                <VehicleForm ref={brandRef} vehicle={vehicle} onChange={setVehicle} errors={vehicleCheck.errors} highlightEssentials={askMissing} />
               </div>
               <p className="mt-4 text-[0.78rem] leading-relaxed text-muted">
                 Não pedimos nome nem telefone. Nada é salvo: os dados ficam apenas nesta página até você fechá-la.
@@ -169,7 +160,7 @@ export function Quote() {
                 />
               </div>
               <div className="flex flex-col gap-3 p-6 sm:flex-row sm:flex-wrap sm:p-7">
-                <button type="button" onClick={doCopy} className="btn btn-primary sm:flex-1">
+                <button type="button" onClick={() => doCopy()} className="btn btn-primary sm:flex-1">
                   {copied ? <ClipboardCheck className="size-4" aria-hidden /> : <Copy className="size-4" aria-hidden />}
                   {copied ? 'Copiado!' : 'Copiar solicitação'}
                 </button>
@@ -177,11 +168,27 @@ export function Quote() {
                   <MessageCircle className="size-4" aria-hidden />
                   {wa ? 'Enviar pelo WhatsApp' : 'Como enviar'}
                 </button>
-                <button type="button" onClick={() => { clear(); setShowError(false); }} className="btn btn-quiet sm:w-full" disabled={!selectedItems.length && !describeVehicle(vehicle) && !vehicle.notes}>
+                <button type="button" onClick={() => { clear(); setShowError(false); setAskMissing(false); }} className="btn btn-quiet sm:w-full" disabled={!selectedItems.length && !describeVehicle(vehicle) && !vehicle.notes}>
                   <RotateCcw className="size-4" aria-hidden />
                   Limpar solicitação
                 </button>
               </div>
+              {askMissing && missingVehicle && (
+                <div className="mx-6 mb-6 rounded-2xl border border-accent/50 bg-accent-soft p-4 text-sm sm:mx-7" role="alert">
+                  <p className="flex items-start gap-2 text-text">
+                    <AlertTriangle className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden />
+                    Marca e modelo ajudam a Company a responder com valores para o seu veículo.
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    <button type="button" className="btn btn-outline !min-h-10 text-[0.85rem]" onClick={() => { setAskMissing(true); brandRef.current?.focus(); }}>
+                      Informar agora
+                    </button>
+                    <button type="button" className="btn btn-quiet !min-h-10 text-[0.85rem]" onClick={() => doCopy(true)}>
+                      Copiar mesmo assim
+                    </button>
+                  </div>
+                </div>
+              )}
               {showError && !validation.ok && (
                 <p className="px-6 pb-6 text-sm text-red-300 sm:px-7" role="alert">
                   {validation.errors.services}
@@ -199,7 +206,7 @@ export function Quote() {
         <p className="text-[0.95rem] leading-relaxed text-muted">{quote.noWhatsappBody}</p>
         <pre className="mt-5 max-h-64 overflow-auto whitespace-pre-wrap rounded-2xl border border-line bg-bg/70 p-4 font-mono text-[0.78rem] leading-relaxed text-text/85">{message}</pre>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-          <button type="button" onClick={doCopy} className="btn btn-primary sm:flex-1" data-autofocus>
+          <button type="button" onClick={() => doCopy(true)} className="btn btn-primary sm:flex-1" data-autofocus>
             {copied ? <ClipboardCheck className="size-4" aria-hidden /> : <Copy className="size-4" aria-hidden />}
             {copied ? 'Copiado!' : 'Copiar solicitação'}
           </button>

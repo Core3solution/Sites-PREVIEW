@@ -67,6 +67,7 @@ export const companyAutoSpa: SiteConfig = {
     highlight: 'alto padrão.',
     subtitle:
       'PPF, envelopamento, vitrificação, insulfilm, polimento técnico e lavagem premium. Escolha os serviços, informe seu veículo e leve uma solicitação organizada para a equipe da Company.',
+    subtitleShort: 'PPF, envelopamento, vitrificação, insulfilm, polimento técnico e lavagem premium em São Caetano do Sul.',
     photo: 'hero',
     primaryCta: { label: 'Montar orçamento', href: '#catalogo' },
     secondaryCta: { label: 'Conhecer serviços', href: '#servicos' },

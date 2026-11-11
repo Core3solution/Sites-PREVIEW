@@ -43,20 +43,43 @@
   @media (min-width: 1280px) { padding-inline: 3rem; }
 }
 
+/*
+ * Base SEM camada (de propósito): resets externos sem camada — como o esqueleto da prévia no claude.ai,
+ * que define `body { color: #000; font: 14px system-ui }` — venceriam regras dentro de @layer base,
+ * deixando títulos sem classe de cor em preto sobre o fundo escuro. Aqui só html/body; nada de seletores
+ * de elementos (h1, h2…), que passariam por cima das classes utilitárias.
+ */
+html {
+  background: var(--brand-bg);
+  color-scheme: dark;
+}
+body {
+  margin: 0;
+  background: var(--brand-bg);
+  color: var(--brand-text);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+  font-feature-settings: 'ss01', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+/* Faixa da área segura acima do header fixo (celulares com notch / app) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 55;
+  background: var(--brand-bg);
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
     scroll-padding-top: calc(var(--header-h) + 12px);
     -webkit-text-size-adjust: 100%;
-  }
-  body {
-    background: var(--brand-bg);
-    color: var(--brand-text);
-    font-family: var(--font-sans);
-    font-feature-settings: 'ss01', 'cv11';
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    overflow-x: clip;
   }
   ::selection {
     background: var(--brand-accent);
@@ -142,6 +165,15 @@
     border-color: var(--brand-accent);
     background: rgb(255 255 255 / 0.06);
   }
+  .btn-outline {
+    border: 1px solid var(--brand-accent);
+    color: var(--brand-accent);
+    background: transparent;
+  }
+  .btn-outline:hover:not(:disabled) {
+    background: var(--brand-accent);
+    color: var(--brand-accent-ink);
+  }
   .btn-quiet {
     min-height: 40px;
     padding: 0 0.9rem;
@@ -162,6 +194,12 @@
     color: var(--brand-muted);
     white-space: nowrap;
     transition: all 0.25s;
+  }
+  .chip-lg {
+    min-height: 44px;
+    padding: 0 1.15rem;
+    font-size: 0.9rem;
+    font-weight: 600;
   }
   .chip:hover { color: var(--brand-text); border-color: color-mix(in srgb, var(--brand-text) 30%, transparent); }
   .chip[aria-pressed='true'] {
@@ -225,18 +263,19 @@
   transform: none;
 }
 
-/* Hero: parallax via --p (0..1) — a imagem inteira se move levemente, sem deformar */
+/* Hero: profundidade no scroll via --p (0..1). A foto inteira se move devagar (sem deformar);
+   o texto sobe um pouco mais rápido, criando camadas. Intensidade reduzida no celular. */
 .hero-media {
-  transform: translate3d(0, calc(var(--p, 0) * 18%), 0) scale(calc(1.06 + var(--p, 0) * 0.04));
+  transform: translate3d(0, calc(var(--p, 0) * 6%), 0) scale(calc(1.04 + var(--p, 0) * 0.02));
   transform-origin: 50% 40%;
   will-change: transform;
 }
 .hero-copy {
-  transform: translate3d(0, calc(var(--p, 0) * -8%), 0);
-  opacity: calc(1 - var(--p, 0) * 1.4);
+  transform: translate3d(0, calc(var(--p, 0) * -4%), 0);
 }
-.hero-stack {
-  transform: translate3d(0, calc(var(--p, 0) * -14%), 0);
+@media (min-width: 1024px) {
+  .hero-media { transform: translate3d(0, calc(var(--p, 0) * 14%), 0) scale(calc(1.05 + var(--p, 0) * 0.04)); }
+  .hero-copy { transform: translate3d(0, calc(var(--p, 0) * -10%), 0); opacity: calc(1 - var(--p, 0) * 1.2); }
 }
 
 /* Varredura de luz única sobre o hero */

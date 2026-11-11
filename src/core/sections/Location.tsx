@@ -47,11 +47,11 @@ export function Location() {
   };
 
   return (
-    <section id="localizacao" aria-labelledby="localizacao-title" className="relative border-t border-line/60 py-24 sm:py-32">
+    <section id="localizacao" aria-labelledby="localizacao-title" className="relative border-t border-line/60 py-20 sm:py-28">
       <div className="container-x grid gap-10 lg:grid-cols-[1fr_1.35fr] lg:items-stretch lg:gap-14">
         <div className="flex flex-col" data-reveal>
           <p className="eyebrow">{location.eyebrow}</p>
-          <h2 id="localizacao-title" className="display mt-5 text-[2.6rem] text-balance sm:text-[3.6rem]">
+          <h2 id="localizacao-title" className="display mt-5 text-text text-balance text-[clamp(2.1rem,8.6vw,3.6rem)]">
             {location.title}
           </h2>
           <address className="mt-8 flex items-start gap-4 not-italic">

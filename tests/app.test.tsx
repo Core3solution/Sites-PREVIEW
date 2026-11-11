@@ -75,6 +75,46 @@ describe('App', () => {
     expect(screen.queryByRole('dialog')).toBeNull();
   });
 
+  it('"Detalhes" abre a ficha do serviço com preço observado e permite selecionar', async () => {
+    const user = setup();
+    const catalog = document.getElementById('catalogo')!;
+    await user.click(within(catalog).getByRole('button', { name: 'Detalhes de Envelopamento de teto' }));
+    const dialog = screen.getByRole('dialog', { name: 'Envelopamento de teto' });
+    expect(within(dialog).getByText('A partir de')).toBeInTheDocument();
+    expect(within(dialog).getByText('R$ 1.500,00')).toBeInTheDocument();
+    expect(within(dialog).getByText(/Valores observados no catálogo em 11\/11\/2026/)).toBeInTheDocument();
+    await user.click(within(dialog).getByRole('button', { name: 'Adicionar à solicitação' }));
+    expect(within(dialog).getByRole('button', { name: 'Selecionado para a solicitação' })).toHaveAttribute('aria-pressed', 'true');
+    await user.keyboard('{Escape}');
+    expect(within(catalog).getByRole('button', { name: /^Selecionado\s*Envelopamento de teto$/ })).toBeInTheDocument();
+  });
+
+  it('valida o veículo: ano inválido bloqueia; sem marca/modelo pede confirmação', async () => {
+    const user = setup();
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true });
+    Object.defineProperty(window, 'isSecureContext', { value: true, configurable: true });
+    const catalog = document.getElementById('catalogo')!;
+    await user.click(within(catalog).getByRole('button', { name: /^Adicionar\s*PPF FRONTAL$/ }));
+    const quote = document.getElementById('solicitacao')!;
+    // sem marca e modelo: aviso, sem copiar
+    await user.click(within(quote).getByRole('button', { name: /Copiar solicitação/ }));
+    expect(writeText).not.toHaveBeenCalled();
+    expect(within(quote).getByText(/Marca e modelo ajudam/)).toBeInTheDocument();
+    // ano inválido: erro e nada copiado
+    await user.type(within(quote).getByLabelText(/Ano/), '1890');
+    expect(within(quote).getByText(/Informe um ano entre 1950/)).toBeInTheDocument();
+    await user.click(within(quote).getByRole('button', { name: 'Copiar mesmo assim' }));
+    expect(writeText).not.toHaveBeenCalled();
+    // ano corrigido: "Copiar mesmo assim" copia
+    await user.clear(within(quote).getByLabelText(/Ano/));
+    await act(async () => {
+      fireEvent.click(within(quote).getByRole('button', { name: 'Copiar mesmo assim' }));
+    });
+    expect(writeText).toHaveBeenCalledTimes(1);
+    expect(writeText.mock.calls[0][0]).toContain('Veículo: a informar');
+  });
+
   it('copiar sem serviços mostra erro em vez de copiar', async () => {
     const user = setup();
     const quote = document.getElementById('solicitacao')!;

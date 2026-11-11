@@ -44,16 +44,21 @@ O código é dividido em duas camadas:
 |---|---|---|
 | Aviso de demonstração | `Header.tsx` → `DemoBar` | `meta.demoNotice` (remova para sites oficiais) |
 | Cabeçalho e menu | `Header.tsx` | `nav`, `brand` |
-| Hero | `Hero.tsx` | `hero` |
+| Hero | `Hero.tsx` | `hero` (`subtitleShort` para celular, `mobilePhoto` opcional) |
 | Faixa de serviços | `TrustStrip.tsx` | `services.categories` |
 | Serviços | `Services.tsx` | `services` |
-| Catálogo | `Catalog.tsx` | `catalog` |
-| Solicitação | `Quote.tsx` | `quote`, `contact.whatsapp` |
+| Catálogo | `Catalog.tsx` + `components/catalog/*` | `catalog` (cada item pode ter `photo`) |
+| Solicitação | `Quote.tsx` + `components/quote/VehicleForm.tsx` | `quote`, `contact.whatsapp` |
 | Galeria | `Gallery.tsx` | `gallery` |
 | Sobre | `About.tsx` | `about` |
 | Reputação | `Reputation.tsx` | `reputation` |
 | Localização | `Location.tsx` | `location`, `contact.address` |
 | CTA final e rodapé | `Closing.tsx` | `finalCta`, `footer`, `sources` |
+
+## Prévia como página única (ex.: claude.ai)
+
+Ambientes que embrulham a página com um CSS próprio podem sobrescrever estilos em camadas. Por isso `html` e `body`
+ficam **sem camada** em `src/index.css`, e os títulos usam cor explícita. O QA (`npm run qa`) testa esse cenário.
 
 ## Regras do template
 

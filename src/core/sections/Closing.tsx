@@ -23,7 +23,7 @@ export function FinalCta() {
             {finalCta.eyebrow}
             <span className="h-px w-7 bg-accent-ink" aria-hidden />
           </p>
-          <h2 id="cta-title" className="display mx-auto mt-6 max-w-4xl text-[2.8rem] text-balance sm:text-[4.6rem] lg:text-[5.4rem]">
+          <h2 id="cta-title" className="display mx-auto mt-6 max-w-4xl text-balance text-[clamp(2.3rem,9.5vw,4.6rem)] lg:text-[5.4rem]">
             {finalCta.title}
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-[1.05rem] font-medium leading-relaxed">{finalCta.text}</p>

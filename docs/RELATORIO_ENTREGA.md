@@ -40,6 +40,67 @@ Duas verificações novas no QA: **contraste AA em todos os textos (axe-core)** 
 
 ---
 
+## 1d. Rodada 5: revisão profissional (hero, mobile, jornada comercial e arquitetura)
+
+### Diagnóstico do problema crítico (título preto no celular)
+
+- **Causa:** o ZIP e a prévia do claude.ai são um build compilado; o código-fonte está neste repositório. A prévia é
+  embrulhada num esqueleto com um reset **sem camada** (`body { color: #000; font: 14px system-ui }`). As regras de
+  `body` do site estavam em `@layer base` do Tailwind 4, e regras sem camada vencem regras em camada. O `<h1>`, que
+  herdava a cor do `body`, ficou preto. “ALTO PADRÃO.”, com classe própria, continuou amarelo.
+- **Verificação:** reproduzido no Chromium e confirmado pelos estilos computados (`h1 color: rgb(0,0,0)`).
+- **Correção na raiz:** `html` e `body` passaram a ter regras base **sem camada** (`src/index.css`), e todos os
+  títulos ganharam a cor explícita `text-text`.
+- **Prevenção:** o QA injeta o mesmo reset agressivo e exige o título claro em 360 e 390 px
+  (`evidencias/hero-css-externo-*.png`).
+
+### Correções e melhorias
+
+| Área | Antes | Depois |
+|---|---|---|
+| Hero mobile | Desktop comprimido: foto atrás do título, texto grande, dois botões iguais | Composição própria: especialidade → título com `clamp()` → foto em faixa inteira (o título não cobre o carro) → texto curto → CTA principal e link secundário discreto |
+| Hero desktop | Linhas de LED claras atrás do menu; texto sobre o carro | Degradê sutil no topo, foto deslocada para a direita, profundidade no scroll (foto mais lenta que o texto), legenda “Imagem ilustrativa” |
+| Hierarquia de CTAs | “Orçamento” do header e CTA do hero amarelos lado a lado | Header contornado; um único CTA amarelo por área; secundários como link ou botão contornado |
+| Catálogo | Lista sem imagem; “Ver trecho” inline | Card com imagem, nome, resumo, preço observado, **Detalhes** (ficha com texto original do catálogo, preço e aviso) e **Adicionar**; categorias maiores; layout horizontal compacto no celular |
+| Solicitação | Ficha sem validação | Ano validado (1950 até o próximo ano); sem marca/modelo aparece “Informar agora / Copiar mesmo assim”; Ano e Cor lado a lado no celular |
+| Consistência | Títulos de card misturavam caixa alta e baixa; selos “01–06” decorativos | Tipografia unificada (condensada, caixa alta) e selos decorativos removidos |
+| Títulos de seção | Tamanho fixo | `clamp()` para celular |
+| Espaçamento | Seções com 128 px | 112 px (página mais curta) |
+| Área segura | Header sem `env(safe-area-inset-top)` | Header e faixa superior respeitam o notch e a barra do app |
+| SEO e desempenho | Sem metadados OG; hero sem preload | OG básico, `noindex` mantido, preload responsivo do hero |
+
+### Arquitetura (código-fonte editável)
+
+```
+src/core/components/catalog/   CatalogCard, PriceTag, ServiceDetailsDialog
+src/core/components/quote/     VehicleForm
+src/core/components/           Photo, Dialog, Wordmark, SmartLink, SectionHeading
+src/core/sections/             Header, Hero, TrustStrip, Services, Catalog, Quote, Gallery, About, Reputation, Location, Closing
+src/core/state/                site, quote (seleção/veículo/filtro), toast
+src/core/lib/                  format, catalog (filtros), quote (mensagem + validações), clipboard, links, theme
+src/clients/company-auto-spa/  index (textos/marca), catalog (serviços/preços), photos (imagens/créditos), sources
+```
+
+### Resultados desta rodada
+
+- `npm run typecheck`: sem erros.
+- `npm test`: **35/35**.
+- `npm run build`: aprovado.
+- `npm run qa`: **80/80**, com 9 verificações novas: ficha de detalhes (3), validação do veículo (3), contraste
+  sob CSS externo (2) e desempenho (2).
+- Desempenho em laboratório (Chromium; celular com CPU 4× mais lenta e 4G simulado), em `evidencias/desempenho-laboratorio.json`:
+  - celular: LCP ≈ 1,35 s, CLS 0, interação ≈ 10 ms;
+  - desktop: LCP ≈ 0,2 s, CLS 0.
+  - **Não são medições de campo.** O servidor é local e o INP foi aproximado pela latência de um clique.
+
+### Não executado
+
+- Agente `.claude/agents/revisor-visual.md`: arquivo não recebido.
+- Lighthouse, Safari/iOS, Firefox e aparelhos físicos: o celular foi emulado no Chromium.
+- Abertura real dos links externos: a rede do ambiente bloqueia esses domínios.
+
+---
+
 ## 1c. Rodada 4: imagens geradas por IA (ChatGPT)
 
 Recebidos: um mosaico com 16 imagens (`anexos/07`) e 4 imagens em alta (1536×1024; a 5ª era duplicata, com o mesmo hash).
@@ -127,9 +188,9 @@ npm run build && npm run preview   # http://localhost:4173 (QA executado contra 
 | Verificação | Comando | Resultado |
 |---|---|---|
 | TypeScript | `npm run typecheck` | Sem erros |
-| Unitários e componente | `npm test` | **32/32 aprovados** |
+| Unitários e componente | `npm test` | **35/35 aprovados** |
 | Build | `npm run build` | Aprovado |
-| Navegador (Chromium em 1440/1280/768/390/360) | `npm run qa` | **71/71 aprovados** (`evidencias/resultados-qa.json`) |
+| Navegador (Chromium em 1440/1280/768/390/360) | `npm run qa` | **80/80 aprovados** (`evidencias/resultados-qa.json`) |
 
 A cobertura é a mesma da rodada anterior: dados do catálogo, responsividade, navegação, menu mobile, catálogo,
 seleção, cópia conferida na área de transferência, modal sem WhatsApp, galeria, localização, links, teclado,

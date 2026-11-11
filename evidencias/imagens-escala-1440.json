@@ -4,7 +4,7 @@
     "ok": true,
     "aprovada": true,
     "ilustrativa": true,
-    "escala": 1.06
+    "escala": 0.9
   },
   {
     "src": "servico-ppf-768.webp",
@@ -47,6 +47,76 @@
     "aprovada": true,
     "ilustrativa": true,
     "escala": 1.04
+  },
+  {
+    "src": "servico-lavagem.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 1.14
+  },
+  {
+    "src": "servico-ppf-768.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 1.16
+  },
+  {
+    "src": "servico-envelopamento-768.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 1.16
+  },
+  {
+    "src": "servico-vitrificacao-768.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 1.16
+  },
+  {
+    "src": "inspiracao-farol.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 1.14
+  },
+  {
+    "src": "inspiracao-farol.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 1.14
+  },
+  {
+    "src": "inspiracao-espelho.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 1.14
+  },
+  {
+    "src": "inspiracao-frontal.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 1.14
+  },
+  {
+    "src": "servico-insulfilm.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 1.13
+  },
+  {
+    "src": "servico-polimento.webp",
+    "ok": true,
+    "aprovada": true,
+    "ilustrativa": true,
+    "escala": 1.14
   },
   {
     "src": "inspiracao-farol.webp",

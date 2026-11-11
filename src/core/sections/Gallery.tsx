@@ -27,7 +27,7 @@ export function Gallery() {
   const slot = current ? photos[current.photo] : undefined;
 
   return (
-    <section id="galeria" aria-labelledby="galeria-title" className="relative border-t border-line/60 py-24 sm:py-32">
+    <section id="galeria" aria-labelledby="galeria-title" className="relative border-t border-line/60 py-20 sm:py-28">
       <div className="container-x">
         <SectionHeading
           id="galeria-title"

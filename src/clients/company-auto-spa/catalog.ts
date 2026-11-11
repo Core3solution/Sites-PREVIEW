@@ -53,6 +53,7 @@ export const categories: Category[] = [
 export const catalogItems: CatalogItem[] = [
   {
     id: 'lavagem-premium',
+    photo: 'lavagem',
     name: 'Lavagem Premium',
     sourceName: 'Lavagem Premium 🫧',
     categoryId: 'lavagem',
@@ -63,6 +64,7 @@ export const catalogItems: CatalogItem[] = [
   },
   {
     id: 'ppf-full-gswf',
+    photo: 'ppf',
     name: 'PPF FULL GSWF',
     sourceName: 'PPF FULL GSWF',
     categoryId: 'ppf',
@@ -74,6 +76,7 @@ export const catalogItems: CatalogItem[] = [
   },
   {
     id: 'envelopamento-teto',
+    photo: 'envelopamento',
     name: 'Envelopamento de teto',
     sourceName: 'Envelopamento de teto',
     categoryId: 'envelopamento',
@@ -84,6 +87,7 @@ export const catalogItems: CatalogItem[] = [
   },
   {
     id: 'vitrificacao-rodas',
+    photo: 'vitrificacao',
     name: 'Vitrificação das rodas',
     sourceName: 'Vitrificação das rodas',
     categoryId: 'vitrificacao',
@@ -94,6 +98,7 @@ export const catalogItems: CatalogItem[] = [
   },
   {
     id: 'ppf-farol',
+    photo: 'inspiracao-farol',
     name: 'PPF NO FAROL',
     sourceName: 'PPF NO FAROL 🚥',
     categoryId: 'ppf',
@@ -104,6 +109,7 @@ export const catalogItems: CatalogItem[] = [
   },
   {
     id: 'ppf-smoke-farol',
+    photo: 'inspiracao-farol',
     name: 'PPF SMOKE NO FAROL',
     sourceName: 'PPF *SMOKE* NO FAROL…',
     truncatedInSource: true,
@@ -116,6 +122,7 @@ export const catalogItems: CatalogItem[] = [
   },
   {
     id: 'ppf-full',
+    photo: 'inspiracao-espelho',
     name: 'PPF FULL',
     sourceName: 'PPF FULL 🔒🔒',
     categoryId: 'ppf',
@@ -127,6 +134,7 @@ export const catalogItems: CatalogItem[] = [
   },
   {
     id: 'ppf-frontal',
+    photo: 'inspiracao-frontal',
     name: 'PPF FRONTAL',
     sourceName: 'PPF FRONTAL 🔒',
     categoryId: 'ppf',
@@ -137,6 +145,7 @@ export const catalogItems: CatalogItem[] = [
   },
   {
     id: 'insulfilm-carbon',
+    photo: 'insulfilm',
     name: 'Insulfilm Carbon',
     sourceName: 'Insulfilm Carbon',
     categoryId: 'insulfilm',
@@ -147,6 +156,7 @@ export const catalogItems: CatalogItem[] = [
   },
   {
     id: 'polimento-tecnico',
+    photo: 'polimento',
     name: 'Polimento técnico',
     sourceName: 'Polimento técnico (Corre…',
     truncatedInSource: true,
