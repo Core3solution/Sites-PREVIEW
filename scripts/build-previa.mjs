@@ -3,7 +3,7 @@
 // Saída: previa/<pasta>/index.html (CSS+JS embutidos) + previa/<pasta>/clientes/<pasta>/… (imagens)
 //        previa/<pasta>/arquivos.json (mapa caminho publicado → arquivo local, para publicar junto da página)
 // Verificação automática: abre a página com um reset externo agressivo (como o esqueleto do claude.ai)
-// e exige título claro, fundo escuro e nenhum erro de JavaScript.
+// e exige título com contraste ≥ 7:1 sobre o fundo efetivo, fundo coerente com o tema e nenhum erro.
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
@@ -72,9 +72,15 @@ for (const w of [360, 1440]) {
   const r = await page.evaluate(() => {
     const lum = (s) => { const [r, g, b] = s.match(/\d+(\.\d+)?/g).slice(0, 3).map((v) => +v / 255).map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4)); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
     const imgs = [...document.querySelectorAll('main img')];
-    return { titulo: lum(getComputedStyle(document.querySelector('h1')).color), fundo: lum(getComputedStyle(document.body).backgroundColor), imagens: imgs.length, quebradas: imgs.filter((i) => i.complete && !i.naturalWidth).length, largura: document.documentElement.scrollWidth };
+    const h1 = document.querySelector('h1');
+    let el = h1, bg = 'rgb(255, 255, 255)';
+    while (el) { const c = getComputedStyle(el).backgroundColor; if (!/rgba\(.*, 0\)$|transparent/.test(c)) { bg = c; break; } el = el.parentElement; }
+    const [a, b] = [lum(getComputedStyle(h1).color), lum(bg)].sort((x, y) => y - x);
+    const scheme = document.documentElement.dataset.scheme || 'dark';
+    const page = lum(getComputedStyle(document.body).backgroundColor);
+    return { contrasteTitulo: +((a + 0.05) / (b + 0.05)).toFixed(2), scheme, fundoOk: scheme === 'light' ? page > 0.8 : page < 0.05, imagens: imgs.length, quebradas: imgs.filter((i) => i.complete && !i.naturalWidth).length, largura: document.documentElement.scrollWidth };
   });
-  const pass = r.titulo > 0.7 && r.fundo < 0.05 && !errors.length && r.largura <= w;
+  const pass = r.contrasteTitulo >= 7 && r.fundoOk && !r.quebradas && !errors.length && r.largura <= w;
   ok &&= pass;
   console.log(`${pass ? 'OK  ' : 'FALHA'} ${w}px: ${JSON.stringify(r)}${errors.length ? ' erros: ' + errors.join(' | ') : ''}`);
 }
