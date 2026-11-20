@@ -1,0 +1,18 @@
+{
+  "$comentario": "Parâmetros do QA em navegador (scripts/qa-browser.mjs + scripts/qa/moda.mjs) para a VYRA.",
+  "nicho": "moda",
+  "totalLooks": 15,
+  "categoria": { "rotulo": "Leggings", "esperado": 4 },
+  "busca": { "termo": "flare", "esperado": 2 },
+  "maisCaroPrimeiro": "Look 07 · Movimento livre",
+  "precoMaximo": { "rotulo": "R$ 590", "esperado": 5 },
+  "look": { "rotulo": "Look 01 · Layer sálvia", "preco": "R$ 790", "pecas": "Legging grafite", "proximo": "Look 02 · Treino essencial" },
+  "segundoLook": "Look 04 · Lilás & pistache",
+  "mensagemContem": ["Look 01 · Layer sálvia — tamanho M — 1 unidade — referência: R$ 790,00", "Look 04 · Lilás & pistache — tamanho P"],
+  "finder": ["Pilates e yoga", "Pastéis", "Médio"],
+  "finderPrimeiro": "Look 04 · Lilás & pistache",
+  "linksPermitidos": [],
+  "teclado": { "cta": "Explorar coleção", "alvo": "colecao" },
+  "perf": { "secao": "colecao", "seletor": "#colecao button[aria-pressed]" },
+  "selosIlustrativosMinimo": 0
+}

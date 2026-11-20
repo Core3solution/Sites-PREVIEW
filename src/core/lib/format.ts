@@ -7,6 +7,12 @@ export function formatBRL(cents: number): string {
   return brl.format(cents / 100).replace(/ /g, ' ');
 }
 
+/** Formato curto para vitrines de moda: “R$ 790” (centavos só quando existirem: “R$ 79,90”). */
+export function formatBRLShort(cents: number): string {
+  const opts = cents % 100 === 0 ? { minimumFractionDigits: 0, maximumFractionDigits: 0 } : { minimumFractionDigits: 2 };
+  return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', ...opts }).format(cents / 100).replace(/\u00a0/g, ' ');
+}
+
 /** Texto do preço respeitando o tipo: fixo, "A partir de" ou "Sob consulta". */
 export function formatPrice(price: Price): string {
   if (price.kind === 'on-request' || price.amountCents == null) return 'Sob consulta';

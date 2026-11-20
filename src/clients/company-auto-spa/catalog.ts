@@ -1,4 +1,4 @@
-import type { CatalogItem, Category } from '../../core/types';
+import type { CatalogItem, Category } from '../../niches/automotivo/types';
 
 /**
  * TRANSCRIÇÃO PROVISÓRIA — feita visualmente a partir de anexos/02 e anexos/03 (WhatsApp, 11/11/2026).

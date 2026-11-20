@@ -1,6 +1,6 @@
 {
-  "url": "http://localhost:4176/",
-  "executadoEm": "2026-11-11T23:01:16.739Z",
+  "url": "http://localhost:4192/",
+  "executadoEm": "2026-11-20T22:22:09.724Z",
   "aprovados": 81,
   "total": 81,
   "resultados": [
@@ -338,7 +338,7 @@
       "area": "Galeria",
       "name": "Imagem ampliada carregada sem ampliar mais que 1,5×",
       "ok": true,
-      "detail": "escala=1.48"
+      "detail": "escala=1.49"
     },
     {
       "area": "Fotografias",
@@ -468,27 +468,27 @@
     },
     {
       "area": "Contraste",
-      "name": "360px título do hero claro mesmo com CSS externo agressivo",
+      "name": "360px título do hero legível mesmo com CSS externo agressivo",
       "ok": true,
-      "detail": "{\"h1\":0.9131096750646547,\"body\":0.003035269835488375,\"textoH1\":1}"
+      "detail": "{\"contraste\":18.16,\"scheme\":\"dark\",\"fundoPagina\":0.003}"
     },
     {
       "area": "Contraste",
-      "name": "390px título do hero claro mesmo com CSS externo agressivo",
+      "name": "390px título do hero legível mesmo com CSS externo agressivo",
       "ok": true,
-      "detail": "{\"h1\":0.9131096750646547,\"body\":0.003035269835488375,\"textoH1\":1}"
+      "detail": "{\"contraste\":18.16,\"scheme\":\"dark\",\"fundoPagina\":0.003}"
     },
     {
       "area": "Desempenho",
       "name": "celular-4g: LCP ≤ 2,5 s, CLS ≤ 0,1, interação ≤ 200 ms (laboratório)",
       "ok": true,
-      "detail": "{\"lcp\":1308,\"cls\":0,\"interacaoMs\":18}"
+      "detail": "{\"lcp\":1504,\"cls\":0,\"interacaoMs\":11}"
     },
     {
       "area": "Desempenho",
       "name": "desktop: LCP ≤ 2,5 s, CLS ≤ 0,1, interação ≤ 200 ms (laboratório)",
       "ok": true,
-      "detail": "{\"lcp\":180,\"cls\":0,\"interacaoMs\":6}"
+      "detail": "{\"lcp\":248,\"cls\":0,\"interacaoMs\":5}"
     }
   ]
 }

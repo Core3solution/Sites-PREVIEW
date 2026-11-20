@@ -1,4 +1,4 @@
-import type { SiteConfig } from '../../core/types';
+import type { AutoSiteConfig } from '../../niches/automotivo/types';
 import { catalogItems, categories } from './catalog';
 import { photos } from './photos';
 import { sources } from './sources';
@@ -8,7 +8,8 @@ import { sources } from './sources';
  * `npm run novo-cliente -- <pasta> "Nome da Empresa"` copia esta pasta. Substitua todo “[PREENCHER]”.
  * Nada aqui é dado real: não publique este cliente.
  */
-const site: SiteConfig = {
+const site: AutoSiteConfig = {
+  niche: 'automotivo',
   meta: {
     lang: 'pt-BR',
     title: '[PREENCHER] Nome da Empresa — Demonstração CORE 3',

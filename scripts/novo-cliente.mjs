@@ -1,13 +1,21 @@
 // Cria um novo cliente a partir do modelo.
-// Uso: npm run novo-cliente -- <pasta> "Nome da Empresa"
-//   <pasta>: minúsculas, números e hífens (ex.: studio-detail-abc)
+// Uso: npm run novo-cliente -- <pasta> "Nome da Empresa" [--nicho automotivo|moda]
+//   <pasta>: minúsculas, números e hífens (ex.: studio-detail-abc). Nicho padrão: automotivo.
 import { cp, mkdir, readFile, writeFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const [slug, ...nameParts] = process.argv.slice(2);
+const argv = process.argv.slice(2);
+const ni = argv.indexOf('--nicho');
+const niche = ni >= 0 ? argv.splice(ni, 2)[1] : 'automotivo';
+const [slug, ...nameParts] = argv;
 const name = nameParts.join(' ').trim();
+const clientModels = { automotivo: '_modelo', moda: '_modelo-moda' };
+if (!clientModels[niche]) {
+  console.error(`Nicho "${niche}" desconhecido. Disponíveis: ${Object.keys(clientModels).join(', ')}`);
+  process.exit(1);
+}
 if (!slug || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug) || !name) {
   console.error('Uso: npm run novo-cliente -- <pasta> "Nome da Empresa"   (pasta: minúsculas, números e hífens)');
   process.exit(1);
@@ -20,13 +28,13 @@ if (await exists(codeDir)) {
 }
 
 // 1) Código do cliente (copiado do modelo)
-await cp(path.join(root, 'src/clients/_modelo'), codeDir, { recursive: true });
+await cp(path.join(root, 'src/clients', clientModels[niche]), codeDir, { recursive: true });
 for (const f of ['photos.ts', 'sources.ts']) {
   const p = path.join(codeDir, f);
-  await writeFile(p, (await readFile(p, 'utf8')).replaceAll('clientes/_modelo/', `clientes/${slug}/`).replaceAll('clientes/<pasta>/', `clientes/${slug}/`));
+  await writeFile(p, (await readFile(p, 'utf8')).replaceAll(`clientes/${clientModels[niche]}/`, `clientes/${slug}/`).replaceAll('clientes/<pasta>/', `clientes/${slug}/`));
 }
 const idx = path.join(codeDir, 'index.ts');
-await writeFile(idx, (await readFile(idx, 'utf8')).replaceAll('[PREENCHER] Nome da Empresa', name).replace("status: { preliminary: true, note: 'Cliente-modelo: dados de exemplo.' }", "status: { preliminary: true, note: 'Versão preliminar: materiais da empresa ainda em verificação.' }"));
+await writeFile(idx, (await readFile(idx, 'utf8')).replaceAll('[PREENCHER] Nome da Empresa', name).replaceAll('[PREENCHER] Marca', name).replace("status: { preliminary: true, note: 'Cliente-modelo: dados de exemplo.' }", "status: { preliminary: true, note: 'Versão preliminar: materiais da empresa ainda em verificação.' }"));
 
 // 2) Materiais, documentos e evidências do cliente
 const base = path.join(root, 'clientes', slug);
@@ -66,13 +74,13 @@ describe('${name}: dados verificados', () => {
 `,
 );
 
-console.log(`Cliente "${name}" criado em:
-  src/clients/${slug}/        (index.ts, catalog.ts, photos.ts, sources.ts, qa.json)
+console.log(`Cliente "${name}" (nicho ${niche}) criado em:
+  src/clients/${slug}/        (index.ts, photos.ts, sources.ts, qa.json${niche === "automotivo" ? ", catalog.ts" : ""})
   clientes/${slug}/           (CLAUDE.md, docs/, anexos/, evidencias/)
   public/clientes/${slug}/fotos/
   tests/clients/${slug}.test.ts
 
-Próximos passos (docs/modelo/PLAYBOOK_PREVIAS_AUTOMOTIVAS.md):
+Próximos passos (docs/modelo/PLAYBOOK_PREVIAS.md):
   1. Coloque os materiais em clientes/${slug}/anexos/ e preencha clientes/${slug}/docs/BRIEFING.md
   2. Substitua todo “[PREENCHER]” em src/clients/${slug}/
   3. VITE_CLIENT=${slug} npm run dev`);

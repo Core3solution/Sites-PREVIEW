@@ -1,0 +1,186 @@
+/*
+ * Sistema visual do nicho MODA (moda fitness premium) — classes prefixadas com `m-`.
+ * Usa apenas os tokens da marca (--brand-*): troque o tema no cliente, não aqui.
+ * Linguagem: claro e limpo, tipografia geométrica (display), um acento (preenchimento), muito respiro,
+ * cantos suaves, sombras quase invisíveis, motion curto. Acento NUNCA como cor de texto sobre fundo claro.
+ */
+
+/* Em camada `components`: utilitários do Tailwind (ex.: lg:hidden, w-full) continuam vencendo. */
+@layer components {
+
+:root {
+  --m-dark: #181c18;          /* painéis escuros (hero, CTA, faixa superior) */
+  --m-dark-text: #f4f4f0;
+  --m-dark-muted: #c9ccc4;
+  --m-radius: 14px;
+  --m-radius-lg: 22px;
+  --m-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+.m-root {
+  background: var(--brand-bg);
+  color: var(--brand-text);
+}
+
+/* Tipografia */
+.m-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+.m-h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  font-size: clamp(2rem, 6.2vw, 3.4rem);
+  text-wrap: balance;
+}
+.m-kicker {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+/* Barra de acento acima de títulos (como no layout de referência) */
+.m-bar::before {
+  content: '';
+  display: block;
+  width: 2.75rem;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--brand-accent);
+  margin-bottom: 1.1rem;
+}
+
+/* Botões */
+.m-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 48px;
+  padding: 0 1.35rem;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background-color 0.25s, color 0.25s, border-color 0.25s, transform 0.3s var(--m-ease), box-shadow 0.3s;
+  -webkit-tap-highlight-color: transparent;
+}
+.m-btn:active { transform: translateY(1px); }
+.m-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.m-btn-accent { background: var(--brand-accent); color: var(--brand-accent-ink); }
+.m-btn-accent:hover:not(:disabled) { box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--brand-accent) 90%, black); filter: brightness(1.03); }
+.m-btn-dark { background: var(--brand-text); color: var(--brand-bg); }
+.m-btn-dark:hover:not(:disabled) { background: color-mix(in srgb, var(--brand-text) 86%, white); }
+.m-btn-outline { border: 1px solid color-mix(in srgb, var(--brand-text) 28%, transparent); color: var(--brand-text); background: transparent; }
+.m-btn-outline:hover:not(:disabled) { border-color: var(--brand-text); }
+/* Variante contornada sobre fundo escuro */
+.m-btn-outline-dark { border: 1px solid color-mix(in srgb, var(--m-dark-text) 45%, transparent); color: var(--m-dark-text); }
+.m-btn-outline-dark:hover:not(:disabled) { border-color: var(--m-dark-text); }
+.m-icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  color: var(--brand-text);
+  transition: background-color 0.2s;
+}
+.m-icon-btn:hover { background: color-mix(in srgb, var(--brand-text) 7%, transparent); }
+
+/* Pílulas de filtro/ordenação */
+.m-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 40px;
+  padding: 0 1rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--brand-text) 22%, transparent);
+  background: var(--brand-surface);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--brand-text);
+  white-space: nowrap;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+.m-pill:hover { border-color: var(--brand-text); }
+.m-pill[aria-pressed='true'] { background: var(--brand-text); color: var(--brand-bg); border-color: var(--brand-text); }
+
+/* Swatch de cor (nunca sozinho: sempre com nome em aria-label/title) */
+.m-swatch {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.18);
+}
+
+/* Botões de tamanho (visíveis, nunca dropdown) */
+.m-size {
+  min-width: 48px;
+  min-height: 44px;
+  padding: 0 0.75rem;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--brand-text) 22%, transparent);
+  font-weight: 600;
+  font-size: 0.88rem;
+  transition: all 0.2s;
+}
+.m-size:hover { border-color: var(--brand-text); }
+.m-size[aria-pressed='true'] { background: var(--brand-text); color: var(--brand-bg); border-color: var(--brand-text); }
+
+/* Superfícies */
+.m-card {
+  border-radius: var(--m-radius);
+  background: var(--brand-surface);
+}
+.m-photo {
+  background: #c6c4c5; /* mesmo cinza do fundo das fotos de estúdio (amostrado) */
+  border-radius: var(--m-radius);
+  overflow: hidden;
+}
+.m-dark {
+  background: var(--m-dark);
+  color: var(--m-dark-text);
+}
+.m-field {
+  width: 100%;
+  min-height: 48px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--brand-text) 22%, transparent);
+  background: var(--brand-surface);
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  color: var(--brand-text);
+}
+.m-field:focus { outline: none; border-color: var(--brand-text); box-shadow: 0 0 0 3px var(--brand-accent-soft); }
+
+/* Drawer lateral (sacola, favoritos, filtros) */
+@keyframes m-drawer-in { from { transform: translateX(100%); } to { transform: none; } }
+@keyframes m-sheet-in { from { transform: translateY(100%); } to { transform: none; } }
+.m-drawer { animation: m-drawer-in 0.42s var(--m-ease) both; }
+.m-sheet { animation: m-sheet-in 0.42s var(--m-ease) both; }
+
+/* Foto do card: zoom suave no hover */
+.m-zoom img { transition: transform 1.1s var(--m-ease); }
+@media (hover: hover) { .m-zoom:hover img { transform: scale(1.035); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .m-drawer, .m-sheet { animation: none; }
+  .m-zoom img { transition: none; }
+}
+
+/* Foco visível no tema claro: contorno escuro (o acento limão não contrasta com o off-white) */
+:root[data-scheme='light'] :focus-visible { outline: 2px solid var(--brand-text); outline-offset: 3px; }
+.m-dark :focus-visible { outline-color: var(--brand-accent); }
+@media (min-width: 768px) { .m-sheet { animation-name: m-drawer-in; } }
+
+/* Hero: profundidade discreta no scroll (--p vem de useScrollProgress) */
+.m-hero-photo { transform: translate3d(0, calc(var(--p, 0) * (6% + var(--i, 0) * 3%)), 0) scale(1.04); will-change: transform; }
+.m-hero-copy { transform: translate3d(0, calc(var(--p, 0) * -6%), 0); }
+@media (prefers-reduced-motion: reduce) { .m-hero-photo, .m-hero-copy { transform: none; } }
+}

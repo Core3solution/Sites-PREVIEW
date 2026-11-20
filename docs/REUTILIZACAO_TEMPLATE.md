@@ -1,6 +1,6 @@
 # Referência técnica do template
 
-Complementa o [Playbook](modelo/PLAYBOOK_PREVIAS_AUTOMOTIVAS.md) com os detalhes da configuração.
+Complementa o [Playbook](modelo/PLAYBOOK_PREVIAS.md) com os detalhes da configuração.
 
 ## Camadas
 

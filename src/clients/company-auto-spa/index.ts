@@ -1,4 +1,4 @@
-import type { SiteConfig } from '../../core/types';
+import type { AutoSiteConfig } from '../../niches/automotivo/types';
 import { catalogItems, categories } from './catalog';
 import { sources } from './sources';
 import { photos } from './photos';
@@ -7,7 +7,8 @@ import { photos } from './photos';
  * Configuração da demonstração conceitual CORE 3 para a Company Auto SPA.
  * NÃO é o site oficial da empresa. Dados com fonte e data em `sources.ts`.
  */
-export const companyAutoSpa: SiteConfig = {
+export const companyAutoSpa: AutoSiteConfig = {
+  niche: 'automotivo',
   meta: {
     lang: 'pt-BR',
     title: 'Company Auto Spa — Estética automotiva em São Caetano do Sul | Demonstração CORE 3',

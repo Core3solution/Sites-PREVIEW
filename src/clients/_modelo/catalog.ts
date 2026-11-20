@@ -1,4 +1,4 @@
-import type { CatalogItem, Category } from '../../core/types';
+import type { CatalogItem, Category } from '../../niches/automotivo/types';
 
 /**
  * [PREENCHER] Catálogo da empresa.

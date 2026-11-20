@@ -6,7 +6,7 @@ import { site } from './site.config';
 import { applyTheme } from './core/lib/theme';
 
 // Aplica as cores antes do primeiro paint para evitar "piscar" de tema.
-applyTheme(site.brand.theme);
+applyTheme(site.brand.theme, site.brand.fonts);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

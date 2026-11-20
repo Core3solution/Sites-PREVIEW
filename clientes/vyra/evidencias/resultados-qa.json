@@ -1,0 +1,440 @@
+{
+  "url": "http://localhost:4197/",
+  "executadoEm": "2026-11-20T22:28:05.317Z",
+  "aprovados": 72,
+  "total": 72,
+  "resultados": [
+    {
+      "area": "Responsividade",
+      "name": "360px sem rolagem horizontal",
+      "ok": true,
+      "detail": "scrollWidth=360"
+    },
+    {
+      "area": "Responsividade",
+      "name": "360px sem texto menor que 10,5px",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Responsividade",
+      "name": "360px sem texto cortado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Acessibilidade",
+      "name": "360px contraste AA em todos os textos (axe-core)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Responsividade",
+      "name": "360px áreas de toque ≥ 36px",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Console",
+      "name": "360px sem erros de JavaScript",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Responsividade",
+      "name": "390px sem rolagem horizontal",
+      "ok": true,
+      "detail": "scrollWidth=390"
+    },
+    {
+      "area": "Responsividade",
+      "name": "390px sem texto menor que 10,5px",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Responsividade",
+      "name": "390px sem texto cortado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Acessibilidade",
+      "name": "390px contraste AA em todos os textos (axe-core)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Responsividade",
+      "name": "390px áreas de toque ≥ 36px",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Console",
+      "name": "390px sem erros de JavaScript",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Responsividade",
+      "name": "768px sem rolagem horizontal",
+      "ok": true,
+      "detail": "scrollWidth=768"
+    },
+    {
+      "area": "Responsividade",
+      "name": "768px sem texto menor que 10,5px",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Responsividade",
+      "name": "768px sem texto cortado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Acessibilidade",
+      "name": "768px contraste AA em todos os textos (axe-core)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Console",
+      "name": "768px sem erros de JavaScript",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Responsividade",
+      "name": "1280px sem rolagem horizontal",
+      "ok": true,
+      "detail": "scrollWidth=1280"
+    },
+    {
+      "area": "Responsividade",
+      "name": "1280px sem texto menor que 10,5px",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Responsividade",
+      "name": "1280px sem texto cortado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Acessibilidade",
+      "name": "1280px contraste AA em todos os textos (axe-core)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Console",
+      "name": "1280px sem erros de JavaScript",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Responsividade",
+      "name": "1440px sem rolagem horizontal",
+      "ok": true,
+      "detail": "scrollWidth=1440"
+    },
+    {
+      "area": "Responsividade",
+      "name": "1440px sem texto menor que 10,5px",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Responsividade",
+      "name": "1440px sem texto cortado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Acessibilidade",
+      "name": "1440px contraste AA em todos os textos (axe-core)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Console",
+      "name": "1440px sem erros de JavaScript",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Navegação",
+      "name": "Menu \"Novidades\" rola até a coleção",
+      "ok": true,
+      "detail": "top=84"
+    },
+    {
+      "area": "Coleção",
+      "name": "15 looks exibidos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Coleção",
+      "name": "Categoria \"Leggings\" → 4 looks",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Coleção",
+      "name": "Chip do filtro aplicado aparece",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Coleção",
+      "name": "Remover chip restaura a coleção",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Coleção",
+      "name": "Maior preço → Look 07 · Movimento livre primeiro",
+      "ok": true,
+      "detail": "Look 07 · Movimento livre"
+    },
+    {
+      "area": "Filtros",
+      "name": "Painel de filtros abre",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Filtros",
+      "name": "Preço até R$ 590 → 5 looks (contagem ao vivo)",
+      "ok": true,
+      "detail": "Ver 5 looks"
+    },
+    {
+      "area": "Filtros",
+      "name": "\"Ver N looks\" fecha e aplica",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Filtros",
+      "name": "\"Limpar filtros\" restaura",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Favoritos",
+      "name": "Coração marca o look (aria-pressed)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Favoritos",
+      "name": "Painel lista o favorito",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Favoritos",
+      "name": "Favorito persiste após recarregar (navegador)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Quick view",
+      "name": "Abre com peças, preço e aviso",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Quick view",
+      "name": "Sem tamanho: erro e nada adicionado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Quick view",
+      "name": "Com tamanho: adiciona à seleção (contador 1)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Quick view",
+      "name": "Seta → próximo look",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Acessibilidade",
+      "name": "Esc fecha a visualização rápida",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Encontrar meu look",
+      "name": "3 respostas → sugere Look 04 · Lilás & pistache",
+      "ok": true,
+      "detail": "Encontrar meu look SUGESTÕES PARA VOCÊ Três looks para começar. É uma sugestão de estilo, baseada nas suas respostas, e não uma indicação técnica nem de tamanho. Os valores são os observados no cat"
+    },
+    {
+      "area": "Encontrar meu look",
+      "name": "\"Ver look\" abre a visualização rápida",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Sacola",
+      "name": "Mensagem com looks, tamanhos e referências",
+      "ok": true,
+      "detail": "Olá, VYRA! Tenho interesse nos looks abaixo. |  | • Look 01 · Layer sálvia — tamanho M — 1 unidade — referência: R$ 790,00 |   Peças: Top de manga longa ombro a ombro sálvia + Legging grafite"
+    },
+    {
+      "area": "Sacola",
+      "name": "Não exibe total nem soma",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Sacola",
+      "name": "Copiar: área de transferência recebe a mensagem exata",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Sacola",
+      "name": "\"Como enviar\" abre modal (sem WhatsApp confirmado)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Sacola",
+      "name": "Nenhum link wa.me na página",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Busca",
+      "name": "\"flare\" → 2 look(s) na coleção",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Informações",
+      "name": "Guia de tamanhos sinaliza pendência, sem tabela de medidas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Imagens",
+      "name": "21 imagens carregadas (0 espaços pendentes identificados)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Imagens",
+      "name": "Nenhuma imagem ampliada mais de 1,7× (desktop)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Links",
+      "name": "0 links externos seguros e previstos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Links",
+      "name": "6 âncoras internas válidas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "CTA",
+      "name": "Todos os botões visíveis possuem ação",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Movimento",
+      "name": "Profundidade do hero responde ao scroll",
+      "ok": true,
+      "detail": "--p=0.2664"
+    },
+    {
+      "area": "Menu mobile",
+      "name": "Abre",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "area": "Menu mobile",
+      "name": "Link fecha o menu e rola até a coleção",
+      "ok": true,
+      "detail": "top=155"
+    },
+    {
+      "area": "Mobile",
+      "name": "Grade com 2 colunas",
+      "ok": true,
+      "detail": "colunas=2"
+    },
+    {
+      "area": "Mobile",
+      "name": "Visualização rápida com \"Adicionar à sacola\" visível na tela",
+      "ok": true,
+      "detail": "{\"x\":20,\"y\":782,\"width\":350,\"height\":48}"
+    },
+    {
+      "area": "Teclado",
+      "name": "Primeiro Tab foca \"Pular para o conteúdo\"",
+      "ok": true,
+      "detail": "Pular para o conteúdo"
+    },
+    {
+      "area": "Teclado",
+      "name": "CTA principal alcançável por Tab com foco visível",
+      "ok": true,
+      "detail": "solid"
+    },
+    {
+      "area": "Teclado",
+      "name": "Enter no CTA leva ao catálogo",
+      "ok": true,
+      "detail": "top=84"
+    },
+    {
+      "area": "Movimento",
+      "name": "prefers-reduced-motion desativa revelação e parallax",
+      "ok": true,
+      "detail": "{\"reveal\":false,\"p\":\"0\"}"
+    },
+    {
+      "area": "Contraste",
+      "name": "360px título do hero legível mesmo com CSS externo agressivo",
+      "ok": true,
+      "detail": "{\"contraste\":15.63,\"scheme\":\"light\",\"fundoPagina\":0.902}"
+    },
+    {
+      "area": "Contraste",
+      "name": "390px título do hero legível mesmo com CSS externo agressivo",
+      "ok": true,
+      "detail": "{\"contraste\":15.63,\"scheme\":\"light\",\"fundoPagina\":0.902}"
+    },
+    {
+      "area": "Desempenho",
+      "name": "celular-4g: LCP ≤ 2,5 s, CLS ≤ 0,1, interação ≤ 200 ms (laboratório)",
+      "ok": true,
+      "detail": "{\"lcp\":1192,\"cls\":0,\"interacaoMs\":84}"
+    },
+    {
+      "area": "Desempenho",
+      "name": "desktop: LCP ≤ 2,5 s, CLS ≤ 0,1, interação ≤ 200 ms (laboratório)",
+      "ok": true,
+      "detail": "{\"lcp\":228,\"cls\":0.005,\"interacaoMs\":12}"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "$comentario": "Parâmetros do QA (scripts/qa/moda.mjs). Ajuste aos dados reais do cliente.",
+  "nicho": "moda",
+  "totalLooks": 3,
+  "categoria": { "rotulo": "Leggings", "esperado": 1 },
+  "busca": { "termo": "Look 02", "esperado": 1 },
+  "maisCaroPrimeiro": "Look 01 · [PREENCHER] Look 1",
+  "precoMaximo": null,
+  "look": { "rotulo": "Look 01 · [PREENCHER] Look 1", "preco": "Sob consulta", "pecas": "[PREENCHER] Peça de cima", "proximo": "Look 02 · [PREENCHER] Look 2" },
+  "segundoLook": "Look 02 · [PREENCHER] Look 2",
+  "mensagemContem": ["Look 01 · [PREENCHER] Look 1 — tamanho M — 1 unidade — referência: Sob consulta"],
+  "finder": ["Treino", "Neutros", "Longo"],
+  "finderPrimeiro": "Look 01 · [PREENCHER] Look 1",
+  "linksPermitidos": [],
+  "teclado": { "cta": "Explorar coleção", "alvo": "colecao" },
+  "perf": { "secao": "colecao", "seletor": "#colecao button[aria-pressed]" },
+  "selosIlustrativosMinimo": 0
+}

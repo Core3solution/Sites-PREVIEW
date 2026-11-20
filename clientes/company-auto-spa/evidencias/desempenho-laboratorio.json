@@ -1,12 +1,12 @@
 {
   "celular-4g": {
-    "lcp": 1308,
+    "lcp": 1504,
     "cls": 0,
-    "interacaoMs": 18
+    "interacaoMs": 11
   },
   "desktop": {
-    "lcp": 180,
+    "lcp": 248,
     "cls": 0,
-    "interacaoMs": 6
+    "interacaoMs": 5
   }
 }

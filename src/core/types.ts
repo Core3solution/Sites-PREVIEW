@@ -1,7 +1,7 @@
 /**
- * Contrato do template CORE 3 para estética automotiva.
- * Tudo que é específico de uma empresa (marca, textos, serviços, preços, links, imagens)
- * vive em `src/clients/<empresa>/` e é entregue aos componentes por um `SiteConfig`.
+ * Contrato BASE do template CORE 3 (comum a todos os nichos).
+ * Cada nicho (src/niches/<nicho>/types.ts) estende `BaseSiteConfig` com as próprias seções.
+ * Tudo que é específico de uma empresa vive em `src/clients/<empresa>/`.
  */
 
 /** Identificador de um espaço de fotografia definido em `SiteConfig.photos`. */
@@ -63,36 +63,6 @@ export interface Price {
   observedAt: string;
 }
 
-export interface Category {
-  id: string;
-  label: string;
-  /** Texto curto para o card de serviço. Não incluir condições técnicas não confirmadas. */
-  description: string;
-  photo: PhotoId;
-}
-
-export interface CatalogItem {
-  id: string;
-  /** Nome exibido. */
-  name: string;
-  /** Nome exatamente como aparece na fonte (para auditoria). */
-  sourceName: string;
-  /** Quando o nome/descrição aparece cortado na fonte. */
-  truncatedInSource?: boolean;
-  categoryId: string;
-  /** Resumo neutro, sem inventar condições. */
-  summary: string;
-  /** Trecho visível na fonte, como foi lido (pode terminar com reticências). */
-  sourceExcerpt: string;
-  price: Price;
-  /** Observação específica (ex.: diferença entre variantes). */
-  note?: string;
-  /** Imagem do item; sem ela, usa a imagem da categoria. */
-  photo?: PhotoId;
-  /** Posição original no catálogo da fonte. */
-  sourceOrder: number;
-}
-
 export interface ThemeTokens {
   /** Cores em hex. São injetadas como variáveis CSS em :root. */
   bg: string;
@@ -106,6 +76,8 @@ export interface ThemeTokens {
   accent: string;
   accentInk: string;
   accentSoft: string;
+  /** Esquema de cor (padrão 'dark'): define `color-scheme` e o contraste dos controles nativos. */
+  scheme?: 'dark' | 'light';
 }
 
 export interface NavItem {
@@ -119,18 +91,46 @@ export interface Cta {
   href: string;
 }
 
-export interface GalleryItem {
-  photo: PhotoId;
-  title: string;
-}
-
 export interface Fact {
   label: string;
   value: string;
   sourceId?: string;
 }
 
-export interface SiteConfig {
+export interface Address {
+  street: string;
+  district: string;
+  city: string;
+  state: string;
+  sourceId: string;
+}
+
+export interface BaseContact {
+  /** Somente preencher com número oficial confirmado (formato E.164 sem +, ex.: 5511999999999). */
+  whatsapp: { number: string; confirmedAt: string; sourceId: string } | null;
+  instagram?: { handle: string; url: string; sourceId: string };
+  linkHub?: { label: string; url: string; sourceId: string };
+  address?: Address;
+}
+
+export interface BrandConfig {
+  name: string;
+  shortName: string;
+  wordmark: { primary: string; secondary: string; eyebrow?: string };
+  /** Logo oficial; `null` mantém o wordmark textual provisório. */
+  logo: { src: string; alt: string } | null;
+  logoPendingNote?: string;
+  /** Ícone da aba (arquivo em public/), opcional. */
+  favicon?: string;
+  /** Famílias tipográficas (CSS font-family). Sem valor, usa as do template. */
+  fonts?: { display?: string; body?: string };
+  theme: ThemeTokens;
+}
+
+/** Campos comuns a todo cliente, de qualquer nicho. */
+export interface BaseSiteConfig {
+  /** Nicho que define o layout e as regras (src/niches/<nicho>/). */
+  niche: string;
   meta: {
     lang: string;
     title: string;
@@ -138,115 +138,9 @@ export interface SiteConfig {
     /** Aviso obrigatório quando o site é uma demonstração não oficial. */
     demoNotice?: { short: string; full: string };
   };
-  brand: {
-    name: string;
-    shortName: string;
-    wordmark: { primary: string; secondary: string; eyebrow?: string };
-    /** Logo oficial; `null` mantém o wordmark textual provisório. */
-    logo: { src: string; alt: string } | null;
-    logoPendingNote?: string;
-    /** Ícone da aba (arquivo em public/), opcional. */
-    favicon?: string;
-    theme: ThemeTokens;
-  };
-  contact: {
-    /** Somente preencher com número oficial confirmado (formato E.164 sem +, ex.: 5511999999999). */
-    whatsapp: { number: string; confirmedAt: string; sourceId: string } | null;
-    instagram?: { handle: string; url: string; sourceId: string };
-    linkHub?: { label: string; url: string; sourceId: string };
-    address: {
-      street: string;
-      district: string;
-      city: string;
-      state: string;
-      sourceId: string;
-    };
-  };
+  brand: BrandConfig;
+  contact: BaseContact;
   nav: NavItem[];
-  hero: {
-    eyebrow: string;
-    title: string;
-    /** Trecho do título destacado com a cor de acento. */
-    highlight?: string;
-    subtitle: string;
-    /** Versão curta do subtítulo para celulares (primeira dobra mais leve). */
-    subtitleShort?: string;
-    photo: PhotoId;
-    /** Versão vertical para celulares (opcional). */
-    mobilePhoto?: PhotoId;
-    primaryCta: Cta;
-    secondaryCta: Cta;
-    highlights: { title: string; detail: string; sourceId?: string }[];
-  };
-  services: {
-    eyebrow: string;
-    title: string;
-    intro: string;
-    categories: Category[];
-  };
-  catalog: {
-    eyebrow: string;
-    title: string;
-    intro: string;
-    disclaimer: string;
-    observedAtLabel: string;
-    items: CatalogItem[];
-  };
-  quote: {
-    eyebrow: string;
-    title: string;
-    intro: string;
-    greeting: string;
-    closing: string;
-    noWhatsappTitle: string;
-    noWhatsappBody: string;
-  };
-  gallery: {
-    eyebrow: string;
-    title: string;
-    intro: string;
-    notice: string;
-    items: GalleryItem[];
-    externalCta?: Cta;
-  };
-  about: {
-    photo: PhotoId;
-    eyebrow: string;
-    title: string;
-    paragraphs: { text: string; sourceId?: string }[];
-    facts: Fact[];
-    pillars: { title: string; text: string }[];
-  };
-  reputation: {
-    eyebrow: string;
-    title: string;
-    platform: string;
-    rating: number;
-    reviewCount: number;
-    observedAt: string;
-    sourceId: string;
-    category?: string;
-    profileUrl: string;
-    note: string;
-  } | null;
-  location: {
-    eyebrow: string;
-    title: string;
-    intro: string;
-    mapQuery: string;
-  };
-  finalCta: {
-    photo?: PhotoId;
-    eyebrow: string;
-    title: string;
-    text: string;
-    primary: Cta;
-    secondary?: Cta;
-  };
-  footer: {
-    tagline: string;
-    credit: { label: string; text: string };
-  };
   /** Espaços de fotografia (aprovadas ou pendentes) usados pelas seções. */
   photos: Record<PhotoId, PhotoSlot>;
   /** Pendências de dados a sinalizar no site enquanto a versão for preliminar. */

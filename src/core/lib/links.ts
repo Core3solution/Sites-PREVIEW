@@ -1,6 +1,6 @@
-import type { SiteConfig } from '../types';
+import type { Address, BaseContact } from '../types';
 
-export function fullAddress(c: SiteConfig['contact']['address']): string {
+export function fullAddress(c: Address): string {
   return `${c.street} — ${c.district}, ${c.city}/${c.state}`;
 }
 
@@ -9,7 +9,7 @@ export const mapsEmbedUrl = (q: string) => `https://www.google.com/maps?q=${enco
 export const wazeUrl = (q: string) => `https://waze.com/ul?q=${encodeURIComponent(q)}&navigate=yes`;
 
 /** Só gera link de WhatsApp quando há número oficial confirmado na configuração. */
-export function whatsappUrl(contact: SiteConfig['contact'], text: string): string | null {
+export function whatsappUrl(contact: BaseContact, text: string): string | null {
   if (!contact.whatsapp?.number) return null;
   return `https://wa.me/${contact.whatsapp.number}?text=${encodeURIComponent(text)}`;
 }

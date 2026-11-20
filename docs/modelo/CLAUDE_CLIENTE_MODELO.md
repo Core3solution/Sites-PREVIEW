@@ -1,7 +1,7 @@
 # CLAUDE.md — {{EMPRESA}} (cliente `{{PASTA}}`)
 
 Regras específicas deste cliente. As regras gerais da CORE 3 estão no `CLAUDE.md` da raiz e em
-`docs/modelo/PLAYBOOK_PREVIAS_AUTOMOTIVAS.md`. Em caso de conflito, prevalecem as instruções do usuário e,
+`docs/modelo/PLAYBOOK_PREVIAS.md`. Em caso de conflito, prevalecem as instruções do usuário e,
 depois, este arquivo.
 
 ## Empresa

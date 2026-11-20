@@ -1,7 +1,7 @@
 import { companyAutoSpa as site } from '../src/clients/company-auto-spa';
 import { formatBRL, formatDateBR, normalize } from '../src/core/lib/format';
-import { filterCatalog } from '../src/core/lib/catalog';
-import { buildQuoteMessage, describeVehicle, emptyVehicle, validateQuote, validateVehicle } from '../src/core/lib/quote';
+import { filterCatalog } from '../src/niches/automotivo/lib/catalog';
+import { buildQuoteMessage, describeVehicle, emptyVehicle, validateQuote, validateVehicle } from '../src/niches/automotivo/lib/quote';
 import { whatsappUrl, mapsUrl, wazeUrl } from '../src/core/lib/links';
 
 const { items } = site.catalog;

@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 @import '@fontsource-variable/inter/wght.css';
 @import '@fontsource-variable/archivo/wdth.css';
+@import '@fontsource-variable/outfit/wght.css';
 
 /* Tokens: valores padrão neutros; a marca ativa sobrescreve via applyTheme() */
 :root {
@@ -29,8 +30,8 @@
   --color-accent: var(--brand-accent);
   --color-accent-ink: var(--brand-accent-ink);
   --color-accent-soft: var(--brand-accent-soft);
-  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Archivo Variable', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--brand-font-body, 'Inter Variable', ui-sans-serif, system-ui, sans-serif);
+  --font-display: var(--brand-font-display, 'Archivo Variable', 'Inter Variable', ui-sans-serif, system-ui, sans-serif);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 

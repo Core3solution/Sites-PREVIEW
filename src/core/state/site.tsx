@@ -1,14 +1,15 @@
 import { createContext, useContext, type ReactNode } from 'react';
-import type { SiteConfig } from '../types';
+import type { BaseSiteConfig } from '../types';
 
-const Ctx = createContext<SiteConfig | null>(null);
+const Ctx = createContext<BaseSiteConfig | null>(null);
 
-export function SiteProvider({ config, children }: { config: SiteConfig; children: ReactNode }) {
+export function SiteProvider({ config, children }: { config: BaseSiteConfig; children: ReactNode }) {
   return <Ctx.Provider value={config}>{children}</Ctx.Provider>;
 }
 
-export function useSite(): SiteConfig {
+/** Configuração do cliente ativo. Cada nicho expõe um hook tipado (ex.: `useAutoSite`, `useModaSite`). */
+export function useSite<T extends BaseSiteConfig = BaseSiteConfig>(): T {
   const v = useContext(Ctx);
   if (!v) throw new Error('useSite precisa de <SiteProvider>');
-  return v;
+  return v as T;
 }

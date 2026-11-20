@@ -2,9 +2,9 @@
  * Seleciona a empresa ativa do template pela variável de ambiente VITE_CLIENT (nome da pasta em src/clients/).
  *   VITE_CLIENT=company-auto-spa npm run dev
  * Sem a variável, usa DEFAULT_CLIENT. Cada pasta de cliente exporta `default` um SiteConfig.
- * Para criar um cliente: `npm run novo-cliente -- <pasta> "Nome da Empresa"` (ver docs/modelo/PLAYBOOK_PREVIAS_AUTOMOTIVAS.md).
+ * Para criar um cliente: `npm run novo-cliente -- <pasta> "Nome da Empresa"` (ver docs/modelo/PLAYBOOK_PREVIAS.md).
  */
-import type { SiteConfig } from './core/types';
+import type { SiteConfig } from './niches';
 
 export const DEFAULT_CLIENT = 'company-auto-spa';
 
